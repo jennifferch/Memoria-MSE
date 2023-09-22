@@ -112,7 +112,7 @@ En la figura \ref{fig:Virtronics} se muestra la plataforma.
 \end{figure}
 
 
-Tinkercad \citep{Tinkercad} es una plataforma online que permite el acceso desde cualquier navegador web. Fue desarrollado por ingenieros y diseñadores de software de Autodesk \citep{Autodesk} y permite diseños 3D. Además, requiere una cuenta de correo para registrarse antes de empezar a utilizarlo, por consiguiente, todos los diseños se guardan en la cuenta creada.
+Tinkercad \citep{Tinkercad} es una plataforma online que permite el acceso desde cualquier navegador web. Fue desarrollado por ingenieros y diseñadores de software de Autodesk \citep{Autodesk} y permite diseños 3D. Adicionalmente, es necesario crear una cuenta  antes de empezar a usar la plataforma, por consiguiente, todos los diseños se guardan en la cuenta creada.
 
 En la figura \ref{fig:Tinkercad} puede observarse la interfaz de usuario.
 
@@ -124,20 +124,19 @@ En la figura \ref{fig:Tinkercad} puede observarse la interfaz de usuario.
 \end{figure}
 
 
-ARM Mbed OS \citep{ArmMbedSim} fue desarrollado por ingenieros de Mbed \citep{ArmMbed} y es parte del laboratorio sistema operativo Mbed. La plataforma es online y puede usarse desde cualquier navegador web.
+Mbed Simulator \citep{ArmMbedSim} fue desarrollado por ingenieros de Mbed \citep{ArmMbed} y es parte de Mbed Labs. La plataforma es accesible en línea y se puede utilizar desde cualquier navegador web
 
-En la figura \ref{fig:ArmMbed} puede observarse la plataforma online de ARM Mbed OS.
+En la figura \ref{fig:ArmMbed} puede observarse la plataforma online de Mbed Simulator.
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.44]{./Figures/ArmMbed.png}
-	\caption{Plataforma ARM Mbed OS.}
+	\caption{Plataforma Mbed Simulator.}
 	\label{fig:ArmMbed}
 \end{figure}
 
-
-
+El funcionamiento de este emulador es muy simple. Se puede crear un programa desde cero, o bien, se puede elegir un ejemplo de la lista desplegable y cargar el proyecto desde el botón \textquotedbl Load demo\textquotedbl, luego añadir los componentes necesarios para el programa, como por ejemplo, el display que se observa en la figura \ref{fig:ArmMbed}, donde se pide al usuario indicar a qué pines estará conectado. Es importante mencionar que el programa ya incluye la placa con el microcontrolador precargada. Una vez completo el programa y el ensamblado del hardware, se puede compilar y ejecutar en el emulador usando el botón \textquotedbl Run\textquotedbl.
 
 En la tabla \ref{tab:simuladores} se presenta algunas de las características más importantes que tienen en común estas plataformas y también, algunas de las diferencias encontradas.
 
@@ -158,7 +157,7 @@ En la tabla \ref{tab:simuladores} se presenta algunas de las características m�
 & \textbf{UnoArduSim}
 & \textbf{Virtronics}
 & \textbf{Tinkercad}
-& \textbf{MbedOS}
+& \textbf{Mbed}
 \\
 \midrule
 Microcontrolador & Arduino Uno & Varios modelos Arduino & Arduino Uno & Arm\\
@@ -178,14 +177,14 @@ Biblioteca ejemplos & Sí & Sí & Sí & Sí\\
 \end{table}
 
 
-Para realizar el presente trabajo final, se decidió basarse en el proyecto de ARM Mbed OS debido a las siguientes ventajas significativas:
+Para realizar el presente trabajo final, se decidió basarse en el proyecto de Mbed Simulator debido a las siguientes ventajas significativas:
 
 \begin{itemize}
 	\item Comunidad y Soporte: el proyecto tiene una comunidad activa de desarrolladores, que brinda acceso a una amplia base de conocimientos, documentación y soporte. 
 	\item Reconocimiento de Marca ARM mbed OS: al basarse en su proyecto simulador, se puede obtener cierto reconocimiento y confianza entre los usuarios.
 	\item Código abierto: al tener acceso al código fuente permitió estudiar cómo funciona internamente el proyecto simulador, además, de la libertad de uso y distribución.
 	\item Reutilización: ofrece un conjunto sólido de funcionalidades y características ya probadas que agilizó el desarrollo y redujo la probabilidad de introducir errores.
-	\item Actualizaciones y Mejoras Continuas: el proyecto Mbed OS recibe actualizaciones continuas con las últimas tecnologías que permite mantener el emulador para la placa EDU-CIAA-NXP actualizado.
+	\item Actualizaciones y Mejoras Continuas: el proyecto Mbed Simulator recibe actualizaciones continuas con las últimas tecnologías que permite mantener el emulador para la placa EDU-CIAA-NXP actualizado.
 	
 \end{itemize}
 
