@@ -297,6 +297,8 @@ Flujo principal:
 	\item La plataforma muestra en pantalla al usuario el código que corresponde al ejemplo \textit{\textbf{rtc printf}}.
 	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
 	\item La plataforma muestra en la consola integrada la salida del rtc.
+	\item El usuario realiza la descarga del ejemplo \textit{\textbf{rtc printf}} al hacer click en el botón de descarga, ubicado en el área de codificación.
+
 \end{enumerate}
 
 
@@ -314,7 +316,7 @@ Luego de completar el caso de uso CP02, se obtuvo el siguiente resultado:
 \end{itemize}
 
 
-La figura \ref{fig:rtcprintf} muestra que la plataforma web muestra en la consola integrada la salida del ensayo . 
+La figura \ref{fig:rtcprintf} muestra en la consola integrada la salida del ensayo. 
 
 \begin{figure}[ht]
 	\centering
@@ -325,13 +327,15 @@ La figura \ref{fig:rtcprintf} muestra que la plataforma web muestra en la consol
 
 \subsubsection{Ensayo en la plataforma EDU-CIAA-NXP} 
 
-Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la figura \ref{fig:rtcprintfPlaca}:
+Primeramente, dentro de la herramienta de desarrollo \textit{eclipse} se importa el archivo \textquotedbl rtc\_printf.c\textquotedbl{} generado por la plataforma web, luego, se realiza las configuraciones necesarias para compilar el proyecto. 
+
+La figura \ref{fig:rtcprintfEclipse} expone el ejemplo \textit{\textbf{rtc printf}} importado en \textit{eclipse}: 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.90]{./Figures/rtcprintfPlaca.png}
-	\caption{Salida de la terminal COM7 -Tera Term VT.}
-	\label{fig:rtcprintfPlaca}
+	\includegraphics[scale=.20]{./Figures/rtcprintfEclipse.png}
+	\caption{Ejemplo \textit{\textbf{rtc printf}} importado en \textit{eclipse}.}
+	\label{fig:rtcprintfEclipse}
 \end{figure}
 
 \hfill \break
@@ -342,15 +346,23 @@ Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la sigui
 \hfill \break
 \hfill \break
 \hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+
+
+Finalmente, se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la figura \ref{fig:rtcprintfPlaca}:
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.90]{./Figures/rtcprintfPlaca.png}
+	\caption{Salida de la terminal COM7 -Tera Term VT.}
+	\label{fig:rtcprintfPlaca}
+\end{figure}
+
+
 
 Resumen de la prueba Exitosa:
 \begin{itemize}
-	\item Después de acceder a la plataforma mediante el navegador y siguiendo los pasos del flujo principal y el flujo alternativo de la prueba, se comprobó que se muestra en ejecución el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
-	\item Se realizó la prueba de HTTP \textit{requests} usando la herramienta \textit{\textbf{Postman}} para comprobar la respuesta del \textit{\textbf{API openweathermap}} que consume la plataforma de emulación de manera que, los datos de temperatura y humedad sean los mismos.
-	\item Se ensayo en la placa real EDU-CIAA-NXP  el mismo ejemplo \textit{\textbf{Dht11 temperature/humidity}} y se registraron los resultados de la terminal serial.
+	\item Después de seguir los pasos del flujo principal del caso de prueba, se comprobó que se muestra en ejecución el ejemplo \textit{\textbf{rtc printf}}.
+	\item El ensayo en la placa real EDU-CIAA-NXP  con el mismo ejemplo \textit{\textbf{rtc printf}} obtuvo la misma salida por consola de la plataforma web.
 
 \end{itemize}
 
@@ -384,11 +396,12 @@ Flujo principal:
 
 	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
 	\item La plataforma muestra en la consola integrada la salida de la temperatura y humedad con los valores enviados desde la central meteorológica en línea.
+	\item El usuario realiza la descarga del ejemplo \textit{\textbf{dht11}} al hacer click en el botón de descarga, ubicado en el área de codificación.
 \end{enumerate}
 
 Flujo alternativo:
 \begin{enumerate}
-    \setcounter{enumi}{7}
+    \setcounter{enumi}{3}
 	\item El usuario hace clic en la opción \textquotedbl Establecer Temperatura y Humedad manualmente(haga click y arrastre sobre
 los indicadores).\textquotedbl
 	\item La plataforma deselecciona la opción \textquotedbl Obtener datos de servidor climático local.\textquotedbl
@@ -398,6 +411,8 @@ los indicadores).\textquotedbl
 	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
 	
 	\item La plataforma muestra en la consola integrada la salida de la temperatura y humedad según la selección de obtención de datos.
+	
+	\item El usuario realiza la descarga del ejemplo \textit{\textbf{dht11}} al hacer click en el botón de descarga, ubicado en el área de codificación.
 \end{enumerate}
 
 
@@ -426,9 +441,6 @@ Luego de completar el caso de uso CP02 con: flujo principal y flujo alternativo,
 La figura \ref{fig:RespuestaEmulador} muestra la consola con los datos de temperatura y humedad del ejemplo \textit{\textbf{dht11}} con la opción \textquotedbl  Establecer Temperatura y Humedad manualmente(haga click y arrastre sobre
 los indicadores).\textquotedbl
 
-\hfill \break
-\hfill \break
-\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -456,11 +468,6 @@ Para verificar que la plataforma obtuvo los datos de temperatura/humedad de la A
 
 En la figura \ref{fig:RespuestaPostMan1} se observa que la petición de datos de temperatura/humedad recibe como parámetro la ciudad que se quiere consultar.
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
 
 
 \begin{figure}[ht]
@@ -478,31 +485,31 @@ En este paso se verifica que la respuesta de la petición de datos de temperatur
 Este ensayo tuvo como objetivo identificar
 las diferencias entre los resultados reales producidos por la placa real y los resultados esperados en la plataforma de emulación.
 
-El primer paso fue conectar el componente dht11 a la placa EDU-CIAA-NXP. En consecuencia, se procedió a compilar el ejemplo \textit{\textbf{dht11}} de la plataforma de emulación dentro de la herramienta 
-\textit{Eclipse} y luego, se grabó en la placa EDU-CIAA-NXP.
+El primer paso fue conectar el componente dht11 a la placa EDU-CIAA-NXP. En consecuencia, se procedió a importar el archivo generado por la plataforma web  \textquotedbl dht11\_temp\_humidity.c\textquotedbl{} y compilarlo                     dentro de la herramienta 
+\textit{eclipse}. Luego, se grabó en la placa EDU-CIAA-NXP.
 
 A continuación se muestra en la figura \ref{fig:TestHardware} la ejecución del ensayo en la plataforma EDU-CIAA-NXP.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.49]{./Figures/TestHardware.jpeg}
+	\includegraphics[scale=.45]{./Figures/TestHardware.jpeg}
 	\caption{Ensayo en la plataforma EDU-CIAA-NXP del ejemplo \textit{\textbf{dht11}}.}
 	\label{fig:TestHardware}
 \end{figure}
 
 
 
-La figura \ref{fig:TestEclipse} muestra el código del ejemplo \textit{\textbf{Dht11 temperature/humidity}} en la herramienta \textit{eclipse} de la PC de prueba.
+La figura \ref{fig:TestEclipse} muestra el código del ejemplo \textit{\textbf{dht11}} en la herramienta \textit{eclipse} de la PC de prueba.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.22]{./Figures/TestEclipse.png}
+	\includegraphics[scale=.20]{./Figures/TestEclipse.png}
 	\caption{Código del ejemplo en eclipse.}
 	\label{fig:TestEclipse}
 \end{figure}
 
 
-El programa \textit{\textbf{Dht11 temperature/humidity}} de la plataforma de emulación es un ejemplo simple que solo enciende el LEDG en la placa y además, lee los datos generados del sensor Dht11 que consisten en temperatura/humedad. Luego, los datos leídos se imprimen por pantalla. 
+El programa \textit{\textbf{dht11}} de la plataforma de emulación es un ejemplo simple que solo enciende el LEDG en la placa y además, lee los datos generados del sensor Dht11 que consisten en temperatura/humedad. Luego, los datos leídos se imprimen por pantalla. 
 
 En este ensayo manual se registraron los cambios en la placa y también, los mensajes de la terminal serie. De modo que, posteriormente, permitió compararlos con la plataforma de emulación.
 
@@ -524,7 +531,7 @@ En la figura \ref{fig:TestTerminal} se muestra los datos de temperatura/humedad 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.80]{./Figures/TestTerminal.png}
+	\includegraphics[scale=.90]{./Figures/TestTerminal.png}
 	\caption{Salida de la terminal COM7 -Tera Term VT.}
 	\label{fig:TestTerminal}
 \end{figure}
@@ -597,17 +604,6 @@ int main()
 
 La figura \ref{fig:Testtickhook} muestra en la consola integrada la salida de \textquotedbl Blinky LED3\textquotedbl muchas veces. 
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -628,6 +624,19 @@ Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la sigui
 	\label{fig:TesttickhookPlaca}
 \end{figure}
 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 Se observa que la salida por consola de \textquotedbl Blinky LED3\textquotedbl se muestra solo una vez, lo cual difiere de la salida por consola de la plataforma web que muestra \textquotedbl Blinky LED3\textquotedbl{} muchas veces.
 
 
@@ -661,6 +670,16 @@ PWM & Si & No \\
 En la figura \ref{fig:GPIOMbed} se muestra el funcionamiento de GPIO y en la figura \ref{fig:PMWMbed} expone el funcionamiento de PWM del \textit{Mbed Simulator}.
 
 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -670,19 +689,10 @@ En la figura \ref{fig:GPIOMbed} se muestra el funcionamiento de GPIO y en la fig
 \end{figure}
 
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.24]{./Figures/PMWMbed.png}
+	\includegraphics[scale=.28]{./Figures/PMWMbed.png}
 	\caption{Funcionamiento PWM en \textit{Mbed Simulator}.}
 	\label{fig:PMWMbed}
 \end{figure}
@@ -716,12 +726,21 @@ Touch Screen ST7789H2 & Si & Si \\
 \label{tab:perifericosExternosMBED}
 \end{table}
 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 La figura \ref{fig:perifericosMbed} muestra los periféricos externos de \textit{Mbed Simulator}.
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+
 
 \begin{figure}[ht]
 	\centering
@@ -758,10 +777,6 @@ DAC & Si & No \\
 
 Además, la siguiente tabla \ref{tab:perifericosExternosCIAA} se exponen los  periféricos externos implementados en la plataforma de emulación web.
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
 
 \begin{table}[h]
 \centering
