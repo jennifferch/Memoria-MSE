@@ -275,9 +275,9 @@ En la figura \ref{fig:PostmanBlinky2} se muestra la petición y respuesta de acc
 
 Para evaluar, verificar el comportamiento y desempeño del microcontrolador en el entorno web, se realizan a continuación pruebas funcionales con uno de los periféricos internos seleccionados, que es el RTC. Además, se elige para la prueba un periférico externo, el DHT11.
 
-También, se realiza una prueba de \textquotedbl tick hook\textquotedbl, que muestra las diferencias en el funcionamiento entre el microcontrolador de la plataforma web y los resultados obtenidos en la placa física real.
+También, se realiza una prueba de un nuevo proyecto \textquotedbl tick hook\textquotedbl, que muestra las diferencias en el funcionamiento y los resultados obtenidos entre la plataforma web y la placa física EDU-CIAA-NXP.
 
-\subsection{ Prueba \textit{\textbf{rtc printf}}}
+\subsection{ Prueba del ejemplo \textit{\textbf{rtc printf}}}
 
 Para el ensayo en la plataforma de emulación web se siguió con los pasos del siguiente caso de uso:
 
@@ -325,7 +325,7 @@ La figura \ref{fig:rtcprintf} muestra en la consola integrada la salida del ensa
 	\label{fig:rtcprintf}
 \end{figure}
 
-\subsubsection{Ensayo en la plataforma EDU-CIAA-NXP} 
+\subsubsection{Ensayo en la placa EDU-CIAA-NXP} 
 
 Primeramente, dentro de la herramienta de desarrollo \textit{eclipse} se importa el archivo \textquotedbl rtc\_printf.c\textquotedbl{} generado por la plataforma web, luego, se realiza las configuraciones necesarias para compilar el proyecto. 
 
@@ -348,7 +348,7 @@ La figura \ref{fig:rtcprintfEclipse} expone el ejemplo \textit{\textbf{rtc print
 \hfill \break
 
 
-Finalmente, se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la figura \ref{fig:rtcprintfPlaca}:
+Finalmente, se ejecuta el mismo ejemplo en la placa física EDU-CIAA-NXP y se obtiene por consola la siguiente salida que se muestra en la figura \ref{fig:rtcprintfPlaca}:
 
 \begin{figure}[ht]
 	\centering
@@ -362,14 +362,14 @@ Finalmente, se ejecuta el mismo ejemplo en la placa fisica y se obtiene por cons
 Resumen de la prueba Exitosa:
 \begin{itemize}
 	\item Después de seguir los pasos del flujo principal del caso de prueba, se comprobó que se muestra en ejecución el ejemplo \textit{\textbf{rtc printf}}.
-	\item El ensayo en la placa real EDU-CIAA-NXP  con el mismo ejemplo \textit{\textbf{rtc printf}} obtuvo la misma salida por consola de la plataforma web.
+	\item El ensayo en la placa física EDU-CIAA-NXP  con el mismo ejemplo \textit{\textbf{rtc printf}} obtuvo la misma salida por consola de la plataforma web.
 
 \end{itemize}
 
 
-\subsection{Prueba \textit{\textbf{periférico dht11}} }
+\subsection{Prueba del ejemplo \textit{\textbf{dht11}} }
 
-\subsubsection{Ensayo en la plataforma de emulación para la placa EDU-CIAA-NXP} 
+\subsubsection{Ensayo en la plataforma de emulación web} 
 Para el ensayo en la plataforma de emulación web se siguió con los pasos del siguiente caso de uso:
 
 \textit{\textbf{ID Caso de prueba: CP03}}
@@ -480,13 +480,13 @@ En la figura \ref{fig:RespuestaPostMan1} se observa que la petición de datos de
 En este paso se verifica que la respuesta de la petición de datos de temperatura/humedad al API \textit{\textbf{openweathermap}} coincide con lo que se observó en la terminal de la plataforma de emulación.
 
 
-\subsubsection{Ensayo en la plataforma EDU-CIAA-NXP} 
+\subsubsection{Ensayo en la placa EDU-CIAA-NXP} 
 
 Este ensayo tuvo como objetivo identificar
-las diferencias entre los resultados reales producidos por la placa real y los resultados esperados en la plataforma de emulación.
+las diferencias entre los resultados reales producidos por la placa física EDU-CIAA-NXP y los resultados esperados en la plataforma de emulación.
 
 El primer paso fue conectar el componente dht11 a la placa EDU-CIAA-NXP. En consecuencia, se procedió a importar el archivo generado por la plataforma web  \textquotedbl dht11\_temp\_humidity.c\textquotedbl{} y compilarlo                     dentro de la herramienta 
-\textit{eclipse}. Luego, se grabó en la placa EDU-CIAA-NXP.
+\textit{eclipse}. Luego, se grabó en la placa física EDU-CIAA-NXP.
 
 A continuación se muestra en la figura \ref{fig:TestHardware} la ejecución del ensayo en la plataforma EDU-CIAA-NXP.
 
@@ -511,9 +511,9 @@ La figura \ref{fig:TestEclipse} muestra el código del ejemplo \textit{\textbf{d
 
 El programa \textit{\textbf{dht11}} de la plataforma de emulación es un ejemplo simple que solo enciende el LEDG en la placa y además, lee los datos generados del sensor Dht11 que consisten en temperatura/humedad. Luego, los datos leídos se imprimen por pantalla. 
 
-En este ensayo manual se registraron los cambios en la placa y también, los mensajes de la terminal serie. De modo que, posteriormente, permitió compararlos con la plataforma de emulación.
+En este ensayo manual se registraron los cambios en la placa EDU-CIAA-NXP y también, los mensajes de la terminal serie. De modo que, posteriormente, permitió compararlos con la plataforma de emulación.
 
-En la figura \ref{fig:TestPlaca} se observan los cambios en la placa que fueron registrados durante las pruebas.
+En la figura \ref{fig:TestPlaca} se observan los cambios en la placa EDU-CIAA-NXP que fueron registrados durante las pruebas.
 
 
 \begin{figure}[ht]
@@ -542,15 +542,15 @@ Resumen de la prueba Exitosa:
 \begin{itemize}
 	\item Después de acceder a la plataforma mediante el navegador y siguiendo los pasos del flujo principal y el flujo alternativo de la prueba, se comprobó que se muestra en ejecución el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
 	\item Se realizó la prueba de HTTP \textit{requests} usando la herramienta \textit{\textbf{Postman}} para comprobar la respuesta del \textit{\textbf{API openweathermap}} que consume la plataforma de emulación de manera que, los datos de temperatura y humedad sean los mismos.
-	\item Se ensayo en la placa real EDU-CIAA-NXP  el mismo ejemplo \textit{\textbf{Dht11 temperature/humidity}} y se registraron los resultados de la terminal serial.
+	\item Se ensayo en la placa física EDU-CIAA-NXP  el mismo ejemplo \textit{\textbf{Dht11 temperature/humidity}} y se registraron los resultados de la terminal serial.
 
 \end{itemize}
 
 
-\subsection{ Prueba \textit{\textbf{tick hook}}}
-El objetivo de este ensayo es exponer las diferencias en los resultados encontrados entre el emulador web y la placa fisica.
+\subsection{ Prueba de un nuevo proyecto \textit{\textbf{tick hook}}}
+El objetivo de este ensayo es exponer las diferencias en los resultados encontrados entre el emulador web y la placa física EDU-CIAA-NXP.
 
-\subsubsection{Ensayo en la plataforma de emulación para la placa EDU-CIAA-NXP} 
+\subsubsection{Ensayo en la plataforma de emulación web} 
 Para ensayar la plataforma web, se ejecuto el siguiente caso de prueba:
 
 \textit{\textbf{ID Caso de prueba: CP04}}
@@ -612,9 +612,9 @@ La figura \ref{fig:Testtickhook} muestra en la consola integrada la salida de \t
 	\label{fig:Testtickhook}
 \end{figure}
 
-\subsubsection{Ensayo en la plataforma EDU-CIAA-NXP} 
+\subsubsection{Ensayo en la placa EDU-CIAA-NXP} 
 
-Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la siguiente figura \ref{fig:TesttickhookPlaca}:
+Se ejecuta el mismo ejemplo en la placa física EDU-CIAA-NXP y se obtiene por consola la siguiente salida que se muestra en la siguiente figura \ref{fig:TesttickhookPlaca}:
 
 
 \begin{figure}[ht]
@@ -639,8 +639,13 @@ Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la sigui
 \hfill \break
 Se observa que la salida por consola de \textquotedbl Blinky LED3\textquotedbl se muestra solo una vez, lo cual difiere de la salida por consola de la plataforma web que muestra \textquotedbl Blinky LED3\textquotedbl{} muchas veces.
 
+La diferencia de este comportamiento en el emulador web esta relacionada con la forma en cómo JavaScript reanuda la ejecución después de que ocurre un tick. Por lo tanto, la forma en que se gestionan los estados en la ejecución de funciones puede diferir del comportamiento en la placa EDU-CIAA-NXP.
 
-\subsection{Tabla de Periféricos}
+En un entorno físico, el sistema operativo o el microcontrolador pueden mantener un seguimiento del estado de la ejecución y reanudarla adecuadamente después de una interrupción o tick del sistema. Sin embargo, para esta prueba en particular, dentro de la plataforma de emulación web, no se mantiene este estado de ejecución, lo que resulto la repetición de ciertas porciones de código, como se probó anteriormente.
+
+Para solucionar esta diferencia en el entorno del emulador web, se podría explorar algunas opciones para mantener un seguimiento adecuado del estado de ejecución después de que ocurra un tick del sistema.
+
+\subsection{Periféricos implementados en \textit{Mbed Simulator} y en el Emulador EDU-CIAA-NXP}
 
 La siguiente tabla \ref{tab:perifericosInternosMBED} expone los  periféricos internos implementados actualmente en \textit{Mbed Simulator}.
 
