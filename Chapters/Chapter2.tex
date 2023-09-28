@@ -29,7 +29,7 @@ Las razones por las que se optó por la tecnologia web se debe a las potenciales
 	\item No obliga al usuario a usar un determinado sistema operativo, ya que se puede ejecutar en todos los dispositivos con acceso a un navegador web y una conexión a internet.
 \end{itemize}
 
-En el desarrollo web, el \textit{frontend} es la parte del software que interactúa con el usuario y el \textit{backend} es la parte lógica que se encarga de tomar los datos, procesarlos y devolverlos al \textit{front end}.
+En el desarrollo web, el \textit{frontend} es la parte del software que interactúa con el usuario y el \textit{backend} es la parte lógica que se encarga de tomar los datos, procesarlos y devolverlos al \textit{frontend}.
 
 En la figura \ref{fig:frontBack} se muestra un esquema con las tecnologías
 web usadas en el presente trabajo.
@@ -96,12 +96,12 @@ Se describen brevemente las principales tecnologías que se usaron en el backend
 Emscripten compila C y C++ en WebAssembly \citep{WebAssembly} mediante LLVM y Binaryen \citep{Binaryen}. La salida de Emscripten puede ejecutarse en la web y en NodeJS.
 El uso de esta herramienta tuvo por objetivo el compilar el código escrito en C, a WebAssembly (Wasm) y JavaScript.	Esto permitió ejecutar aplicaciones nativas en la web sin necesidad de plugins o complementos adicionales.
 
-	\item Python \citep{Python}:  es un poderoso y popular lenguaje de programación multiplataforma de código abierto. Se caracteriza por su sencillez y su gran potencia para el tratamiento de datos en el lado del servidor. En el emulador web, Python se utilizó para escribir scripts que realicen tareas específicas, como la configuración e inicialización de la plataforma web del emulador.
+	\item Python \citep{Python}:  es un poderoso y popular lenguaje de programación multiplataforma de código abierto. Se caracteriza por su sencillez y su gran potencia para el tratamiento de datos en el lado del servidor. En el emulador web, Python se utilizó para escribir scripts que realizan tareas específicas, como la configuración e inicialización de la plataforma web del emulador.
     
     \item Express \citep{Express}: es un marco de aplicaciones web en el backend para NodeJS. También, está diseñado para crear aplicaciones web y APIs, de la sigla en inglés \textit{application programming interface} \citep{API}. Se utilizó Express para configurar middlewares que permiten servir archivos estáticos desde carpetas específicas, como \textquotedbl outUser \textquotedbl, que contiene los archivos generados por Emscripten.
     
     \item Lenguaje C \citep{LenguajeC}: es de propósito general y es muy popular debido al eficiente código que produce al crear software de sistemas y de aplicaciones. 
-    Asimismo, es un lenguaje de tipos de datos estáticos, fuertemente tipado y tiene estructuras típicas de los lenguajes de alto nivel pero, a su vez, tiene construcciones que permiten un control de los lenguajes de bajo nivel. El desarrollo con C fue fundamental, ya que permitió la integración de las sAPI de la CIAA en el desarrollo del emulador web.
+    Asimismo, es un lenguaje de tipos de datos estáticos, fuertemente tipado y tiene estructuras típicas de los lenguajes de alto nivel pero, a su vez, tiene construcciones que permiten un control de los lenguajes de bajo nivel. El desarrollo con C fue fundamental, ya que permitió la integración de la biblioteca sAPI del Proyecto  CIAA en el desarrollo del emulador web.
         
     \item Check \citep{Check}: es una biblioteca de pruebas unitarias para el lenguaje de programación C que proporciona un conjunto de macros y funciones que facilitan la escritura y la ejecución de las pruebas unitarias. Además, provee mecanismos que aislan y ejecutan las pruebas en un entorno controlado y separado, usando suites de pruebas, funciones de inicialización y limpieza. Se utilizó en el emulador web para verificar el correcto funcionamiento de las funciones y componentes implementados en el backend del emulador escritos en lenguaje C.
     

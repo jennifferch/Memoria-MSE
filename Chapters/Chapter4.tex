@@ -13,7 +13,7 @@ En este capítulo se presentan las pruebas realizadas para comprobar el funciona
 
 Para verificar el funcionamiento de la plataforma de emulación se emplearon diversos recursos de software y hardware, que permitió una evaluación completa del funcionamiento de la plataforma de emulación, garantizando su confiabilidad y funcionalidad. 
 
-El proceso de verificación incluyó también pruebas comparativas entre la plataforma de emulación y la placa física, donde se ejecutaron casos de prueba idénticos en ambos entornos. Esto permitió identificar y analizar las diferencias entre el comportamiento del emulador web y la real real, proporcionando información valiosa para mejorar la precisión y fiabilidad de la plataforma web de emulación.
+El proceso de verificación incluyó también pruebas comparativas entre la plataforma de emulación y la placa física, donde se ejecutaron casos de prueba idénticos en ambos entornos. Esto permitió identificar y analizar las diferencias entre el comportamiento real y la del emulador web, además, proporcionó información valiosa para mejorar la precisión y fiabilidad de la plataforma web de emulación.
 
 
 
@@ -78,7 +78,7 @@ Asimismo, para el desarrollo de las pruebas unitarias, se utilizaron \textit{Che
 
 Además, para compilar las pruebas unitarias con \textit{CMocka} o \textit{Check}, se utilizó el compilador \textit{GCC (GNU Compiler Collection)}. El proceso consiste en compilar los archivos fuente de las pruebas y generar un archivo ejecutable que contiene el resultado del proceso de compilación y enlazado. Los resultados de las pruebas unitarias se mostrarán en la consola al ejecutar el archivo ejecutable generado.
 
-Por ejemplo, si todas las pruebas pasaron con éxito, la consola mostrará el porcentaje de pruebas probadas. la cantidad de pruebas que aprobaron, la cantidad de pruebas que fallaron y si alguna prueba falla, entonces, indicara el error específico y además, proporcionará detalles adicionales para identificar el problema.
+Por ejemplo, la consola indicará lo siguiente:
 
 \begin{itemize}
 	\item El porcentaje de pruebas probadas.
@@ -152,13 +152,13 @@ La figura \ref{fig:TestVS1} muestra la salida por consola durante la depuración
 \section{Integracion Continua}
 \label{sec:Integracion Continua}
 
-En la realización de la integración continua, al principio no se tenía claro cuál herramienta utilizar. Como parte del proceso de análisis para el presente trabajo final, se investigaron las plataformas de GitLab CI y Travis CI y ambas herramientas, proporcionaron excelentes resultados y demostraron ser igualmente eficaces. Sin embargo, se encontraron algunas diferencias importantes en su configuración y en cómo se presentan las pruebas en cada plataforma.
+Para implementar la integración continua del código se evaluaron dos plataformas: GitLab CI y Travis CI. Ambas herramientas, proporcionaron excelentes resultados y demostraron ser igualmente eficaces. Sin embargo, se encontraron algunas diferencias importantes en su configuración y en cómo se presentan las pruebas en cada plataforma.
 
 En el caso de GitLab CI, toda la configuración se realizó directamente en la plataforma de GitLab, lo que facilitó la integración con el repositorio de la plataforma web y permitió una gestión más centralizada del proceso de CI/CD.
 
 Por otro lado, con Travis CI, se realizaron configuraciones separadas de GitHub. Esto implicó un enfoque más descentralizado, lo que puede ser útil si se trabaja en varios proyectos alojados en diferentes repositorios.
 
-Después de evaluar ambas opciones, se decidió continuar utilizando ambas tecnologías, ya que el esfuerzo para configurar ambas CI ya se realizó. Esta elección brindó mayor flexibilidad y resguardo en caso de problemas con alguna de estas herramientas.
+Después de evaluar ambas opciones, se decidió utilizar ambas tecnologías, dado que son gratuitas para código abierto. Además, esta elección brindó mayor flexibilidad y resguardo en caso de problemas con alguna de estas herramientas.
 
 En general, la experiencia con ambas herramientas fue positiva y permite mejorar la calidad y eficiencia del proceso de desarrollo mediante la automatización de las pruebas unitarias y de integracion, Además de los despliegues continuos.
 
@@ -186,12 +186,6 @@ La siguiente figura \ref{fig:travis} presenta la consola de Travis CI.
 	\label{fig:travis}
 \end{figure}
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
 
 La figura \ref{fig:gitLab} presenta la consola de GitLab CI.  
 
@@ -201,6 +195,14 @@ La figura \ref{fig:gitLab} presenta la consola de GitLab CI.
 	\caption{Información de las pruebas que se ejecutaron en GitLab CI.}
 	\label{fig:gitLab}
 \end{figure}
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
+
 
 \subsection{Prueba de acceso}    
 
@@ -215,7 +217,7 @@ Descripción: la primera vez que el usuario ingresa a la plataforma de emulació
 
 Pre-condición: 
 \begin{itemize}
-	\item La computadora del usuario tiene conexión a Internet y un navegador web instalado.
+	\item La computadora del usuario tiene conexión a internet y un navegador web instalado.
 \end{itemize}
 
 Flujo principal:
@@ -224,7 +226,7 @@ Flujo principal:
 \end{itemize}
 Post condiciones:
 \begin{itemize}
-	\item ÉXITO: la plataforma muestra el ejemplo \textit{\textbf{Blinky}} en ejecución.
+	\item ÉXITO: la plataforma muestra el ejemplo \textit{\textbf{Blinky}} en ejecución al encender y apagar el LEDB.
 	\item FALLA: La plataforma no muestra ningún ejemplo predeterminado en ejecución.
 \end{itemize}
 
@@ -239,12 +241,12 @@ La figura \ref{fig:PlataformaEmuladorBlinky} muestra la plataforma de emulación
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.28]{./Figures/PlataformaEmuladorBlinky.png}
+	\includegraphics[scale=.21]{./Figures/PlataformaEmuladorBlinky.png}
 	\caption{Prueba plataforma emulador ejecutando el ejemplo \textit{\textbf{Blinky}}.}
 	\label{fig:PlataformaEmuladorBlinky}
 \end{figure}
 
-\textit{\textbf{Postman}} es una aplicación que permite realizar pruebas API. Con este cliente \textit{\textbf{HTTP}} se probó \textit{\textbf{HTTP requests}} que permitió el acceso al servidor de la plataforma de emulación y por medio de la cual se obtuvo la respuesta en diferentes formatos como  \textit{\textbf{JSON}}, \textit{\textbf{XML}}, \textit{\textbf{HTML}} y \textit{\textbf{Text}}.
+\textit{\textbf{Postman}} es una aplicación que permite realizar pruebas API. La herramienta permitió realizar pruebas \textit{\textbf{HTTP requests}} y acceder al servidor de la plataforma de emulación. Se obtuvo la respuesta en diferentes formatos como  \textit{\textbf{JSON}}, \textit{\textbf{XML}}, \textit{\textbf{HTML}} y \textit{\textbf{Text}}.
 
 
 En la figura \ref{fig:PostmanBlinky2} se muestra la petición y respuesta de acceso a la plataforma por medio de la herramienta \textit{\textbf{Postman}}.
@@ -256,75 +258,173 @@ En la figura \ref{fig:PostmanBlinky2} se muestra la petición y respuesta de acc
 \hfill \break
 \hfill \break
 \hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.37]{./Figures/PostmanBlinky2.png}
+	\includegraphics[scale=.40]{./Figures/PostmanBlinky2.png}
 	\caption{Respuesta del servidor.}
 	\label{fig:PostmanBlinky2}
 \end{figure}
 
 
-
 \section{Pruebas de funcionamiento}  
 \label{sec:Pruebas de funcionamiento}
-En las pruebas de funcionamiento en un entorno web de simulación de un microcontrolador, se evalúa y verifica el comportamiento y desempeño de la simulación del microcontrolador en el entorno web. Estas pruebas son esenciales para asegurar que la simulación se comporte adecuadamente y funcione correctamente en el contexto en el que se está utilizando.
 
-Comparar la precisión de los cálculos realizados por el microcontrolador en la plataforma web con los resultados obtenidos en la placa física.
+Para evaluar, verificar el comportamiento y desempeño del microcontrolador en el entorno web, se realizan a continuación pruebas funcionales con uno de los periféricos internos seleccionados, que es el RTC. Además, se elige para la prueba un periférico externo, el DHT11.
 
-\subsection{Prueba \textit{\textbf{Dht11 temperature/humidity}} }
+También, se realiza una prueba de \textquotedbl tick hook\textquotedbl, que muestra las diferencias en el funcionamiento entre el microcontrolador de la plataforma web y los resultados obtenidos en la placa física real.
 
-\subsubsection{Ensayo en la plataforma de emulación para la placa EDU-CIAA-NXP} 
+\subsection{ Prueba \textit{\textbf{rtc printf}}}
+
 Para el ensayo en la plataforma de emulación web se siguió con los pasos del siguiente caso de uso:
 
 \textit{\textbf{ID Caso de prueba: CP02}}
 
-Descripción: la plataforma de emulación permite al usuario ejecutar el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
+Descripción: la plataforma de emulación permite al usuario ejecutar el ejemplo \textit{\textbf{rtc printf}}.
 
 Pre-condición: 
 \begin{itemize}
-	\item La computadora del usuario tiene conexión a Internet y un navegador web instalado.
+	\item La computadora del usuario tiene conexión a internet y un navegador web instalado.
 \end{itemize}
 
 Flujo principal:
 \begin{enumerate}
 	\item El usuario ingresa al entorno web de la plataforma de emulación para la placa EDU-CIAA-NXP.
-	\item El usuario selecciona desde la lista desplegable el ejemplo \textit{\textbf{Dht11 temperature/humidity}} y hace click en el botón \textquotedbl Ver ejemplo \textquotedbl.
-	\item La plataforma muestra en pantalla al usuario el código del ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
-	\item El usuario hace clic en la imagen del periférico DHT11 en la barra lateral (sidebar) del área de ensamblado, donde se muestran los periféricos disponibles en la plataforma web.
-	\item La plataforma muestra al usuario una ventana con las conexiones correctas por defecto del sensor \textit{\textbf{Dht11 temperature/humidity}}.
-	\item El usuario hace click en el botón \textquotedbl Agregar \textquotedbl.
-	\item La plataforma muestra integrado el componente \textit{\textbf{Dht11 temperature/humidity}} con la opción por defecto \textquotedbl Obtener temperatura local del servidor climático \textquotedbl, junto a la placa EDU-CIAA-NXP.
-	\item El usuario hace click en el botón \textquotedbl Ejecutar \textquotedbl.
+	\item El usuario selecciona desde la lista desplegable el ejemplo \textit{\textbf{rtc printf}}.
+	\item La plataforma muestra en pantalla al usuario el código que corresponde al ejemplo \textit{\textbf{rtc printf}}.
+	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
+	\item La plataforma muestra en la consola integrada la salida del rtc.
+\end{enumerate}
+
+
+Post condiciones:
+\begin{itemize}
+	\item ÉXITO: la plataforma muestra en ejecución el ejemplo \textit{\textbf{rtc printf}} al actualizar la salida por consola del envío por UART.
+	\item FALLA: La plataforma no muestra al usuario ningún cambio en la consola.
+\end{itemize}
+
+
+Luego de completar el caso de uso CP02, se obtuvo el siguiente resultado: 
+
+\begin{itemize}
+	\item ÉXITO: la plataforma muestra en ejecución el ejemplo \textit{\textbf{rtc printf}}.
+\end{itemize}
+
+
+La figura \ref{fig:rtcprintf} muestra que la plataforma web muestra en la consola integrada la salida del ensayo . 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.21]{./Figures/rtcprintf.png}
+	\caption{Salida por consola del ensayo \textit{\textbf{rtc printf}}.}
+	\label{fig:rtcprintf}
+\end{figure}
+
+\subsubsection{Ensayo en la plataforma EDU-CIAA-NXP} 
+
+Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la figura \ref{fig:rtcprintfPlaca}:
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.90]{./Figures/rtcprintfPlaca.png}
+	\caption{Salida de la terminal COM7 -Tera Term VT.}
+	\label{fig:rtcprintfPlaca}
+\end{figure}
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
+Resumen de la prueba Exitosa:
+\begin{itemize}
+	\item Después de acceder a la plataforma mediante el navegador y siguiendo los pasos del flujo principal y el flujo alternativo de la prueba, se comprobó que se muestra en ejecución el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
+	\item Se realizó la prueba de HTTP \textit{requests} usando la herramienta \textit{\textbf{Postman}} para comprobar la respuesta del \textit{\textbf{API openweathermap}} que consume la plataforma de emulación de manera que, los datos de temperatura y humedad sean los mismos.
+	\item Se ensayo en la placa real EDU-CIAA-NXP  el mismo ejemplo \textit{\textbf{Dht11 temperature/humidity}} y se registraron los resultados de la terminal serial.
+
+\end{itemize}
+
+
+\subsection{Prueba \textit{\textbf{periférico dht11}} }
+
+\subsubsection{Ensayo en la plataforma de emulación para la placa EDU-CIAA-NXP} 
+Para el ensayo en la plataforma de emulación web se siguió con los pasos del siguiente caso de uso:
+
+\textit{\textbf{ID Caso de prueba: CP03}}
+
+Descripción: la plataforma de emulación permite al usuario ejecutar el ejemplo \textit{\textbf{dht11}}.
+
+Pre-condición: 
+\begin{itemize}
+	\item La computadora del usuario tiene conexión a internet y un navegador web instalado.
+\end{itemize}
+
+Flujo principal:
+\begin{enumerate}
+	\item El usuario ingresa al entorno web de la plataforma de emulación para la placa EDU-CIAA-NXP.
+	\item El usuario selecciona desde la lista desplegable jerárquica el ejemplo \textit{\textbf{dht11}}.
+	\item La plataforma web realiza las siguientes acciones:
+	 
+	\begin{itemize}
+	    \item muestra al usuario el código  del ejemplo \textit{\textbf{dht11}} dentro del área de codificación.
+	    \item carga el periférico virtual de manera automática dentro del área de ensamblado y muestra las conexiones a los pines configurados por defecto, los cuales son: \textquotedbl SIGNAL=GPIO1\textquotedbl, \textquotedbl SDA/SDI=GND\textquotedbl{} y \textquotedbl VCC=3V3\textquotedbl.
+	    \item muestra seleccionado la opción por defecto \textquotedbl Obtener datos de servidor climático local.\textquotedbl
+	    \item actualiza los termómetros gráficos que corresponden a la temperatura y a la humedad con los datos obtenidos del servidor climático.
+	\end{itemize}
+
+	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
 	\item La plataforma muestra en la consola integrada la salida de la temperatura y humedad con los valores enviados desde la central meteorológica en línea.
 \end{enumerate}
 
 Flujo alternativo:
 \begin{enumerate}
     \setcounter{enumi}{7}
-	\item El usuario hace clic en la opción \textquotedbl Establecer temperatura y humedad manualmente \textquotedbl y comienza a manipular los termómetros gráficos haciendo clic sobre los que corresponden a la temperatura y a la humedad.
-	\item La interfaz deselecciona la opción \textquotedbl Obtener temperatura local del servidor climático \textquotedbl y muestra seleccionada la opción \textquotedbl Establecer temperatura y humedad manualmente \textquotedbl.
-	\item El usuario hace click en el botón \textquotedbl Ejecutar \textquotedbl.
-	\item La plataforma muestra en la consola integrada la salida de la temperatura y humedad con los valores elegidos por el usuario desde los termómetros gráficos.
+	\item El usuario hace clic en la opción \textquotedbl Establecer Temperatura y Humedad manualmente(haga click y arrastre sobre
+los indicadores).\textquotedbl
+	\item La plataforma deselecciona la opción \textquotedbl Obtener datos de servidor climático local.\textquotedbl
+    \item El usuario comienza a manipular los termómetros gráficos haciendo clic sobre los que corresponden a la temperatura y a la humedad.
+    \item La plataforma actualiza los termómetros gráficos que corresponden a la temperatura y a la humedad con los datos generados por el usuario.
+
+	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
+	
+	\item La plataforma muestra en la consola integrada la salida de la temperatura y humedad según la selección de obtención de datos.
 \end{enumerate}
 
 
 
 Post condiciones:
 \begin{itemize}
-	\item ÉXITO: la plataforma muestra en ejecución el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
-	\item FALLA: La plataforma no muestra al usuario ningún cambio en la consola.
+	\item ÉXITO: la plataforma debe cumplir con todas las siguientes condiciones de éxito:
+	
+		\begin{itemize}
+	    \item  carga automáticamente el periférico virtual dentro del área de ensamblado y las conexiones configuradas por defecto.
+	    
+	    \item actualiza los termómetros gráficos de  temperatura y  humedad, que  corresponden a la elección de obtención de datos.
+
+	    \item muestra en ejecución el ejemplo \textit{\textbf{dht11}} y según la elección de obtención de datos, actualiza la salida de temperatura y humedad en la consola integrada.
+	    \end{itemize}
+	
+	\item FALLA: la plataforma no cumple con todas las condiciones de éxito descritas.
 \end{itemize}
-
-
 
 Luego de completar el caso de uso CP02 con: flujo principal y flujo alternativo, se obtuvo el siguiente resultado: 
 
 \begin{itemize}
-	\item ÉXITO: la plataforma muestra en ejecución el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
+	\item ÉXITO: la plataforma cumple con todas las condiciones de éxito para el ejemplo \textit{\textbf{dht11}}.
 \end{itemize}
 
-La figura \ref{fig:RespuestaEmulador} muestra la consola con los datos de temperatura y humedad del ejemplo \textit{\textbf{Dht11 temperature/humidity}} con la opción \textquotedbl Obtener temperatura local del servidor climático \textquotedbl.
+La figura \ref{fig:RespuestaEmulador} muestra la consola con los datos de temperatura y humedad del ejemplo \textit{\textbf{dht11}} con la opción \textquotedbl  Establecer Temperatura y Humedad manualmente(haga click y arrastre sobre
+los indicadores).\textquotedbl
 
 \hfill \break
 \hfill \break
@@ -332,30 +432,35 @@ La figura \ref{fig:RespuestaEmulador} muestra la consola con los datos de temper
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.28]{./Figures/dht11Opcion1.png}
-	\caption{La plataforma muestra el resultado del CP02.}
+	\includegraphics[scale=.20]{./Figures/dht11Opcion2.png}
+	\caption{Resultado del CP02 con la opción \textquotedbl Establecer Temperatura y Humedad manualmente(haga click y arrastre sobre
+los indicadores).\textquotedbl}
 	\label{fig:RespuestaEmulador}
 \end{figure}
 
 
-La figura \ref{fig:RespuestaEmulador} muestra la consola con los datos de temperatura y humedad del ejemplo \textit{\textbf{Dht11 temperature/humidity}} con la opción \textquotedbl Establecer temperatura y humedad manualmente \textquotedbl.
+La figura \ref{fig:RespuestaEmulador} muestra la consola con los datos de temperatura y humedad del ejemplo \textit{\textbf{dht11}} con la opción \textquotedbl Obtener datos de servidor climático local.\textquotedbl
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.28]{./Figures/dht11Opcion1.png}
-	\caption{La plataforma muestra el resultado del CP02.}
+	\includegraphics[scale=.20]{./Figures/dht11Opcion1.png}
+	\caption{Resultado del  CP02 con la opción \textquotedbl Obtener datos de servidor climático local.\textquotedbl}
 	\label{fig:RespuestaEmulador}
 \end{figure}
 
 
 
 
-Para verificar que la plataforma obtuvo los datos de temperatura/humedad del API de meteorología  \textit{\textbf{openweathermap}} se hicieron pruebas de request con la herramienta \textit{Postman}.
+Para verificar que la plataforma obtuvo los datos de temperatura/humedad de la API de meteorología  \textit{\textbf{openweathermap}} se hicieron pruebas de \textit{request} con la herramienta \textit{Postman}.
 
 En la figura \ref{fig:RespuestaPostMan1} se observa que la petición de datos de temperatura/humedad recibe como parámetro la ciudad que se quiere consultar.
 
 \hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
 
 
 \begin{figure}[ht]
@@ -373,7 +478,7 @@ En este paso se verifica que la respuesta de la petición de datos de temperatur
 Este ensayo tuvo como objetivo identificar
 las diferencias entre los resultados reales producidos por la placa real y los resultados esperados en la plataforma de emulación.
 
-El primer paso fue conectar el componente Dht11 a la placa EDU-CIAA-NXP. En consecuencia, se procedió a compilar el ejemplo \textit{\textbf{Dht11 temperature/humidity}} de la plataforma de emulación dentro de la herramienta 
+El primer paso fue conectar el componente dht11 a la placa EDU-CIAA-NXP. En consecuencia, se procedió a compilar el ejemplo \textit{\textbf{dht11}} de la plataforma de emulación dentro de la herramienta 
 \textit{Eclipse} y luego, se grabó en la placa EDU-CIAA-NXP.
 
 A continuación se muestra en la figura \ref{fig:TestHardware} la ejecución del ensayo en la plataforma EDU-CIAA-NXP.
@@ -381,7 +486,7 @@ A continuación se muestra en la figura \ref{fig:TestHardware} la ejecución del
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.49]{./Figures/TestHardware.jpeg}
-	\caption{Ensayo del ejemplo \textit{\textbf{Dht11 temperature/humidity}}.}
+	\caption{Ensayo en la plataforma EDU-CIAA-NXP del ejemplo \textit{\textbf{dht11}}.}
 	\label{fig:TestHardware}
 \end{figure}
 
@@ -426,7 +531,7 @@ En la figura \ref{fig:TestTerminal} se muestra los datos de temperatura/humedad 
 
 
 
-Resumen del Test:
+Resumen de la prueba Exitosa:
 \begin{itemize}
 	\item Después de acceder a la plataforma mediante el navegador y siguiendo los pasos del flujo principal y el flujo alternativo de la prueba, se comprobó que se muestra en ejecución el ejemplo \textit{\textbf{Dht11 temperature/humidity}}.
 	\item Se realizó la prueba de HTTP \textit{requests} usando la herramienta \textit{\textbf{Postman}} para comprobar la respuesta del \textit{\textbf{API openweathermap}} que consume la plataforma de emulación de manera que, los datos de temperatura y humedad sean los mismos.
@@ -439,23 +544,23 @@ Resumen del Test:
 El objetivo de este ensayo es exponer las diferencias en los resultados encontrados entre el emulador web y la placa fisica.
 
 \subsubsection{Ensayo en la plataforma de emulación para la placa EDU-CIAA-NXP} 
-Para ensayar la plataforma web, se ejecuto el siguiente caso de uso:
+Para ensayar la plataforma web, se ejecuto el siguiente caso de prueba:
 
-\textit{\textbf{ID Caso de prueba: CP03}}
+\textit{\textbf{ID Caso de prueba: CP04}}
 
 Descripción: la plataforma de emulación permite al usuario ejecutar un nuevo ejemplo de \textit{\textbf{tick hook}}.
 
 Pre-condición: 
 \begin{itemize}
-	\item La computadora del usuario tiene conexión a Internet y un navegador web instalado.
+	\item La computadora del usuario tiene conexión a internet y un navegador web instalado.
 \end{itemize}
 
 Flujo principal:
 \begin{enumerate}
 	\item El usuario ingresa al entorno web de la plataforma de emulación para la placa EDU-CIAA-NXP.
-	\item El usuario hace click en el botón \textquotedbl Nuevo Proyecto \textquotedbl.
-	\item La plataforma muestra en pantalla al usuario el area de codificacion listo para que pueda ingresar su propio codigo.
-	\item El usuario ingresa el siguiente codigo de prueba:
+	\item El usuario hace click en el botón \textquotedbl Nuevo Proyecto\textquotedbl.
+	\item La plataforma muestra al usuario en el área de codificacion, la pantalla para que pueda ingresar su propio codigo.
+	\item El usuario ingresa el siguiente código de prueba:
 	
 \begin{lstlisting}[caption={nuevo proyecto}]
 #include "sapi.h"
@@ -484,13 +589,13 @@ int main()
 }
 \end{lstlisting}
 
-	\item El usuario hace click en el botón \textquotedbl Ejecutar \textquotedbl.
+	\item El usuario hace click en el botón \textquotedbl Ejecutar\textquotedbl.
 	\item La plataforma muestra en la consola integrada la salida del programa en ejecución.
 	
 \end{enumerate}
 	
 
-La figura \ref{fig:Testtickhook} muestra que la plataforma web muestra en la consola integrada la salida de \textquotedbl Blinky LED3 \textquotedbl muchas veces. 
+La figura \ref{fig:Testtickhook} muestra en la consola integrada la salida de \textquotedbl Blinky LED3\textquotedbl muchas veces. 
 
 \hfill \break
 \hfill \break
@@ -506,7 +611,7 @@ La figura \ref{fig:Testtickhook} muestra que la plataforma web muestra en la con
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.25]{./Figures/Testtickhook.png}
+	\includegraphics[scale=.20]{./Figures/Testtickhook.png}
 	\caption{Salida por consola del ensayo tick hook.}
 	\label{fig:Testtickhook}
 \end{figure}
@@ -516,7 +621,6 @@ La figura \ref{fig:Testtickhook} muestra que la plataforma web muestra en la con
 Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la siguiente figura \ref{fig:TesttickhookPlaca}:
 
 
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.80]{./Figures/TesttickhookPlaca.png}
@@ -524,62 +628,172 @@ Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la sigui
 	\label{fig:TesttickhookPlaca}
 \end{figure}
 
-Se observa que la salida por consola de \textquotedbl Blinky LED3 \textquotedbl se muestra solo una vez, lo cual difiere de la salida por consola de la plataforma web que muestra \textquotedbl Blinky LED3 \textquotedbl muchas veces.
-
-\subsection{ Prueba \textit{\textbf{rtc printf}}}
-
-Para el ensayo en la plataforma de emulación web se siguió con los pasos del siguiente caso de uso:
-
-\textit{\textbf{ID Caso de prueba: CP04}}
-
-Descripción: la plataforma de emulación permite al usuario ejecutar el ejemplo \textit{\textbf{rtc printf}}.
-
-Pre-condición: 
-\begin{itemize}
-	\item La computadora del usuario tiene conexión a Internet y un navegador web instalado.
-\end{itemize}
-
-Flujo principal:
-\begin{enumerate}
-	\item El usuario ingresa al entorno web de la plataforma de emulación para la placa EDU-CIAA-NXP.
-	\item El usuario selecciona desde la lista desplegable el ejemplo \textit{\textbf{rtc printf}} y hace click en el botón \textquotedbl Ver ejemplo \textquotedbl.
-	\item La plataforma muestra en pantalla al usuario el código del ejemplo \textit{\textbf{rtc printf}}.
-	\item El usuario hace click en el botón \textquotedbl Ejecutar \textquotedbl.
-	\item La plataforma muestra en la consola integrada la salida del rtc.
-\end{enumerate}
+Se observa que la salida por consola de \textquotedbl Blinky LED3\textquotedbl se muestra solo una vez, lo cual difiere de la salida por consola de la plataforma web que muestra \textquotedbl Blinky LED3\textquotedbl{} muchas veces.
 
 
-Post condiciones:
-\begin{itemize}
-	\item ÉXITO: la plataforma muestra en ejecución el ejemplo \textit{\textbf{rtc printf}}.
-	\item FALLA: La plataforma no muestra al usuario ningún cambio en la consola.
-\end{itemize}
+\subsection{Tabla de Periféricos}
+
+La siguiente tabla \ref{tab:perifericosInternosMBED} expone los  periféricos internos implementados actualmente en \textit{Mbed Simulator}.
+
+\begin{table}[h]
+\centering
+\caption[Comparación de características de periféricos internos implementados en \textit{Mbed Simulator}]{Comparación de características de Periféricos internos implementados en \textit{Mbed Simulator}}
+\begin{tabular}{p{0.24\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
+\toprule
+\textbf{Periféricos} 
+& \textbf{Velocidad y tiempo real}
+& \textbf{Responde a eventos}
+\\
+\midrule
+GPIO & Si & Si  \\
+UART & Si & Si \\
+BUTTON & SI & Si \\
+ADC & Si & Si \\
+DAC & Si & No \\
+PWM & Si & No \\ 
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:perifericosInternosMBED}
+\end{table}
 
 
-
-Luego de completar el caso de uso CP04, se obtuvo el siguiente resultado: 
-
-\begin{itemize}
-	\item ÉXITO: la plataforma muestra en ejecución el ejemplo \textit{\textbf{rtc printf}}.
-\end{itemize}
+En la figura \ref{fig:GPIOMbed} se muestra el funcionamiento de GPIO y en la figura \ref{fig:PMWMbed} expone el funcionamiento de PWM del \textit{Mbed Simulator}.
 
 
-La figura \ref{fig:rtcprintf} muestra que la plataforma web muestra en la consola integrada la salida del ensayo . 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.28]{./Figures/rtcprintf.png}
-	\caption{Salida por consola del ensayo rtc printf.}
-	\label{fig:rtcprintf}
+	\includegraphics[scale=.28]{./Figures/GPIOMbed.png}
+	\caption{Funcionamiento GPIO en \textit{Mbed Simulator}.}
+	\label{fig:GPIOMbed}
 \end{figure}
 
-\subsubsection{Ensayo en la plataforma EDU-CIAA-NXP} 
 
-Se ejecuta el mismo ejemplo en la placa fisica y se obtiene por consola la siguiente salida que se muestra en la siguiente figura:
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.24]{./Figures/PMWMbed.png}
+	\caption{Funcionamiento PWM en \textit{Mbed Simulator}.}
+	\label{fig:PMWMbed}
+\end{figure}
+
+
+
+
+
+Además, en la tabla \ref{tab:perifericosExternosMBED} expone los  periféricos externos implementados actualmente en \textit{Mbed Simulator}.
+
+
+\begin{table}[h]
+\centering
+\caption[Comparación de características de Periféricos externos implementados en \textit{Mbed Simulator}]{Comparación de características de Periféricos externos implementados en \textit{Mbed Simulator}}
+\begin{tabular}{p{0.30\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
+\toprule
+\textbf{Periféricos} 
+& \textbf{Velocidad y tiempo real}
+& \textbf{Responde a eventos}
+\\
+\midrule
+DHT11 & Si & Si  \\
+LCD Display C12832 & Si & Si  \\
+LED & Si & Si \\
+Thermistor & Si & Si \\
+SHT31 & Si & Si \\
+Touch Screen ST7789H2 & Si & Si \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:perifericosExternosMBED}
+\end{table}
+
+La figura \ref{fig:perifericosMbed} muestra los periféricos externos de \textit{Mbed Simulator}.
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.90]{./Figures/rtcprintfPlaca.png}
-	\caption{Salida de la terminal COM7 -Tera Term VT.}
-	\label{fig:rtcprintfPlaca}
+	\includegraphics[scale=.81]{./Figures/perifericosMBED.png}
+	\caption{Periféricos externos de \textit{Mbed Simulator}.}
+	\label{fig:perifericosMbed}
 \end{figure}
+
+En la siguiente tabla \ref{tab:perifericosInternosCIAA} se exponen los  periféricos internos implementados en la primera versión de la plataforma de emulación web de la placa EDU-CIAA.
+
+\begin{table}[h]
+\centering
+\caption[Comparación de características de periféricos internos del Emulador EDU-CIAA]{Comparación de características de Periféricos}
+\begin{tabular}{p{0.24\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
+\toprule
+\textbf{Periféricos} 
+& \textbf{Velocidad y tiempo real}
+& \textbf{Responde a eventos}
+\\
+\midrule
+GPIO & Si & Si  \\
+UART & Si & Si \\
+BUTTON & SI & Si \\
+RTC & Si & Si  \\
+SYSTICK & No & Si \\
+ADC & Si & Si \\
+DAC & Si & No \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:perifericosInternosCIAA}
+\end{table}
+
+
+Además, la siguiente tabla \ref{tab:perifericosExternosCIAA} se exponen los  periféricos externos implementados en la plataforma de emulación web.
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
+\begin{table}[h]
+\centering
+\caption[Comparación de características de periféricos externos del Emulador EDU-CIAA]{Comparación de características de los periféricos externos del Emulador EDU-CIAA}
+\begin{tabular}{p{0.30\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
+\toprule
+\textbf{Periféricos} 
+& \textbf{Velocidad y tiempo real}
+& \textbf{Responde a eventos}
+\\
+\midrule
+DHT11 & Si & Si  \\
+LCD & Si & Si  \\
+LED & Si & Si  \\
+LCD DISPLAY 128x64 & Si & Si \\
+LCD DISPLAY 20x4 & Si & Si \\
+Thermistor NTC & Si & Si \\
+Potentiometer & Si & Si \\
+Joystick & Si & Si \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:perifericosExternosCIAA}
+\end{table}
+
+
+La figura \ref{fig:perifericosCIAA} muestra los periféricos externos implementados en el emulador web EDU-CIAA.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.34]{./Figures/perifericosCIAA.png}
+	\caption{Periféricos externos del emulador web EDU-CIAA.}
+	\label{fig:perifericosCIAA}
+\end{figure}
+

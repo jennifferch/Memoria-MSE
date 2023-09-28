@@ -46,10 +46,26 @@ En este capítulo se exponen los criterios de selección para la arquitectura de
 %	SECTION 1
 %----------------------------------------------------------------------------------------
 \section{Introducción}
- 
-Se investigó la arquitectura de \textit{Mbed Simulator} para adquirir una compresión del funcionamiento del \textit{Sistema Operativo Mbed}, de los periféricos simulados y las interacciones, además, de las configuraciones necesarias para la platadorma web.
 
-Sin embargo, durante el análisis del repositorio, la presencia de múltiples módulos de código, bibliotecas y configuraciones que no estaban directamente relacionados con la simulación, inicialmente generó incertidumbre sobre su propósito y relevancia en la plataforma del simulador. En la figura \ref{fig:estructuraMbed} se exhibe la estructura de arbol de las carpetas y archivos de  \textit{Mbed Simulator} clonado desde GitHub.
+La decisión de basarse en el proyecto \textit{Mbed Simulator} fue influenciada por su capacidad para simular dispositivos y componentes en un entorno web. Además, se consideró el respaldo de una comunidad activa, y al ser un proyecto de código abierto, se puede aprovechar las mejoras y actualización del software. La afiliación con ARM mbed OS aporta credibilidad y garantía de calidad, que asegura la reutilización de sus recursos previamente probados. Estos aspectos fueron decisivos al optar por \textit{Mbed Simulator} como la plataforma de desarrollo.
+
+En consecuencia, se procedió a investigar la arquitectura de \textit{Mbed Simulator} para adquirir una compresión del funcionamiento del \textit{Sistema Operativo Mbed}, de los periféricos simulados y las interacciones, además, de las configuraciones necesarias para la plataforma web.
+
+Durante el análisis del repositorio, la presencia de múltiples módulos de código, bibliotecas y configuraciones que no estaban directamente relacionados con la simulación, inicialmente generó incertidumbre sobre su propósito y relevancia en la plataforma del simulador. En la figura \ref{fig:estructuraMbed} se exhibe la estructura de arbol de las carpetas y archivos de  \textit{Mbed Simulator} clonado desde GitHub.
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -58,19 +74,19 @@ Sin embargo, durante el análisis del repositorio, la presencia de múltiples m�
 	\label{fig:estructuraMbed}
 \end{figure}
  
-La carpeta \textquotedbl build-tools\textquotedbl contiene tres archivos javascript: 
+La carpeta \textquotedbl build-tools\textquotedbl{}  contiene tres archivos javascript: 
 
 \begin{enumerate}
 	\item build-application.js, que contiene funciones para construir aplicaciones en el contexto de \textit{Mbed Simulator}. Asimismo, contiene métodos para encontrar los periféricos y manejar la construcción de componentes.
 	
-	\item build-libmbed.js, es un módulo de Node.js que realiza la construcción \textit{(build)} y gestión de dependencias. También, proporciona métodos que verifican las dependencias necesarias antes de la construcción.
+	\item build-libmbed.js, es un módulo de Node.js que realiza la compilación \textit{(build)} y gestión de dependencias. También, proporciona métodos que verifican las dependencias necesarias antes de la construcción.
 
 	\item helpers.js,  es un módulo de Node.js que proporciona funciones relacionadas con operaciones de sistema de archivos, compilación, y manipulación de directorios y archivos.
 \end{enumerate}
  
-Dentro de la carpeta \textquotedbl demos\textquotedbl se encuentran todos los programas ejemplo que muestran cómo utilizar ciertas funcionalidades de \textit{Mbed Simulator} y son útiles como referencia para comenzar con el desarrollo en el entorno web. 
+Dentro de la carpeta \textquotedbl demos\textquotedbl{}  se encuentran todos los programas ejemplo que muestran cómo utilizar ciertas funcionalidades de \textit{Mbed Simulator} y son útiles como referencia para comenzar con el desarrollo en el entorno web. 
  
-La carpeta \textquotedbl server\textquotedbl contiene tres archivos javascript: 
+La carpeta \textquotedbl server\textquotedbl{}  contiene tres archivos javascript: 
 
 \begin{enumerate}
 	\item compile.js, este archivo realiza la generación de los archivos de salida compilados a partir del codigo fuente.
@@ -81,9 +97,9 @@ La carpeta \textquotedbl server\textquotedbl contiene tres archivos javascript:
 	
 \end{enumerate}
  
-La carpeta \textquotedbl viewer\textquotedbl contiene los archivos necesarios para crear interacción con el navegador. Entre estos archivos se encuentran: HTML, CSS, JavaScript, imágenes y bibliotecas de terceros o frameworks.
+La carpeta \textquotedbl viewer\textquotedbl{}  contiene los archivos necesarios para crear interacción con el navegador. Entre estos archivos se encuentran: HTML, CSS, JavaScript, imágenes y bibliotecas de terceros o frameworks.
  
-La carpeta \textquotedbl mbed-simulator-hal\textquotedbl contiene las siguiente sub-carpetas y son usadas en el contexto de \textit{Mbed Simulator}: 
+La carpeta \textquotedbl mbed-simulator-hal\textquotedbl{}  contiene las siguientes sub-carpetas y son usadas en el contexto de \textit{Mbed Simulator}: 
 
 \begin{itemize}
 	\item easy-connect, dentro de esta carpeta se encuentran archivos que facilitan la conexión a una red utilizando Ethernet para manipular conexiones de red, sockets y eventos.
@@ -105,7 +121,7 @@ La carpeta \textquotedbl mbed-simulator-hal\textquotedbl contiene las siguiente 
 \end{itemize}
 
 
-Por consiguiente, la biblioteca \textquotedbl mbed-os.lib\textquotedbl contiene las siguiente carpetas: 
+Por consiguiente, la biblioteca \textquotedbl mbed-os.lib\textquotedbl{}  contiene las siguiente carpetas: 
 
 \begin{itemize}
 
@@ -136,9 +152,7 @@ Por consiguiente, la biblioteca \textquotedbl mbed-os.lib\textquotedbl contiene 
 \end{itemize}
 
 
-Después, al eliminar módulos y dependencias innecesarias, tales como: mbed-http, simple-mbed-cloud-client, features, rtos y todas las sub-carpetas dentro de la carpeta \textquotedbl target\textquotedbl excluyendo la sub-carpeta TARGET\_SIMULATOR, se procedió a evaluar la compatibilidad de su arquitectura. Durante el proceso, en primer lugar, se analizó si la arquitectura proporcionaba funcionalidades para la interacción con los usuarios. Incluso, de adaptarse fácilmente a futuros desarrollos y cambios, permitiendo un crecimiento escalable.
-
-Además, la mantenibilidad y flexibilidad también fueron aspectos evaluados. Otro punto esencial, fueron las tecnologías y herramientas utilizadas, lo cual implicó una curva de aprendizaje adicional. 
+Después, al eliminar módulos y dependencias innecesarias, tales como: mbed-http, simple-mbed-cloud-client, features, rtos y todas las sub-carpetas dentro de la carpeta \textquotedbl target\textquotedbl{}  excluyendo la sub-carpeta TARGET\_SIMULATOR, se procedió a evaluar la compatibilidad de su arquitectura. Durante el proceso, en primer lugar, se analizó si la arquitectura proporcionaba funcionalidades para la interacción con los usuarios. Incluso, de adaptarse fácilmente a futuros desarrollos y cambios, permitiendo un crecimiento escalable. La mantenibilidad y flexibilidad también fueron aspectos evaluados. Otro punto esencial, fueron las tecnologías y herramientas utilizadas, lo cual implicó una curva de aprendizaje adicional. 
 
 Actualmente, \textit{Mbed Simulator} presenta las siguientes limitaciones:
 
@@ -160,14 +174,14 @@ Finalmente, una vez confirmada su compatibilidad para los propósitos del presen
 
 \section{Arquitectura de la plataforma web}
 
-Después del análisis de \textit{Mbed Simulator}, se modificaron las carpetas y archivos de configuración para adaptarlos al entorno del emulador EDU-CIAA. Luego, se reemplazó \textquotedbl mbed-os\textquotedbl por la biblioteca \textit{\textbf{sAPI}}, pero se mantuvieron algunos componentes propios de Mbed, como \textquotedbl events\textquotedbl y \textquotedbl callback\textquotedbl, para agilizar el desarrollo.
+Después del análisis de \textit{Mbed Simulator}, se modificaron las carpetas y archivos de configuración para adaptarlos al entorno del emulador EDU-CIAA. Luego, se reemplazó \textquotedbl mbed-os\textquotedbl{}  por la biblioteca \textit{\textbf{sAPI}}, pero se mantuvieron algunos componentes propios de Mbed, como \textquotedbl events\textquotedbl{}  y \textquotedbl callback\textquotedbl, para agilizar el desarrollo.
   
 En la figura \ref{fig:estructuraCiaa} se exhibe la estructura de las carpetas y archivos del  \textit{Emulador de la placa EDU-CIAA}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.50]{./Figures/estructuraCiaa.jpg}
-	\caption{Estructura de carpetas y archivos de \textit{Mbed Simulator}.}
+	\includegraphics[scale=.52]{./Figures/estructuraCiaa.jpg}
+	\caption{Estructura de carpetas y archivos del \textit{Emulador de la placa EDU-CIAA}.}
 	\label{fig:estructuraCiaa}
 \end{figure}
  
@@ -179,6 +193,22 @@ Al utilizar esta capa de abstracción, se pudo replicar las funcionalidades y la
 
 En el diagrama de bloques de la figura \ref{fig:Arquitectura} se muestra la arquitectura básica de una aplicación de usuario que ejecuta el emulador de la placa EDU-CIAA-NXP.
 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -199,7 +229,7 @@ A continuación, se presenta una breve descripción de cada componente del diagr
 	
 	\item La capa \textit{JavaScript HAL} se comunica con la capa \textit{C HAL}  a través de los archivos \textit{WebAssembly} y \textit{JavaScript} generados por el proceso de compilación de \textit{Emscripten}.
 	
-	\item La capa de abstracción de JavaScript (\textit{JavaScript HAL}) actúa como intermediario entre las capa \textit{C HAL} y la interfaz de usuario en \textit{JavaScript} (\textit{JavaScript UI}). Y además, se encarga de distribuir eventos y llamadas entre ambas capas.
+	\item La capa de abstracción de JavaScript (\textit{JavaScript HAL}) actúa como intermediario entre la capa \textit{C HAL} y la interfaz de usuario en \textit{JavaScript} (\textit{JavaScript UI}). Y además, se encarga de distribuir eventos y llamadas entre ambas capas.
 	
 \item La interfaz de usuario en \textit{JavaScript} (\textit{JavaScript UI}) maneja los eventos procedentes de la capa \textit{JavaScript HAL}. No interactúa directamente con el código \textit{JavaScript} y \textit{WebAssembly} resultante del código \textit{C}.
 
@@ -219,48 +249,15 @@ En esta parte de la plataforma web se implementó el desarrollo de la interacci�
 
 Para el desarrollo de la interfaz, se optó por un diseño intuitivo, de manera que el usuario se sienta familiarizado con las herramientas de trabajo y que la disposición de los componentes sea cómoda y esté organizada al momento de usarlas.
 
-La figura \ref{fig:PlataformaEmulador1} muestra la plataforma web del Emulador de la placa EDU-CIAA-NXP.
+Para su estudio, la figura \ref{fig:PlataformaEmulador1} muestra la plataforma web del Emulador de la placa EDU-CIAA-NXP, dividida en tres partes.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.20]{./Figures/PlataformaEmulador.png}
+	\includegraphics[scale=.28]{./Figures/PlataformaEmulador.png}
 	\caption{Plataforma de emulación para la placa EDU-CIAA-NXP.}
 	\label{fig:PlataformaEmulador1}
 \end{figure}
 
-
-Para su estudio, dividimos la plataforma web en tres partes. En la figura \ref{fig:PlataformaEmulador2}, se muestra la parte izquierda y superior de la interfaz gráfica para interactuar con el hardware. La figura \ref{fig:PlataformaEmulador3} muestra la parte inferior izquierda, donde se visualiza la salida de la consola. Finalmente, en la figura \ref{fig:PlataformaEmulador4}, se muestra la parte derecha de la interfaz gráfica destinada a la aplicación de usuario.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.57]{./Figures/PlataformaEmulador1.png}
-	\caption{Parte izquierda y superior de la plataforma de emulación de la placa EDU-CIAA-NXP.}
-	\label{fig:PlataformaEmulador2}
-\end{figure}
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.58]{./Figures/PlataformaEmulador2.png}
-	\caption{Parte inferior izquierda de la plataforma de emulación de la placa EDU-CIAA-NXP.}
-	\label{fig:PlataformaEmulador3}
-\end{figure}
-
-
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.55]{./Figures/PlataformaEmulador3.png}
-	\caption{Parte derecha de la plataforma de emulación de la placa EDU-CIAA-NXP.}
-	\label{fig:PlataformaEmulador4}
-\end{figure}
 
 Por consiguiente, el diseño de la interfaz de usuario de la plataforma proporciona las siguientes áreas:
 
@@ -302,41 +299,30 @@ Además, con el objetivo de optimizar la experiencia del usuario, esta área per
 
 Una vez que el usuario elige un periférico de la barra lateral y realiza la configuración de las conexiones, la barra automáticamente colapsa, ocultándose del área de ensamblado. Al colapsarse, se muestra el periférico integrado en la aplicación. Asimismo,  el usuario tiene la opción de volver a expandir la barra lateral para agregar un nuevo periférico.
 
-También, cuando se añadió un periférico virtual, el usuario tiene la posibilidad de eliminarlo. Para realizarlo, simplemente debe seleccionar el periférico deseado, lo que habilitará el icono de \textquotedbl Eliminar periféricos externos\textquotedbl. Al hacer clic en el icono, el periférico virtual será eliminado de forma automática y efectiva.
+También, al añadir un periférico virtual, el usuario tiene la posibilidad de eliminarlo. Para realizarlo, simplemente debe seleccionar el periférico deseado, lo que habilitará el icono de \textquotedbl Eliminar periféricos externos\textquotedbl. Al hacer clic en el icono, el periférico virtual es eliminado de forma automática y efectiva.
 
 
 En la figura \ref{fig:AgregarPeriferico} se observa que el usuario puede elegir qué componente agregar a la aplicación y en la figura \ref{fig:AgregarPeriferico2} se muestra que el componente se agregó a la aplicación.
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.33]{./Figures/AgregarPeriferico.png}
-	\caption{Agregar periférico.}
+	\includegraphics[scale=.37]{./Figures/AgregarPeriferico.png}
+	\caption{El usuario puede elegir un componente en la aplicación.}
 	\label{fig:AgregarPeriferico}
 \end{figure}
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.33]{./Figures/AgregarPeriferico2.png}
+	\includegraphics[scale=.37]{./Figures/AgregarPeriferico2.png}
 	\caption{Periférico agregado en el área de ensamblado. }
 	\label{fig:AgregarPeriferico2}
 \end{figure}
 
+\hfill \break
+\hfill \break
+\hfill \break
 
 \subsubsection{Área de codificación}
 
@@ -361,12 +347,14 @@ En la figura \ref{fig:PlataformaErrores2} se muestra el código que generó los 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.39]{./Figures/PlataformaErrores1.png}
+	\includegraphics[scale=.42]{./Figures/PlataformaErrores1.png}
 	\caption{Código que generó los errores de compilación.}
 	\label{fig:PlataformaErrores2}
 \end{figure}
 
-
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -386,14 +374,14 @@ La figura \ref{fig:listExamples} muestra la estructura jerárquica de la lista d
 	\label{fig:listExamples}
 \end{figure}
 
-Ademas, al seleccionar algún ejemplo que contiene un periférico externo de la lista desplegable, la aplicación, automáticamente cargara dentro del área de ensamblado el periférico con las conexiones a los pines configurados por defecto. Es decir, el usuario no tendrá la necesidad de seleccionar y configurar el periférico desde la barra lateral del área de ensamblado.
+Ademas, al seleccionar algún ejemplo que contiene un periférico externo de la lista desplegable, la aplicación, automáticamente carga dentro del área de ensamblado el periférico con las conexiones a los pines configurados por defecto. Es decir, el usuario no tiene la necesidad de seleccionar y configurar el periférico desde la barra lateral del área de ensamblado.
 
 La figura \ref{fig:cargarPeriferico} muestra el periférico agregado automáticamente al seleccionar el ejemplo \textquotedbl potentiometer\textquotedbl.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.21]{./Figures/cargarPeriferico.png}
-	\caption{Carga automática del Periférico. }
+	\caption{Carga automática del periférico. }
 	\label{fig:cargarPeriferico}
 \end{figure}
 
@@ -415,27 +403,26 @@ Entre las principales características de xterm.js se destaca:
 \begin{itemize}
 	\item Funciona con la mayoría de las aplicaciones de terminal, como bash, es compatible con aplicaciones basadas y eventos de mouse.
 	\item Es de alto rendimiento, por eso es realmente rápido.
-	\item No requiere de dependencias externas para funcionar, sin embargo, la dependencia principal para el funcionamiento básico es el propio navegador web.
+	\item No requiere de dependencias externas para funcionar. La dependencia principal para el funcionamiento básico es el propio navegador web.
 	\item API bien documentada.
 \end{itemize}
 
+Además de las características destacadas, xterm.js es una biblioteca que fue adoptada por diversos proyectos populares, tales como VS Code, Hyper y Theia. La amplia adopción de xterm.js por parte de estos proyectos contribuyo a la expansión de su comunidad de desarrolladores, quienes brindan un sólido respaldo y soporte.
 
-Además de las características de Xterm.js, esta biblioteca de \textit{JavaScript} es usado por varios proyectos populares como VS Code, Hyper y Theia que lo usan, de ahí que, el soporte en la comunidad de desarrolladores es amplio.
-
-En la figura \ref{fig:Terminal2} se puede observar la salida por consola de un programa.
+En la figura \ref{fig:Terminal2} se puede observar la salida por consola de un programa y en la figura \ref{fig:Terminal1} se muestra el programa de usuario que generó la salida por consola.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.60]{./Figures/Terminal2.png}
+	\includegraphics[scale=.59]{./Figures/Terminal2.png}
 	\caption{Salida de la terminal serie.}
 	\label{fig:Terminal2}
 \end{figure}
 
-Y en la figura \ref{fig:Terminal1} se muestra el programa de usuario que generó la salida por consola.
+
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.41]{./Figures/Terminal1.png}
+	\includegraphics[scale=.42]{./Figures/Terminal1.png}
 	\caption{Programa de usuario que imprime por consola.}
 	\label{fig:Terminal1}
 \end{figure}
@@ -456,15 +443,6 @@ Por tanto, para lograr la comunicación con la capa \textit{JavaScript HAL}, se 
 
 Es decir, cuando se emite algún evento en la \textit{HAL}, entonces el oyente suscrito a ese evento en esta capa \textit{UI} lo podrá escuchar y realizar las acciones que correspondan para la funcionalidad requerida. La figura \ref{fig:EventemitterNodeJSUI} describe esta situación.
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.52]{./Figures/EventemitterNodeJSUI.png}
@@ -478,10 +456,7 @@ Es decir, cuando se emite algún evento en la \textit{HAL}, entonces el oyente s
 \subsection{Aplicación de Usuario}
 La plataforma de emulación para la placa EDU-CIAA-NXP es una aplicación en línea, que se ejecuta en el \textit{browser} del usuario. La interfaz fue diseñada como una herramienta que permite al usuario realizar sus tareas de programación dentro de una plataforma simple e intuitiva.
 
-Sin embargo, existen algunas limitaciones que se deben tener en cuenta.
-
-\begin{itemize}
-	\item Las unidades de tiempo especificadas por los valores en las constantes, por ejemplo cuando el usuario define \texttt{TASK1\_PERIODICITY} con un valor de 1000 para ser usado dentro del codigo siguiente: 
+Sin embargo, presenta una limitación en las unidades de tiempo especificadas por los valores en las constantes, por ejemplo cuando el usuario define \texttt{TASK1\_PERIODICITY} con un valor de 1000 para ser usado dentro del codigo siguiente: 
 	
 \begin{lstlisting}[caption={Ejemplo TASK1\_PERIODICITY}]
 #define TASK1_PERIODICITY 1000} 
@@ -496,15 +471,10 @@ if( task1Counter++ == TASK1_PERIODICITY ){
 
 Significa que la tarea  planificada se ejecutará cada 1000 milisegundos en la placa fisica. Sin embargo, en el emulador web, la velocidad de ejecución puede variar y no necesariamente coincidir con el tiempo real. Por lo tanto, el tiempo de ejecución de cada iteración de la tarea \texttt{task1} podría ser más lento en el emulador web. Estas diferencias en la ejecución se deben a las limitaciones inherentes de \textit{JavaScript} y \textit{Emscripten}, que pueden afectar la precisión del tiempo.
 
-\end{itemize}
 
 \section{Backend}
 
-En esta capa de programación se desarrolló toda la lógica necesaria para emular las funcionalidades que proporcionan las bibliotecas: \textit{\textbf{sAPI}}, \textit{\textbf{freertos}} y \textit{\textbf{seos\textunderscore pont}} para la placa EDU-CIAA-NXP.
-
-\hfill \break
-\hfill \break
-\hfill \break
+En esta capa de programación se desarrolló toda la lógica necesaria para emular las funcionalidades que proporcionan las bibliotecas: \textit{\textbf{sAPI}}, \textit{\textbf{freeRTOS}} y \textit{\textbf{seos\textunderscore pont}} para la placa EDU-CIAA-NXP.
 
 
 \subsection{Biblioteca C}
@@ -573,7 +543,10 @@ La figura \ref{fig:GPIOsAPI} muestra las dependencias que se usan para la implem
 \hfill \break
 \hfill \break
 \hfill \break
-
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
@@ -583,12 +556,12 @@ La figura \ref{fig:GPIOsAPI} muestra las dependencias que se usan para la implem
 \end{figure}
 
 
-Para todos los demás módulos de la biblioteca \textit{\textbf{sAPI}} para la pogramación de periféricos del microcontrolador se siguió esta misma lógica. Asimismo, se utilizó un esquema de nomenclatura de los archivos de encabezado y de código fuente similar al de las bibliotecas originales.  Esto permitió mantener una estructura organizada y coherente en la emulación, que facilita el mantenimiento y comprensión.
+Asimismo, se utilizó un esquema de nomenclatura de los archivos de encabezado y de código fuente similar al de las bibliotecas originales.  Esto permitió mantener una estructura organizada y coherente en la emulación, que facilita el mantenimiento y comprensión.
 
 
 También, se reutilizó el archivo de encabezado \texttt{sapi.h} que cumple con la misma funcionalidad que en la biblioteca \textit{\textbf{sAPI}}, la cual consiste en incluir todos los módulos que conforman la biblioteca para utilizarla en el programa de usuario. 
 
-Además, se reutilizaron los archivos de encabezado: \texttt{sapi\_datatypes.h} y \newline \texttt{sapi\_peripheral\_map.h} incluidos en todos los módulos de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA. La decisión de reutilización fue para emular las características de hardware y prevalecer el uso de todos los tipos de datos básicos y configuraciones de la placa.
+Además, se reutilizaron los archivos de encabezado: \texttt{sapi\_datatypes.h} y \newline \texttt{sapi\_peripheral\_map.h} incluidos en todos los módulos de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA. Esta reutilización busca emular las características de hardware y prevalecer el uso de todos los tipos de datos básicos y configuraciones de la placa.
 
 En la tabla \ref{tab:ConfiguracionGPIO} se muestran los tipos de datos de \texttt{sapi\_peripheral\_map.h} que se usan en la plataforma de emulación. Se puede observar que se reutilizó los nombres: TEC1, TEC2, TEC3 y TEC4 para los botones y los nombres LEDR, LEDG, LEDB, LED1, LED2 y LED3 para los LEDs de la placa EDU-CIAA-NXP.
 
@@ -664,7 +637,7 @@ En ese sentido, para la aplicación de usuario dentro de la plataforma, cuando s
 	\item Archivo \texttt{user\_tiempoenmilisegundos.wast}: representa el módulo \textit{WebAssembly} generado, pero en una representación de texto legible.
 \end{itemize}
 
-Estos archivos se ubicarán dentro del directorio de salida  \textit{outUser} que fue previamente configurado.
+Estos archivos se ubicarán dentro del directorio de salida  \textit{outUser}, el cual fue predefinido en la configuración de la aplicación.
 
 
 \subsection{JavaScript HAL}
@@ -698,6 +671,7 @@ En la sección de \ref{sec:caso_de_estudio}, se mostrará la implementación de 
 
 Para comenzar a emular la biblioteca \textit{sapi\_gpio} del proyecto CIAA, se identificaron las funciones principales que el entorno de la plataforma web debería ofrecer al usuario. La siguiente tabla \ref{tab:sapiGPIO} muestra las funciones del archivo de código fuente \textit{sapi\_gpio} en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA que también están presentes en el emulador.
 
+\hfill \break
 
 \begin{table}[h]
 	\centering
@@ -852,7 +826,7 @@ La función \texttt{delay} en la biblioteca \textit{\textbf{sAPI}} del proyecto 
 
 Sin embargo, cuando \textit{Emscripten} compila código \textit{C} a \textit{JavaScript}, la función \texttt{delay} tal como está escrita, causa que la ejecución de la plataforma web se bloquee o congele. Esto se debe a que la función \texttt{tickRead()} no se actualiza a la velocidad que se espera, lo que lleva a que se obtenga el mismo valor repetidamente. Es decir, debido a la naturaleza asincrónica de \textit{JavaScript} y al no tener una pausa controlada en el bucle (como \texttt{delay(1)}), \textit{JavaScript} no tiene tiempo suficiente para actualizar el valor de \texttt{tickRead()} entre iteraciones. De esta manera,  el bucle \texttt{while} se queda esperando activamente e impide al navegador atender otros eventos.
 
-Por esta razón, se decidio usar en las funciones de espera,  las funciones nativas de \textit{Emscripten} usando la capa de emulación \textit{C HAL}, que se ira detallando en la siguiente sección. En consecuencia, se aprovecho su eficiencia y precisión.
+Por esta razón, se decidio usar las funciones nativas de \textit{Emscripten} en la capa de emulación \textit{C HAL}. En consecuencia, se aprovecho su eficiencia y precisión.
 
 Para emular las funciones de espera de la biblioteca \textit{C} se implemento la función \texttt{emscripten\_sleep}, que utiliza funciones asincrónicas internas de \textit{Emscripten} para realizar pausas. 
 
@@ -873,7 +847,7 @@ La figura \ref{fig:emscriptenDelay} representa el funcionamiento de  \texttt{ems
 
 
 
-\subsection{\textit{\textbf{freertos}}}
+\subsection{\textit{\textbf{freeRTOS}}}
 
 Para emular la funcionalidad de las tareas de \textit{freeRTOS} en el contexto del emulador web, se utilizó la biblioteca de eventos de \textit{mbed}. Entonces, para las funciones \texttt{xTaskCreate} y \texttt{xTaskCreateStatic}, se programaron funciones periódicas utilizando las siguientes funciones de la biblioteca de \textit{Mbed events}: 
 
@@ -1061,175 +1035,6 @@ En la figura \ref{fig:uiADC} se muestra el diagrama de bloques con la interaccio
 \end{figure}
 
 
-\subsection{Tabla de Periféricos}
-
-La siguiente tabla \ref{tab:perifericosInternosMBED} expone los  periféricos internos implementados actualmente en \textit{Mbed Simulator}.
-
-\begin{table}[h]
-\centering
-\caption[Comparación de características de periféricos internos implementados en \textit{Mbed Simulator}]{Comparación de características de Periféricos internos implementados en \textit{Mbed Simulator}}
-\begin{tabular}{p{0.24\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
-\toprule
-\textbf{Periféricos} 
-& \textbf{Velocidad y tiempo real}
-& \textbf{Responde a eventos}
-\\
-\midrule
-GPIO & Si & Si  \\
-UART & Si & Si \\
-BUTTON & SI & Si \\
-ADC & Si & Si \\
-DAC & Si & No \\
-PWM & Si & No \\ 
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:perifericosInternosMBED}
-\end{table}
-
-
-En la figura \ref{fig:GPIOMbed} se muestra el funcionamiento de GPIO y en la figura \ref{fig:PMWMbed} expone el funcionamiento de PWM del \textit{Mbed Simulator}.
-
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.24]{./Figures/GPIOMbed.png}
-	\caption{Funcionamiento GPIO en \textit{Mbed Simulator}.}
-	\label{fig:GPIOMbed}
-\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.24]{./Figures/PMWMbed.png}
-	\caption{Funcionamiento PWM en \textit{Mbed Simulator}.}
-	\label{fig:PMWMbed}
-\end{figure}
-
-
-
-
-
-Además, en la tabla \ref{tab:perifericosExternosMBED} expone los  periféricos externos implementados actualmente en \textit{Mbed Simulator}.
-
-
-\begin{table}[h]
-\centering
-\caption[Comparación de características de Periféricos externos implementados en \textit{Mbed Simulator}]{Comparación de características de Periféricos externos implementados en \textit{Mbed Simulator}}
-\begin{tabular}{p{0.30\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
-\toprule
-\textbf{Periféricos} 
-& \textbf{Velocidad y tiempo real}
-& \textbf{Responde a eventos}
-\\
-\midrule
-DHT11 & Si & Si  \\
-LCD Display C12832 & Si & Si  \\
-LED & Si & Si \\
-Thermistor & Si & Si \\
-SHT31 & Si & Si \\
-Touch Screen ST7789H2 & Si & Si \\
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:perifericosExternosMBED}
-\end{table}
-
-La figura \ref{fig:perifericosMbed} muestra los periféricos externos de \textit{Mbed Simulator}.
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.81]{./Figures/perifericosMBED.png}
-	\caption{Periféricos externos de \textit{Mbed Simulator}.}
-	\label{fig:perifericosMbed}
-\end{figure}
-
-En la siguiente tabla \ref{tab:perifericosInternosCIAA} se exponen los  periféricos internos implementados en la primera versión de la plataforma de emulación web de la placa EDU-CIAA.
-
-\begin{table}[h]
-\centering
-\caption[Comparación de características de periféricos internos del Emulador EDU-CIAA]{Comparación de características de Periféricos}
-\begin{tabular}{p{0.24\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
-\toprule
-\textbf{Periféricos} 
-& \textbf{Velocidad y tiempo real}
-& \textbf{Responde a eventos}
-\\
-\midrule
-GPIO & Si & Si  \\
-UART & Si & Si \\
-BUTTON & SI & Si \\
-RTC & Si & Si  \\
-SYSTICK & No & Si \\
-ADC & Si & Si \\
-DAC & Si & No \\
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:perifericosInternosCIAA}
-\end{table}
-
-
-Además, la siguiente tabla \ref{tab:perifericosExternosCIAA} se exponen los  periféricos externos implementados en la plataforma de emulación web.
-
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
-\begin{table}[h]
-\centering
-\caption[Comparación de características de periféricos externos del Emulador EDU-CIAA]{Comparación de características de los periféricos externos del Emulador EDU-CIAA}
-\begin{tabular}{p{0.30\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
-\toprule
-\textbf{Periféricos} 
-& \textbf{Velocidad y tiempo real}
-& \textbf{Responde a eventos}
-\\
-\midrule
-DHT11 & Si & Si  \\
-LCD & Si & Si  \\
-LED & Si & Si  \\
-LCD DISPLAY 128x64 & Si & Si \\
-LCD DISPLAY 20x4 & Si & Si \\
-Thermistor NTC & Si & Si \\
-Potentiometer & Si & Si \\
-Joystick & Si & Si \\
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:perifericosExternosCIAA}
-\end{table}
-
-
-La figura \ref{fig:perifericosCIAA} muestra los periféricos externos implementados en el emulador web EDU-CIAA.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.40]{./Figures/perifericosCIAA.png}
-	\caption{Periféricos externos del emulador web EDU-CIAA.}
-	\label{fig:perifericosCIAA}
-\end{figure}
-
-
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-
 \section{Caso de estudio}
 \label{sec:caso_de_estudio}
 
@@ -1256,16 +1061,7 @@ Una vez que los archivos \texttt{.js} y \texttt{.wasm} se han generado a partir 
 
 
 La figura \ref{fig:DiagramaSecuencia} muestra la interacción del usuario con el sistema y el orden en que se producen. Además, se muestra los mensajes que se pasan entre las dependencias.
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+
 
 \begin{figure}[ht]
 	\centering
@@ -1276,12 +1072,18 @@ La figura \ref{fig:DiagramaSecuencia} muestra la interacción del usuario con el
 
 Además, la capa \textit{JavaScript HAL}, que interactúa con el código \textit{JavaScript} resultante de la compilación de la \textit{Biblioteca C} y \textit{C HAL}, se encarga de notificar los eventos ocurridos en esas capas para el programa de usuario \texttt{blinky}. Mediante la función \texttt{write}, se realiza la activación del evento que escribe en la GPIO, Como resultado, emitirá el evento con el nombre \texttt{gpio\_write}, pasando como argumentos el número de pin, el valor digital y el tipo de pin declarado.
 
-
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 La figura \ref{fig:GPIOEventEmitter} muestra el diagrama en bloques del evento con el nombre \newline \texttt{gpio\_write}.
+
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.40]{./Figures/GPIOEventEmitter.png}
+	\includegraphics[scale=.50]{./Figures/GPIOEventEmitter.png}
 	\caption{Activación de evento con el nombre \texttt{gpio\_write}.}
 	\label{fig:GPIOEventEmitter}
 \end{figure}
@@ -1295,7 +1097,7 @@ La figura \ref{fig:ListeningGPIOEventEmitter} muestra el diagrama en bloques del
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.40]{./Figures/ListeningGPIOEventEmitter.png}
+	\includegraphics[scale=.50]{./Figures/ListeningGPIOEventEmitter.png}
 	\caption{GPIO oyente del evento con el nombre \texttt{gpio\_write}.}
 	\label{fig:ListeningGPIOEventEmitter}
 \end{figure}
@@ -1312,6 +1114,17 @@ En la figura \ref{fig:AplicacionUsuarioLeds} se presenta para una función de la
 	\label{fig:AplicacionUsuarioLeds}
 \end{figure}
 
+
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \section{Despliegue}
 
