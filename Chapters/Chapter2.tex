@@ -1,24 +1,188 @@
 \chapter{Introducción específica} % Main chapter title
-
 \label{Chapter2}
 
 %----------------------------------------------------------------------------------------
-%	SECTION 1
+% Resumen de capitulo
 %----------------------------------------------------------------------------------------
-En el presente capítulo se introducen las tecnologías más importantes involucradas en el desarrollo del emulador on-line y las características de funcionamiento y de diseño.
 
-\section{Plataforma web}
-\label{sec:Plataforma web}
+En el presente capítulo se describe el estado actual de algunas soluciones implementadas, y se elige una plataforma existente, que cumple con los requerimientos del trabajo como base. También, se presenta el estudio del código fuente de \textit{Arm Mbed OS Simulator}. 
 
-Las aplicaciones web son provistas por un servidor web y pueden ser accedidas por los usuarios que se conecten a través de internet desde cualquier lugar mediante un navegador web \citep{NavegadorWeb}. Además, presentan la arquitectura cliente/servidor en donde un cliente o navegador web realiza peticiones al servidor y en consecuencia el servidor envía la respuesta de regreso. 
-En la figura \ref{fig:ClienteServidor} se muestra el esquema del modelo cliente/servidor.
+%----------------------------------------------------------------------------------------
+\section{Estado del arte}
+\label{sec:Estado del arte}
+%----------------------------------------------------------------------------------------
+
+Hoy en día no existe una herramienta de emulación para la placa EDU-CIAA-NXP. Sin embargo, existe la plataforma de código abierto ViHard \citep{ViHard} que emula dispositivos de hardware en la PC, pero con la placa ECU-CIAA-NXP real conectada a la PC a través del puerto USB. En la figura \ref{fig:ViHard} se muestra el esquema de la plataforma ViHard.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.45]{./Figures/EsquemaCliente_Servidor.jpg}
+	\includegraphics[scale=.40]{./Figures/ViHard.png}
+	\caption{Esquema de la plataforma ViHard.\protect\footnotemark}
+	\label{fig:ViHard}
+\end{figure}
+
+La plataforma se compone de un programa de PC con los perifericos virtuales de hardware y una biblioteca de firmware para la EDU-CIAA-NXP, que controla y gestiona el funcionamiento del hardware virtual. Ambos programas se comunican con el sistema embebido mediante UART, a través de un puerto USB.
+
+El programa de hardware virtual es una aplicacion de escritorio multiplataforma desarrollada utilizando el framework Electron \citep{Electron}. Por otro lado, la biblioteca embebida fue desarrollada en lenguaje C. 
+
+Por lo tanto, el usuario necesita ejecutar en su PC el programa de periféricos virtuales y contar con la biblioteca en el sistema embebido que controla el hardware virtual. A partir de ahí, procedería al desarrollo de su propio programa, que deberá compilar y descargar a la EDU-CIAA-NXP, y posteriormente realizar las pruebas correspondientes.
+
+Por otro lado, se encontraron muchas plataformas educativas que simulan microcontroladores, sobre todo para la placa Arduino \citep{Arduino}. Para el análisis, se seleccionaron algunos de los simuladores más populares que implementan funcionalidades relevantes para el presente trabajo, los cuales se describen en las siguientes secciones. 
+
+%------------------------------------
+\subsection{UnoArduSim}
+
+UnoArduSim \citep{UnoArduSim} fue desarrollado en la Universidad de Queen \citep{Queensu} por el profesor Stan Simmons. En la figura \ref{fig:UnoArduSim} puede observarse la interfaz del programa.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.33]{./Figures/UnoArduSim.png}
+	\caption{Plataforma UnoArduSim.}
+	\label{fig:UnoArduSim}
+\end{figure}
+
+La herramienta simula en la pantalla de la PC la placa Arduino Uno \citep{ArduinoUno} y muchos de los dispositivos de entrada y salida más usados, asimismo, permite la depuración interactiva de funciones o programas completos. Está diseñada específicamente para ejecutarse en el sistema operativo Windows. Además, el diseño de la interfaz gráfica no promueve la claridad visual, puesto que hay demasiados objetos en la pantalla y los que existen deberían estar mejor distribuidos. 
+
+%------------------------------------
+\subsection{Virtronics}
+
+Virtronics \citep{Virtronics} es uno de los simuladores más completos que hay hoy en día para Arduino \citep{Arduino}, ya que permite simular varios modelos y, además, tiene dos versiones disponibles: una versión paga y otra gratuita, pero con funciones limitadas. En la figura \ref{fig:Virtronics} se muestra la plataforma.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.35]{./Figures/Virtronics.png}
+	\caption{Plataforma Virtronics.}
+	\label{fig:Virtronics}
+\end{figure}
+
+%------------------------------------
+\subsection{Tinkercad}
+
+Tinkercad \citep{Tinkercad} es una plataforma online que permite el acceso desde cualquier navegador web, cuya interfaz de usuario se muestra en la figura \ref{fig:Tinkercad}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.40]{./Figures/Tinkercad.png}
+	\caption{Plataforma Tinkercad.}
+	\label{fig:Tinkercad}
+\end{figure}
+
+Fue desarrollado por ingenieros y diseñadores de software de Autodesk \citep{Autodesk} y permite diseños 3D. Adicionalmente, es necesario crear una cuenta  antes de empezar a usar la plataforma, por consiguiente, todos los diseños se guardan en la cuenta creada. 
+
+%------------------------------------
+\subsection{\textit{Arm Mbed OS Simulator}}
+
+\textit{Arm Mbed OS Simulator} \citep{ArmMbedSim} fue desarrollado por ingenieros de Arm, encargados de mantener las bibliotecas Mbed OS, \citep{ArmMbed} y es parte de Mbed Labs. La plataforma era accesible \textit{on line} al momento del comienzo de este proyecto, pero actualmente debe ser descargado desde su repositorio [ref] y luego, puede ejecutarse utilizando cualquier navegador web en la red local, o bien, realizar el despliegue en un servidor para que esté disponible \textit{on line}. En la figura \ref{fig:ArmMbed} puede observarse la plataforma online de Mbed Simulator.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.44]{./Figures/ArmMbed.png}
+	\caption{Plataforma Arm Mbed OS Simulator.}
+	\label{fig:ArmMbed}
+\end{figure}
+
+El funcionamiento de este emulador es muy simple. Se puede crear un programa desde cero, o bien, se puede elegir un ejemplo de la lista desplegable y cargar el proyecto desde el botón \textquotedbl Load demo\textquotedbl, luego añadir los componentes necesarios para el programa, como por ejemplo, el display que se observa en la figura \ref{fig:ArmMbed}, donde se pide al usuario indicar a qué pines estará conectado. Es importante mencionar que el programa ya incluye la placa con el microcontrolador precargada. Una vez completo el programa y el ensamblado del hardware, se puede compilar y ejecutar en el emulador usando el botón \textquotedbl Run\textquotedbl.
+
+%----------------------------------------------------------------------------------------
+\section{Análisis de los emuladores revisados}
+\label{sec:Análisis de los emuladores revisados}
+%----------------------------------------------------------------------------------------
+
+En la tabla \ref{tab:simuladores} se comparan las características más importantes de estos emuladores. 
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
+\begin{table}[ht]
+\centering
+\caption[Comparación de características de los emuladores revisados]{Comparación de características de los emuladores revisados}
+\begin{tabular}{p{0.24\linewidth} p{0.17\linewidth}  p{0.19\linewidth}  p{0.14\linewidth}  p{0.10\linewidth}}
+\toprule
+\textbf{Característica} 
+& \textbf{UnoArduSim}
+& \textbf{Virtronics}
+& \textbf{Tinkercad}
+& \textbf{Mbed OS}
+\\
+\midrule
+Placa/Plataforma emulada & Arduino Uno & Varios modelos Arduino & Arduino Uno & Arm Mbed OS\\
+Gratuito &    Sí & No & Sí & Sí\\
+Aplicación & Escritorio & Escritorio & Web & Web\\
+Plataforma & Windows & Windows/Linux & Todas & Todas\\
+Código abierto & No & No & No & Sí\\
+Dispositivos E/S & Sí & Sí & Sí & Sí  \\
+Panel de desarrollo & Sí & Sí & Sí & Sí \\
+Lenguaje & C & C & C & C/C++\\
+Debugging & Sí & Sí & Sí & No\\
+Ejemplos & Sí & Sí & Sí & Sí\\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:simuladores}
+\end{table}
+
+Cabe destacar, que de las plataformas revisadas \textit{Arm Mbed OS Simulator} es la única de código abierto. Sin embargo, este análisis sirve tembién para revisar, comprender y comparar las ventajas y desventajas de las otras plataformas, y tomar características útiles para el desarrollo del emulador. 
+
+Del análisis anterior, se desprende que \textit{Arm Mbed OS Simulator} presenta las siguientes ventajas significativas:
+
+\begin{itemize}
+	\item Código abierto: al tener acceso al código fuente permitió estudiar cómo funciona internamente el proyecto simulador, además, de la libertad de uso y distribución.
+	\item Arquitectua de aplicación web. 
+    \item Su capacidad para simular dispositivos y componentes.
+	\item Comunidad y Soporte: el proyecto tiene una comunidad activa de desarrolladores, que brinda acceso a una amplia base de conocimientos, documentación y soporte. 
+	\item Reconocimiento de Marca ARM mbed OS: al basarse en su proyecto simulador, se puede obtener cierto reconocimiento y confianza entre los usuarios.
+	\item Reutilización: ofrece un conjunto sólido de funcionalidades y características ya probadas que agilizó el desarrollo y redujo la probabilidad de introducir errores.
+	\item Actualizaciones y Mejoras Continuas: el proyecto Mbed Simulator recibe actualizaciones continuas con las últimas tecnologías que permite mantener el emulador para la placa EDU-CIAA-NXP actualizado.	
+\end{itemize}
+
+Sim embargo, actualmente, \textit{Arm Mbed OS Simulator} presenta las siguientes limitaciones:
+
+\begin{enumerate}
+	\item Dentro de un bucle infinito \texttt{while(1)}, es necesario agregar un retraso \newline(\texttt{delay)}, de lo contrario, el navegador no puede actualizar la interfaz de la plataforma web ni responder a eventos del usuario. Esto significa que el navegador no tiene la oportunidad de realizar otras tareas o responder a eventos mientras el bucle está en ejecución. Como resultado, el navegador se bloquea o congela y puede dejar de responder.
+	
+	\item En cada iteracion, la ejecución del programa puede variar en términos de tiempo, lo que puede afectar a la precisión en la sincronización de eventos dentro de la aplicación.
+
+	\item En \textit{Arm Mbed OS Simulator}, no hay restricciones significativas en cuanto a la cantidad de memoria que se puede asignar al stack o al heap  de un programa, lo cual difiere del hardware físico, donde sí existen limitaciones de memoria.
+	
+	\item Dentro del entorno web, las interrupciones no se manejan de la misma manera que en un sistema embebido real, debido a que no implementa el manejo de prioridades, por lo cual no afectan la ejecución del programa principal.
+	
+	\item Sin RTOS. No tiene la capacidad de ejecutar múltiples hilos de manera concurrente como lo haría un RTOS. Todo el código se ejecuta en un solo hilo. Se puede utilizar la biblioteca mbed-events para manejar ciertos aspectos de concurrencia, usando eventos y temporizadores.
+	
+	\item Emulación a nivel API de Mbed OS. No permite programar a bajo nivel, utilizando registros de core para la arquitectura ARM o periféricos.
+	
+	\item Sin capacidad de debug paso a paso. Se realiza el programa, se compila y ejecuta en el hardware virtual pero no permite la depuración de código.
+\end{enumerate}
+
+Dadas todas estas consideraciones y una vez confirmada su compatibilidad para los propósitos del presente trabajo, se decide basar el emulador de la EDU-CIAA-NXP en portar el proyecto \textit{Arm Mbed OS Simulator}, para la EDU-CIAA-NXP y sus bibliotecas.
+
+%----------------------------------------------------------------------------------------
+\section{Análisis del código fuente de \textit{Arm Mbed OS Simulator}}
+%----------------------------------------------------------------------------------------
+
+Se procedió a analizar en detalle el código fuente de \textit{Arm Mbed OS Simulator} para adquirir una compresión de su arquitectura, del funcionamiento del \textit{Sistema Operativo Mbed}, de los periféricos simulados y sus las interacciones, así como de las configuraciones necesarias para la plataforma web.
+
+%------------------------------
+\subsection{Análisis de las tecnologías utilizadas}
+
+\textit{Arm Mbed OS Simulator} es una aplicación web. Este tipo de aplicaciones son provistas por un servidor web y pueden ser accedidas por los usuarios que se conecten a través de internet desde cualquier lugar mediante un navegador web \citep{NavegadorWeb}. Además, presentan la arquitectura cliente/servidor (que se muestra en la figura \ref{fig:ClienteServidor}) en donde un cliente o navegador web realiza peticiones al servidor y en consecuencia el servidor envía la respuesta de regreso.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.48]{./Figures/EsquemaCliente_Servidor.jpg}
 	\caption{Esquema modelo cliente/servidor.}
 	\label{fig:ClienteServidor}
 \end{figure}
+
+\hfill \break
+\hfill \break
+\hfill \break
 
 Las razones por las que se optó por la tecnologia web se debe a las potenciales ventajas que presentan, de las cuales las más importantes son:
 
@@ -26,36 +190,43 @@ Las razones por las que se optó por la tecnologia web se debe a las potenciales
 	\item No es necesario instalar nada en la computadora del usuario.
 	\item No consumen los recursos del ordenador.
 	\item No se encuentra limitado a un lugar físico específico para acceder y utilizar las capacidades de emulación.
-	\item No obliga al usuario a usar un determinado sistema operativo, ya que se puede ejecutar en todos los dispositivos con acceso a un navegador web y una conexión a internet.
+	\item No obliga al usuario usar un determinado sistema operativo, ya que se puede ejecutar en todos los dispositivos con acceso a un navegador web y una conexión a internet.
 \end{itemize}
 
-En el desarrollo web, el \textit{frontend} es la parte del software que interactúa con el usuario y el \textit{backend} es la parte lógica que se encarga de tomar los datos, procesarlos y devolverlos al \textit{frontend}.
+En el desarrollo web, el \textit{frontend} es la parte del software que interactúa con el usuario y el \textit{backend} es la parte lógica que se encarga de tomar los datos, procesarlos y devolverlos al \textit{frontend}. En la figura \ref{fig:frontBackMbed} se muestra un esquema con las tecnologías web usadas en el presente trabajo.
 
-En la figura \ref{fig:frontBack} se muestra un esquema con las tecnologías
-web usadas en el presente trabajo.
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.57]{./Figures/FrontendBackend.jpg}
-	\caption{Esquema de las tecnologías que se usaron en el trabajo.}
-	\label{fig:frontBack}
+	\includegraphics[scale=.47]{./Figures/FrontendBackendMbed.png}
+	\caption{Esquema de las tecnologías utlilizadas en \textit{Arm Mbed OS Simulator}.}
+	\label{fig:frontBackMbed}
 \end{figure}
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+En las siguientes secciones se describen las tecnologías que forman parte del \textit{frontend} y \textit{backend} del emulador.
 
+%-------------------------
 \subsection{Frontend}
 \label{subsec:Frontend}
 
-Se describen brevemente las principales tecnologías que se usaron en esta parte del diseño de software.
+Se describen brevemente las principales tecnologías utilizadas:
 
 \begin{itemize}
 	\item JavaScript \citep{JavaScript}: es un lenguaje de programación que se ejecuta del lado del cliente en el navegador, o bien del lado del servidor mediante motores como NodeJS \citep{NodeJS}. En el caso del lado del cliente, permite crear páginas web dinámicas y también responder a eventos causados por el propio usuario tales como modificaciones del DOM, de la sigla en inglés  \textit{Document Object Model} \citep{DOM}. Por consiguiente, el desarrollo con JavaScript en el frontend permitió cargar y ejecutar los archivos resultantes generados por el compilador en el navegador. Asimismo, es el responsable de configurar el entorno necesario para ejecutar el emulador web y proporcionar la interfaz de usuario para la interacción. Además, en el backend fue útil para gestionar la comunicación y la interacción entre los diferentes componentes a través de solicitudes HTTP, permitiendo la transferencia de datos y el flujo de información dentro de la plataforma web.
 
-	\item NodeJS \citep{NodeJS}: 
-es un entorno de ejecución de JavaScript cuyo propósito es el desarrollo de aplicaciones web y servicios del lado del servidor. También, proporciona una arquitectura orientada a eventos y no bloqueante. 
+	\item NodeJS \citep{NodeJS}: es un entorno de ejecución de JavaScript cuyo propósito es el desarrollo de aplicaciones web y servicios del lado del servidor. También, proporciona una arquitectura orientada a eventos y no bloqueante. 
 De manera que, en el contexto del frontend, se utilizó como parte del flujo de trabajo de desarrollo, incluyendo la gestión de dependencias, automatización de tareas de compilación, pruebas y despliegue. Mientras tanto, en el backend, se utilizó para desarrollar las rutas, controladores y manejar la lógica de la aplicación en respuesta a las solicitudes entrantes y el envío de respuestas.
 
 	\item HTML \citep{HTML}: de la sigla en inglés \textit{Lenguaje de Marcas de Hipertexto, del inglés HyperText Markup Language}, es el lenguaje de marcas que sirve para etiquetar contenido y visualizarlos en el navegador web.
@@ -67,8 +238,6 @@ De manera que, en el contexto del frontend, se utilizó como parte del flujo de 
     \item SVG \citep{SVG}: de la sigla en inglés \textit{Scalable Vector Graphics}, es un formato de gráficos vectoriales bidimensionales con una base matemática que pueden modificarse según se necesite. Las imágenes creadas con este formato se pueden escalar y hacer zoom de forma arbitraria sin pérdida de resolución debido a que no están formadas por píxeles. Además, esta basado en el lenguaje de marcado extensible XML \citep{XML} y es un formato muy útil para ser utilizado en entornos web. 
 Para el desarrollo del diseño de la interfaz fue ideal el uso de este tipo de formato para evitar que las imagenes se deformen y también, ofrecer una experiencia visual interactiva.
 
-    \item SVG EDU-CIAA-NXP \citep{SVGFirmwareV3}, SVG GLCD 128x64, SVG LCD DISPLAY 20x4, SVG DHT11, SVG Potenciómetro \(10K\Omega\), SVG Termistor NTC, SVG Analog Stick, SVG LEDs: esta reutilización fue necesaria para brindar a los usuarios una experiencia visual interactiva. Asimismo, se incorporaron fuentes tipográficas en los dibujos SVG para las representaciones de texto. Estas fuentes  están definidas en información vectorial,  lo que permitió una visualización nítida y escalable en diferentes tamaños para las pantallas LCD.
-
     \item Xterm \citep{Xterm}: es un componente escrito en TypeScript \citep{TypeScript} que permite que una aplicación pueda usar terminales emuladas con todas sus funciones en el navegador web. 
 En el desarrollo del emulador web, se utilizó esta tecnología en la interfaz de usuario para visualizar la salida de la terminal.
 
@@ -76,17 +245,10 @@ En el desarrollo del emulador web, se utilizó esta tecnología en la interfaz d
 Se utilizó WebSocket para establecer la comunicación entre el frontend y el backend, y de esta manera, permitir la transferencia de datos de manera dinámica con el fin de mostrarlos en la terminal serial del emulador. 
        
     \item Socket.IO \citep{Socket}: es una biblioteca de Javascript que usa websocket para la comunicación bidireccional y para la baja latencia. También, está basada en el manejo de eventos entre un cliente y un servidor. El desarrollo con esta tecnología facilitó la transmisión de eventos en tiempo real para la salida de los datos de la terminal serial.
-    
-    
-     \item Mocha \citep{Mocha}: es un marco de trabajo para pruebas de JavaScript que tiene funciones que se ejecutan en NodeJS y en el navegador web. En consecuencia, hace que las pruebas asincrónicas sean simples. Asimismo, Las pruebas se ejecutan en serie y se realiza el envío de excepciones aún no detectadas a los casos de prueba correctos.
-El uso de este marco de trabajo permitió hacer pruebas sobre la interfaz de usuario de la plataforma.
-     
-     \item Chai \citep{Chai}: es una biblioteca de aserciones que puede usarse con cualquier marco de pruebas de Javascript. Asimismo, tiene varias interfaces: \textit{assert}, \textit{expect} y \textit{should}, que permiten al desarrollador elegir cuál usar. Chai se utiliza en las pruebas del emulador web para  verificar el comportamiento esperado de las funciones, componentes y datos generados por el emulador. 
-     
-   
+
 \end{itemize}
 
-
+%-------------------------
 \subsection{Backend}
 
 Se describen brevemente las principales tecnologías que se usaron en el backend.
@@ -102,47 +264,100 @@ El uso de esta herramienta tuvo por objetivo el compilar el código escrito en C
     
     \item Lenguaje C \citep{LenguajeC}: es de propósito general y es muy popular debido al eficiente código que produce al crear software de sistemas y de aplicaciones. 
     Asimismo, es un lenguaje de tipos de datos estáticos, fuertemente tipado y tiene estructuras típicas de los lenguajes de alto nivel pero, a su vez, tiene construcciones que permiten un control de los lenguajes de bajo nivel. El desarrollo con C fue fundamental, ya que permitió la integración de la biblioteca sAPI del Proyecto  CIAA en el desarrollo del emulador web.
-        
-    \item Check \citep{Check}: es una biblioteca de pruebas unitarias para el lenguaje de programación C que proporciona un conjunto de macros y funciones que facilitan la escritura y la ejecución de las pruebas unitarias. Además, provee mecanismos que aislan y ejecutan las pruebas en un entorno controlado y separado, usando suites de pruebas, funciones de inicialización y limpieza. Se utilizó en el emulador web para verificar el correcto funcionamiento de las funciones y componentes implementados en el backend del emulador escritos en lenguaje C.
-    
-    \item CMocka \citep{CMocka}: es una biblioteca de pruebas unitarias especialmente diseñada para C, destacandose por su capacidad de crear mocks (falsos) y stubs (simulaciones) de funciones. De esta manera se logra probar componentes de código que dependen de funciones externas. Y, además, facilita el aislamiento de las unidades de código y la creación de escenarios de prueba que pueden ser controlados. El uso de esta tecnología permitió simular funciones mediante mocks para controlar el comportamiento de las funciones dependientes y facilitar las pruebas de código que interactúa con dichas funciones.
-    
-    \item sAPI CIAA \citep{sAPICIAA}: esta biblioteca escrita en lenguaje C y compatible con C++ implementa una API simple que funciona como una capa de abstracción de hardware para microcontroladores. Es la principal biblioteca del Proyecto CIAA para el desarrollo de aplicaciones en C/C++ en los frameworks Firmware v2\citep{firmwareV2} y Firmware v3\citep{firmwareV3}. 
-Para la emulación a nivel de API, se utilizó como base la API de la sAPI v0.6.2 disponible en firmware v3 del Proyecto CIAA \citep{sAPIv0.6.2} y se realizarón las implementaciones necesarias para que funcione en la web, en lugar de funcionar en el hardware de un microcontrolador real.
-De esta manera, se proporcionó una interfaz idéntica, permitiendo a los usuarios del emulador, programar en la plataforma web de la misma manera que lo harían con la placa EDU-CIAA real, logrando que cualquier programa escrito utilizando la sAPI pueda correr en el emulador.
-Cabe destacar que al emular a nivel de sAPI, el usuario no podrá utilizar funciones de bajo nivel de la EDU-CIAA, como ser la biblioteca del fabricante del microcontrolador (LPCopen\citep{lpcopen}), o el acceso directo a registros físicos del microcontrolador.
     
     \item Mbed CLI \citep{MbedCLI}: es una herramienta de línea de comandos que facilita el desarrollo y la gestión de proyectos basados en la plataforma Mbed \citep{ArmMbed}. Incluso, permite realizar tareas como la configuración del entorno de desarrollo, compilación de código, gestión de dependencias y la depuración, permitiendo identificar y resolver problemas en el código. Se reutilizó esta herramienta, ya incluída en el emulador sobre el cual se basó este trabajo, para proporcionar una interfaz de línea de comandos que simplificó las tareas de configuración y despliegue del emulador web.
  
     
-     \item Mbed events \citep{ArmMbed}: es una biblioteca de código que se utiliza en el desarrollo de software embebido para facilitar la gestión de eventos y temporizadores. Para el desarrollo de la plataforma del emulador web se reutilizó esta biblioteca para la creación y gestión de tareas en freeRTOS.
+     \item Mbed events \citep{ArmMbed}: es una biblioteca de código que se utiliza en el desarrollo de software embebido para facilitar la gestión de eventos y temporizadores. Para el desarrollo de la plataforma del emulador web se reutilizó esta biblioteca para la creación y gestión de tareas en el RTOS.
      
 \end{itemize}
 
+%------------------------------
+\subsection{Análisis estructural de archivos y carpetas}
 
-\section{Herramientas de trabajo}
-\label{sec:Herramientas de trabajo}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.37]{./Figures/estructuraMbed.jpg}
+	\caption{Estructura de carpetas y archivos de \textit{Arm Mbed OS Simulator}.}
+	\label{fig:estructuraMbed}
+\end{figure}
 
-Se exponen las principales plataformas que se usaron para el desarrollo de este trabajo.
+En la figura \ref{fig:estructuraMbed} se exhibe la estructura de arbol de las carpetas y archivos de \textit{Arm Mbed OS Simulator} clonado desde GitHub.
+
+\hfill \break
+ 
+La carpeta \textquotedbl build-tools\textquotedbl{}  contiene tres archivos javascript: 
+
+\begin{enumerate}
+	\item build-application.js, que contiene funciones para construir aplicaciones en el contexto de \textit{Arm Mbed OS Simulator}. Asimismo, contiene métodos para encontrar los periféricos y manejar la construcción de componentes.
+	
+	\item build-libmbed.js, es un módulo de Node.js que realiza la compilación \textit{(build)} y gestión de dependencias. También, proporciona métodos que verifican las dependencias necesarias antes de la construcción.
+
+	\item helpers.js,  es un módulo de Node.js que proporciona funciones relacionadas con operaciones de sistema de archivos, compilación, y manipulación de directorios y archivos.
+\end{enumerate}
+ 
+Dentro de la carpeta \textquotedbl demos\textquotedbl{}  se encuentran todos los programas ejemplo que muestran cómo utilizar ciertas funcionalidades de \textit{Arm Mbed OS Simulator} y son útiles como referencia para comenzar con el desarrollo en el entorno web. 
+ 
+La carpeta \textquotedbl server\textquotedbl{}  contiene tres archivos javascript: 
+
+\begin{enumerate}
+	\item compile.js, este archivo realiza la generación de los archivos de salida compilados a partir del codigo fuente.
+	
+	\item get\_ips.js, proporciona una función para la configuración de las aplicaciones de red.
+
+	\item launch-server.js, define y configura un servidor web que permite ejecutar solicitudes de ejecución de aplicaciones, gestionar las conexiones de red y la comunicación LoRaWAN.
+	
+\end{enumerate}
+ 
+La carpeta \textquotedbl viewer\textquotedbl{}  contiene los archivos necesarios para crear interacción con el navegador. Entre estos archivos se encuentran: HTML, CSS, JavaScript, imágenes y bibliotecas de terceros o frameworks.
+ 
+La carpeta \textquotedbl mbed-simulator-hal\textquotedbl{}  contiene las siguientes sub-carpetas y son usadas en el contexto de \textit{Arm Mbed OS Simulator}: 
 
 \begin{itemize}
-	\item EDU-CIAA-NXP: esta es la plataforma de hardware objetivo a emular del presente trabajo. Es uno de los diseños de hardware del Proyecto CIAA. En particular, el enfoque es ayudar a las Universidades Argentinas a migrar de microcontroladores de 8 bits a modernos microcontroladores de 32 bits al usar una placa diseñada en Argentina con hardware y software abiertos. Estas placas se difundieron en todas las universidades Argentinas con carreras de electrónica y afines, y también, en algunos países limítrofes. 
-Se utilizó la placa física para ensayos de comparación entre lo real y el emulador web desarrollado.
-
-	\item Visual Studio Code \citep{VisualStudioCode}: es un editor de código fuente gratuito y de código abierto desarrollado por Microsoft. Incluye soporte para la depuración, control integrado de Git, resaltado de sintaxis, finalización inteligente de código, fragmentos, refactorización de código y muchas otras herramientas más. Se eligio este IDE, de la sigla en inglés Integrated Development Environment \citep{IDE}, por la capacidad de sus herramientas y la simpleza de su editor de código. El uso de este editor facilitó la escritura y el mantenimiento del código del emulador, mejorando la productividad y la calidad del desarrollo.
+	\item easy-connect, dentro de esta carpeta se encuentran archivos que facilitan la conexión a una red utilizando Ethernet para manipular conexiones de red, sockets y eventos.
 	
-	\item Inkscape \citep{inkscape}: es un editor de gráficos vectoriales que permite crear, editar y modificar gráficos. En el proceso de desarrollo de la interfaz del emulador web se utilizó para diseñar algunos elementos gráficos dentro del dibujo de la placa EDU-CIAA-NXP.
+	\item lora-radio-drv, proporciona un marco para interactuar y controlar el módulo de radio LoRa, lo que permite enviar y recibir datos, administrar el estado y el funcionamiento.
 
-	\item GitHub \citep{GitHub}: es una plataforma de desarrollo colaborativo que permite alojar proyectos utilizando el sistema de control de versiones Git. Se utilizó los servicios de esta plataforma para almacenar y
-compartir el código fuente, de manera que se pueda hacer un seguimiento
-de las últimas modificaciones realizadas.
+	\item mcc, establece una cola de eventos que se utilizará para manejar eventos en \textit{Arm Mbed OS Simulator}. 
 	
-	\item Travis CI \citep{TravisCI}: es un servicio de integración continua en la nube y es utilizado mayormente para configurar y ejecutar pruebas automatizadas en un entorno controlado y reproducible. Además, se integra con sistemas de control de versiones como GitHub y permite que con cada cambio realizado en el repositorio se ejecuten las pruebas definidas en el script de construcción.
-De esta manera, se asegura la calidad del software. Incluso, proporciona informes detallados de las pruebas realizadas y servicio de notificaciones por correo electrónico.
-
-	\item GitLab \citep{GitLab}: es una plataforma web de gestión de repositorios y permite la colaboración en el desarrollo de software. Proporciona un conjunto completo de herramientas para el ciclo de vida del desarrollo de software, por lo tanto, permite configurar pipelines de integración y entrega continua, en consecuencia, automatiza la compilación, las pruebas y el despliegue de software de manera eficiente. Es una alternativa a otras plataformas como GitHub con Travis CI.
+	\item MQTTNetwork, establece la interfaz para la comunicación de red con el protocolo MQTT. 
 	
-	\item DigitalOcean \citep{DigitalOcean}: ofrece servicios de infraestructura de computación en la nube, tales como permitir a los usuarios crear y administrar servidores virtuales, conocidos como Droplets. Incluso, ofrece opciones de almacenamiento, configuración de redes privadas virtuales, servicios de bases de datos, entre otros. DigitalOcean se destaca por su enfoque en la simplicidad y la facilidad de uso de su plataforma. El emulador desarrollado en el presente trabajo se encuentra desplegado en el servidor de DigitalOcean.
+	\item pelion-dm, implementación de temporizadores y manejo de eventos para la plataforma mbed.
+	
+	\item peripherals, proporciona implementación de los periféricos externos para ejecutarse en el entorno web.
+	
+	\item simblockdevice, establece una interfaz para interactuar con  dispositivos de bloques que emula un dispositivo de almacenamiento físico en el navegador web.
+	
+	\item mbed-os.lib, es un archivo de biblioteca en formato binario que contiene la versión del código fuente del sistema operativo de Mbed OS  que usa \textit{Arm Mbed OS Simulator}.
+	
+\end{itemize}
 
+La biblioteca \textquotedbl mbed-os.lib\textquotedbl{} se compone de las siguiente carpetas: 
+
+\begin{itemize}
+
+	\item drivers, dentro de esa carpeta se encuentran los diversos controladores que interactúan con los periféricos de hardware, y además, proporcionan una interfaz para acceder a ellos. 
+	
+	\item events, presenta archivos relacionados con la infraestructura de manejo de eventos para las tareas y operaciones de manera asíncrona.
+
+	\item features, contiene varias subcarpetas con varios módulos que gestionan la conexión celular en dispositivos integrados, proporcionan una interfaz para interactuar con LoRaWAN, manejar la manipulación de memoria para el uso de la pila LWIP, proporciona mbed TLS, implementación del protocolo de red 6LoWPAN, sockets de red, comunicación inalámbrica de corto alcance entre dispositivos y almacenamiento de datos en sistemas embebidos. 
+	
+	\item hal, contiene implementaciones específicas de hardware para diferentes plataformas y microcontroladores.  
+	
+	\item platform, proporciona una capa de abstracción adicional sobre la capa de abstracción de hardware (HAL) .
+	
+	\item rtos, contiene la implementación del sistema operativo en tiempo real (RTOS).
+	
+	\item targets, cada sub-carpeta corresponde a un microcontrolador o una plataforma específica y, además, contiene información sobre cómo Mbed OS debe funciona con una plataforma en particular.
+	
+	\item TEST\_APPS, contiene ejemplos y aplicaciones de prueba de diferentes plataformas de hardware que se utilizan para probar y verificar diversas funcionalidades de Mbed OS.
+	
+	\item TESTS, contiene pruebas unitarias y de integración que verifican y validan el correcto funcionamiento de los módulos y características de Mbed OS.
+	
+	\item tools, contiene herramientas y utilidades para el desarrollo, compilación, depuración y prueba para diferentes plataformas de hardware y sistemas operativos.
+
+	\item UNITTESTS, contiene pruebas unitarias para diferentes componentes del sistema operativo Mbed.
+
+	\item mbed.h, este archivo contiene declaraciones y definiciones iniciales para que estén disponibles para el desarrollo web del usuario. 
 	
 \end{itemize}

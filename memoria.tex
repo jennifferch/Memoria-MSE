@@ -75,9 +75,11 @@ headsepline, % Uncomment to get a line under the header
 %The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
 \centering
 
-La presente memoria describe el diseño e implementación de una plataforma web que emula la placa EDU-CIAA-NXP y permite desarrollar en lenguaje C sin la necesidad de tener la placa real. La interfaz de la plataforma permite escribir, probar y verificar aplicaciones rápidamente de una manera amigable y nace como una herramienta de aprendizaje para ser parte del Proyecto CIAA.
+La presente memoria describe el diseño e implementación de un emulador para la placa de desarrollo EDU-CIAA-NXP del Proyecto CIAA, concebido para la enseñanza de la programación de Sistemas Embebidos. Además de la EDU-CIAA-NXP, se emulan otras placas electrónicas y periféricos externos a conectar, permitiendo desarrollar programas en lenguaje C/C++, que se pueden compilar y ejecutar sobre el hardware virtual. 
 
-Para la realización de este trabajo fueron fundamentales los conocimientos relacionados al diseño de software, gestión de la tecnología e innovación, implementación de manejadores de dispositivos, sistema operativo de tiempo real, desarrollo de aplicaciones sobre sistemas operativos de propósito general y testing de sistemas embebidos. 
+Este emulador se desarrolló como una plataforma web, disponible \textit{on line}, que posibilita escribir, probar y verificar aplicaciones rápidamente de forma amigable y gratuita, sin la necesidad de contar con el hardware real.
+
+Para la realización de este trabajo fueron fundamentales los conocimientos relacionados al análisis y diseño de software, implementación de \textit{drivers} de dispositivos, planificación y sincronización de tareas, sistemas operativos de tiempo real, desarrollo de aplicaciones sobre Linux, y desarrollo de módulos del kernel. Además de \textit{tests} de calidad del software y planificación y gestión de proyectos.
 
 \end{abstract}
 
@@ -122,10 +124,10 @@ y al Codirector Mg. Ing. Eric Pernia.
 % Incluir los capítulos como archivos separados desde la carpeta Chapters
 
 \include{Chapters/Chapter1}
-\include{Chapters/Chapter2} 
+\include{Chapters/Chapter2}
 \include{Chapters/Chapter3}
-\include{Chapters/Chapter4} 
-\include{Chapters/Chapter5} 
+\include{Chapters/Chapter4}
+\include{Chapters/Chapter5}
 
 %----------------------------------------------------------------------------------------
 %	CONTENIDO DE LA MEMORIA  - APÉNDICES

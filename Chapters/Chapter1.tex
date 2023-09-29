@@ -1,9 +1,5 @@
 % Chapter 1
-
-\chapter{Introducción general} % Main chapter title
-
-\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
-\label{IntroGeneral}
+%\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 %----------------------------------------------------------------------------------------
 
@@ -17,190 +13,99 @@
 
 %----------------------------------------------------------------------------------------
 
-%\section{Introducción}
+\chapter{Introducción general} % Main chapter title
+\label{IntroGeneral}
 
 %----------------------------------------------------------------------------------------
-En este capítulo se exponen los problemas encontrados con el hardware en el estudio de los sistemas embebidos y la necesidad de un emulador para la placa EDU-CIAA-NXP \citep{EDU-CIAA-NXP}. También se describe el estado actual de algunas soluciones implementadas y una breve descripción de la plataforma propuesta.
+% Resumen de capitulo
+%----------------------------------------------------------------------------------------
 
+En este capítulo se exponen las problemáticas encontradas con el hardware en el estudio de los Sistemas Embebidos, que motiva la realización de un emulador para la placa EDU-CIAA-NXP \citep{EDU-CIAA-NXP}. Presentando los objetivos, el alcance, los requerimientos y la metodología de trabajo utilizada para llevar a cabo este proyecto.
+
+%----------------------------------------------------------------------------------------
 \section{Motivación}
-
-Para colaborar con la enseñanza de la programación de Sistemas Embebidos, se propuso, como parte del Proyecto CIAA \citep{CIAA}, realizar una plataforma de software que emule el funcionamiento de la placa EDU-CIAA-NXP y los periféricos que se pueden conectar a ella.
-
-Esto se debe a que para el desarrollo de aplicaciones en sistemas embebidos es necesario tener de antemano la placa de desarrollo y los componentes de hardware externos a conectar a la placa, para poder probar los programas realizados. Además, muchas veces un usuario sin experiencia, no cuenta, o se equivoca en la selección de los dispositivos para comenzar, o bien, en las conexiones, provocando daños irreparables en el hardware. 
-
-De esta manera, mediante el uso de un emulador se evita todos estos inconvenientes y permite al usuario principiante probar sus programas rápidamente, enfocándose en el desarrollo de aplicaciones y permitiéndoles ejecutar sus pruebas en un sistema virtual dejando para más adelante la implementación en el hardware real.
-
-El valor de tener un emulador podría apreciarse en estas cuatro aplicaciones prácticas:
-\begin{itemize}
-	\item A nivel docente y de enseñanza en escuelas o academias de formación en programación de sistemas embebidos.
-	\item Como herramienta para realizar primeras pruebas.
-	\item Como herramienta para evaluar programas que no funcionen como se esperaba, ya que se aísla el hardware.
-	\item Permite a estudiantes con bajos recursos aprender a programar Sistemas Embebidos utilizando hardware virtual que se comporta como el hardware real, el cual es muy costoso e incluye muchas placas diferentes para probar diferentes tecnologías.
-\end{itemize}
-
-
 %----------------------------------------------------------------------------------------
 
-\section{Descripción técnica-conceptual}
+Los emuladores son desarrollos de software que modelan el funcionamiento del hardware real, de manera que permiten ejecutar programas dentro de un ambiente que imita su comportamiento \citep{sanchezqemu}. De esta forma un usuario puede simular su código antes de instalarlo en el dispositivo físico.
 
-Los emuladores son desarrollos de software que modelan el funcionamiento del hardware real, de manera que permiten ejecutar programas dentro de un ambiente que imita su comportamiento \citep{sanchezqemu}. De esta forma el usuario puede simular su código antes de instalarlo en el dispositivo físico.
+Para colaborar con la enseñanza de la programación de Sistemas Embebidos, se propuso, como parte del Proyecto CIAA \citep{CIAA}, realizar una plataforma de software que emule el funcionamiento de la placa EDU-CIAA-NXP, así como los periféricos y placas que se pueden conectar a ella.
 
-Teniendo en cuenta dichas características, el presente trabajo se centró en construir una plataforma de desarrollo con interfaz gráfica que realiza la emulación de la placa EDU-CIAA-NXP dentro de un entorno web. La arquitectura responde a la emulación a nivel de API \citep{API}, para lo cual fue necesario integrar y adaptar la biblioteca sAPI \citep{sAPICIAA} del proyecto CIAA.
+Esto se debe a que para el desarrollo de aplicaciones en sistemas embebidos es necesario tener de antemano la placa de desarrollo y los componentes de hardware externos a conectar a la placa, para poder probar los programas realizados. Además, muchas veces un usuario sin experiencia, no cuenta con los dispositivos para comenzar, se equivoca en la selección de los mismos, o en las conexiones eléctricas, provocando daños irreparables en el hardware. 
 
-En la figura \ref{fig:EsquemaEmulador} se observa una computadora que debe acceder a la plataforma de emulacion de la placa EDU-CIAA-NXP mediante un navegador web. Entonces, la herramienta imitará las características de hardware e incluso las de software dentro del entorno de programación en la computadora del usuario, todo de manera virtual.
+De esta manera, mediante el uso de un emulador se evita todos estos inconvenientes y permite al usuario probar sus programas rápidamente, enfocándose en el desarrollo de aplicaciones y ejecutando sus pruebas en un sistema virtual, dejando para más adelante la implementación en el hardware real.
+
+Un aspecto importante a destacar es el alto costo del hardware y la variedad de dispositivos necesarios. Entonces, contar con un emulador habilita a personas con bajos recursos aprender a programar Sistemas Embebidos utilizando hardware virtual, que se comporta como el hardware real, permitiendo probar diferentes tecnologías.
+
+Para disponibilizar esta herramienta lo más posible, se decidió construir una plataforma de desarrollo con interfaz gráfica dentro de un entorno web, accesible a través de un navegador. De esta manera, se obtiene una herramienta que esté disponible de forma \textit{on line}, para que pueda usarse de forma gratuita, tanto en Computadoras, Tablets o Smartphones, como puede observarse en al figura \ref{fig:EsquemaEmulador}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.60]{./Figures/EsquemaEmulador.png}
+	\includegraphics[scale=.55]{./Figures/EsquemaEmuladorCh1.png}
 	\caption{Esquema Emulador EDU-CIAA-NXP.}
 	\label{fig:EsquemaEmulador}
 \end{figure}
 
 En otras palabras, con esta herramienta de emulación, una persona que recién comienza tendrá la experiencia de relacionarse con un sistema embebido solamente conectandose mediante internet a la aplicación web en su ordenador, liberando así el camino a los estudiantes novatos de hacer la interacción con el hardware.
-%----------------------------------------------------------------------------------------
 
-\section{Estado del arte}
-
-Hoy en día no existe una herramienta de emulación para la placa EDU-CIAA-NXP. Sin embargo, existe la plataforma de código abierto ViHard \citep{ViHard} que emula dispositivos de hardware en la PC, pero con la placa ECU-CIAA-NXP real conectada a la PC a través del puerto USB. 
-
-La plataforma se compone de: un programa de PC con los perifericos virtuales de hardware y un programa de firmware con una biblioteca embebida, que controla y gestiona el funcionamiento del hardware virtual. Ambos programas se comunican con el sistema embebido mediante UART, a través de un puerto USB.
-
-El programa de hardware virtual es una aplicacion de escritorio multiplataforma desarrollada utilizando el framework Electron \citep{Electron}. Por otro lado, la biblioteca embebida fue desarrollada en lenguaje C. 
-
-Por lo tanto, el usuario necesita ejecutar en su PC el programa de periféricos virtuales y contar con la biblioteca en el sistema embebido que controla el hardware virtual. A partir de ahí, procedería al desarrollo de su propio programa, que deberá compilar y descargar a la EDU-CIAA-NXP, y posteriormente realizar las pruebas correspondientes.
-
-
-La figura \ref{fig:ViHard} muestra el esquema de la plataforma ViHard.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.40]{./Figures/ViHard.png}
-	\caption{Esquema de la plataforma ViHard.\protect\footnotemark}
-	\label{fig:ViHard}
-\end{figure}
-
-\footnotetext{Imagen tomada de \url{http://laboratorios.fi.uba.ar/lse/tesis/LSE-FIUBA-Trabajo-Final-MSE-Agustin-Bassi-2018.pdf}}
-
-Por otro lado, se encontraron muchas plataformas educativas que simulan microcontroladores, sobre todo para la placa Arduino \citep{Arduino}. Para el análisis, se seleccionaron algunos de los simuladores más populares que implementan funcionalidades relevantes para el presente trabajo, los cuales se describen a continuación. 
-
-UnoArduSim \citep{UnoArduSim} fue desarrollado en la Universidad de Queen \citep{Queensu} por el profesor Stan Simmons. La herramienta simula en la pantalla de la PC la placa Arduino Uno \citep{ArduinoUno} y muchos de los dispositivos de entrada y salida más usados, asimismo, permite la depuración interactiva de funciones o programas completos. Está diseñada específicamente para ejecutarse en el sistema operativo Windows. Además, el diseño de la interfaz gráfica no promueve la claridad visual, puesto que hay demasiados objetos en la pantalla y los que existen deberían estar mejor distribuidos. 
-
-En la figura \ref{fig:UnoArduSim} puede observarse la interfaz de la aplicación.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.33]{./Figures/UnoArduSim.png}
-	\caption{Plataforma UnoArduSim.}
-	\label{fig:UnoArduSim}
-\end{figure}
-
-
-
-Virtronics \citep{Virtronics} es uno de los simuladores más completos que hay hoy en día para Arduino \citep{Arduino}, ya que permite simular varios modelos y, además, tiene dos versiones disponibles: una versión paga y otra gratuita, pero con funciones limitadas. 
-
-En la figura \ref{fig:Virtronics} se muestra la plataforma.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.35]{./Figures/Virtronics.png}
-	\caption{Plataforma Virtronics.}
-	\label{fig:Virtronics}
-\end{figure}
-
-
-Tinkercad \citep{Tinkercad} es una plataforma online que permite el acceso desde cualquier navegador web. Fue desarrollado por ingenieros y diseñadores de software de Autodesk \citep{Autodesk} y permite diseños 3D. Adicionalmente, es necesario crear una cuenta  antes de empezar a usar la plataforma, por consiguiente, todos los diseños se guardan en la cuenta creada.
-
-En la figura \ref{fig:Tinkercad} puede observarse la interfaz de usuario.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.42]{./Figures/Tinkercad.png}
-	\caption{Plataforma Tinkercad.}
-	\label{fig:Tinkercad}
-\end{figure}
-
-
-Mbed Simulator \citep{ArmMbedSim} fue desarrollado por ingenieros de Mbed \citep{ArmMbed} y es parte de Mbed Labs. La plataforma es accesible en modo offline, lo que significa que el proyecto debe ser descargado y luego, puede ejecutarse utilizando cualquier navegador web.
-
-En la figura \ref{fig:ArmMbed} puede observarse la plataforma online de Mbed Simulator.
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.44]{./Figures/ArmMbed.png}
-	\caption{Plataforma Mbed Simulator.}
-	\label{fig:ArmMbed}
-\end{figure}
-
-El funcionamiento de este emulador es muy simple. Se puede crear un programa desde cero, o bien, se puede elegir un ejemplo de la lista desplegable y cargar el proyecto desde el botón \textquotedbl Load demo\textquotedbl, luego añadir los componentes necesarios para el programa, como por ejemplo, el display que se observa en la figura \ref{fig:ArmMbed}, donde se pide al usuario indicar a qué pines estará conectado. Es importante mencionar que el programa ya incluye la placa con el microcontrolador precargada. Una vez completo el programa y el ensamblado del hardware, se puede compilar y ejecutar en el emulador usando el botón \textquotedbl Run\textquotedbl.
-
-En la tabla \ref{tab:simuladores} se presenta algunas de las características más importantes que tienen en común estas plataformas y también, algunas de las diferencias encontradas.
-
-\begin{table}[h]
-\centering
-\caption[Comparación de características de plataformas de simulación]{Comparación de características de plataformas de simulación}
-\begin{tabular}{p{0.24\linewidth} p{0.17\linewidth}  p{0.19\linewidth}  p{0.14\linewidth}  p{0.10\linewidth}}
-\toprule
-\textbf{Característica} 
-& \textbf{UnoArduSim}
-& \textbf{Virtronics}
-& \textbf{Tinkercad}
-& \textbf{Mbed}
-\\
-\midrule
-Microcontrolador & Arduino Uno & Varios modelos Arduino & Arduino Uno & Arm\\
-Gratuito &    Sí & No & Sí & Sí\\
-Aplicación & Escritorio & Escritorio & Web & Web\\
-Plataforma & Windows & Windows/Linux & Todas & Todas\\
-Código abierto & No & Sí & No & Sí\\
-Dispositivos E/S & Sí & Sí & Sí & Sí  \\
-Panel de desarrollo & Sí & Sí & Sí & Sí \\
-Lenguaje & C & C & C & C/C++\\
-Debugging & Sí & Sí & Sí & No\\
-Biblioteca ejemplos & Sí & Sí & Sí & Sí\\
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:simuladores}
-\end{table}
-
-
-Para realizar el presente trabajo final, se decidió basarse en el proyecto Mbed Simulator debido a las siguientes ventajas significativas:
-
-\begin{itemize}
-	\item Comunidad y Soporte: el proyecto tiene una comunidad activa de desarrolladores, que brinda acceso a una amplia base de conocimientos, documentación y soporte. 
-	\item Reconocimiento de Marca ARM mbed OS: al basarse en su proyecto simulador, se puede obtener cierto reconocimiento y confianza entre los usuarios.
-	\item Código abierto: al tener acceso al código fuente permitió estudiar cómo funciona internamente el proyecto simulador, además, de la libertad de uso y distribución.
-	\item Reutilización: ofrece un conjunto sólido de funcionalidades y características ya probadas que agilizó el desarrollo y redujo la probabilidad de introducir errores.
-	\item Actualizaciones y Mejoras Continuas: el proyecto Mbed Simulator recibe actualizaciones continuas con las últimas tecnologías que permite mantener el emulador para la placa EDU-CIAA-NXP actualizado.
-	
-\end{itemize}
-
-
+La autora del presente trabajo ha colaborado previamente en el Proyecto CIAA, mediante el desarrollo del software CIAA-BOT Debug como Trabajo Final de la Carrera en Especialización en Sistemas Embebidos de la FI-UBA \citep{TrabajoFinalCESE}, que permite depurar programas realizados mediante el lengaje gráfico CIAA-BOT.
 
 %----------------------------------------------------------------------------------------
+\section{Objetivos}
+%----------------------------------------------------------------------------------------
 
-\section{Propósito y Alcance}
+Dados los antecedentes explicados, el objetivo de este trabajo es desarrollar una herramienta educativa que brinda un entorno virtual para la placa EDU-CIAA-NXP, permitiendo al usuario seleccionar y conectar con la EDU-CIAA-NXP diferentes tipos de dispositivos virtuales e interactuar con los mismos. Este desarrollo permite al usuario cargar, ejecutar, editar y corregir sus programas escritos en lenguaje C, pudiendo monitorizar gráficamente en la pantalla del ordenador la placa EDU-CIAA-NXP y muchos de los dispositivos de entrada y salida más comunes, todo de manera virtual, sin necesidad de disponer de ningún dispositivo de hardware.
 
-\subsection{Propósito}
+%----------------------------------------------------------------------------------------
+\section{Alcance}
+%----------------------------------------------------------------------------------------
 
-El propósito de este trabajo fue desarrollar una herramienta educativa que brinda un entorno virtual para la placa EDU-CIAA-NXP, permitiendo al usuario seleccionar e interactuar con diferentes tipos de dispositivos virtuales de entrada/salida. Este desarrollo permite al usuario cargar,
-ejecutar, editar y corregir sus programas escritos en lenguaje C, pudiendo monitorizar gráficamente en la pantalla del ordenador la placa EDU-CIAA-NXP y muchos de los dispositivos de entrada y salida más comunes, todo de manera virtual, sin necesidad de disponer de ningún dispositivo de hardware.
-
-\subsection{Alcance}
-
-En el presente trabajo se realizó una primera versión de la herramienta para ser usada con la placa EDU-CIAA-NXP.
-
-En particular, se incluyen los siguientes aspectos:
+En el presente trabajo se realizó una primera versión de la herramienta para ser usada con la placa EDU-CIAA-NXP. En particular, se incluyen los siguientes aspectos:
 
 \begin{enumerate}
 	\item Desarrollo de aplicación para emular el hardware en PC.
-	\item Desarrollo de programas de ejemplo para ser usados dentro de la aplicación.
+	\item Realización de programas de ejemplo para ser usados dentro de la aplicación.
 	\item Documentación de referencia.
 \end{enumerate}
 
-El presente proyecto no incluye los siguientes aspectos:
+El presente proyecto no incluye el desarrollo de la aplicación para emular otras placas que no sea EDU-CIAA-NXP.
+
+%----------------------------------------------------------------------------------------
+\section{Requerimientos}
+\label{sec:Requerimientos}
+%----------------------------------------------------------------------------------------
+
+Se han identificado los siguientes requerimientos:
 
 \begin{enumerate}
-	\item Desarrollo de la aplicación para emular otras placas que no sea EDU-CIAA-NXP.
+    \item Investigación y definición de la arquitectura del software.
+        \begin{enumerate}
+            \item Investigar sobre las plataformas de emulación de hardware existentes.
+            \item Investigar la arquitectura y funcionamiento de las bibliotecas y ejemplos para la EDU-CIAA-NXP, disponibles en firmware v3 \citep{firmwareV3}.
+        \end{enumerate}
+    \item Desarrollo del Emulador.
+        \begin{enumerate}
+            \item Realizar la aplicación para emular el hardware.
+            \item Integrar las bibliotecas de lenguaje C de la placa EDU-CIAA-NXP portándolas a la paltaforma virtual.
+            \item Respetar el estilo de código de las bibliotecas.
+            \item Portar ejemplos de utilización de las bibliotecas.
+            \item Desarrollar nuevos ejemplos.
+        \end{enumerate}
+    \item Documentación del proyecto.
+        \begin{enumerate}
+            \item Elaborar la documentación de la plataforma.
+            \item Confeccionar un manual de usuario.
+        \end{enumerate}
 \end{enumerate}
+
+%----------------------------------------------------------------------------------------
+\section{Metodología de trabajo}
+%----------------------------------------------------------------------------------------
+
+Para el desarrollo de este trabajo se eligió utilizar las siguientes prácticas:
+
+\begin{itemize}
+    \item Utilizar software libre para el desarrollo del proyecto. Reutilizar todo el software y ejemplos disponibles, tanto del Proyecto CIAA como de terceros.
+    \item Utilizar un Sistema de Control de Versiones de código fuente distribuído \citep{ControlVersionesGIT}.
+    \item Desarrollar \textit{tests} unitarios y de integración.
+    \item Automatizar los \textit{tests} y \textit{deployments} mediante Integración Continua \citep{IntegraciónContinuaGIT}.
+\end{itemize}

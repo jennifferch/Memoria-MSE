@@ -316,13 +316,21 @@ Luego de completar el caso de uso CP02, se obtuvo el siguiente resultado:
 \end{itemize}
 
 
-La figura \ref{fig:rtcprintf} muestra en la consola integrada la salida del ensayo. 
+La figura \ref{fig:rtcprintf1} muestra el código que corresponde al ejemplo \textit{\textbf{rtc printf}}
+y la figura \ref{fig:rtcprintf2} muestra en la consola integrada la salida del ensayo. 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.21]{./Figures/rtcprintf.png}
+	\includegraphics[scale=.40]{./Figures/rtcprintf1.png}
+	\caption{Código  del ejemplo \textit{\textbf{rtc printf}}.}
+	\label{fig:rtcprintf1}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.44]{./Figures/rtcprintf2.png}
 	\caption{Salida por consola del ensayo \textit{\textbf{rtc printf}}.}
-	\label{fig:rtcprintf}
+	\label{fig:rtcprintf2}
 \end{figure}
 
 \subsubsection{Ensayo en la placa EDU-CIAA-NXP} 
@@ -337,15 +345,6 @@ La figura \ref{fig:rtcprintfEclipse} expone el ejemplo \textit{\textbf{rtc print
 	\caption{Ejemplo \textit{\textbf{rtc printf}} importado en \textit{eclipse}.}
 	\label{fig:rtcprintfEclipse}
 \end{figure}
-
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
 
 
 Finalmente, se ejecuta el mismo ejemplo en la placa física EDU-CIAA-NXP y se obtiene por consola la siguiente salida que se muestra en la figura \ref{fig:rtcprintfPlaca}:
@@ -602,14 +601,21 @@ int main()
 \end{enumerate}
 	
 
-La figura \ref{fig:Testtickhook} muestra en la consola integrada la salida de \textquotedbl Blinky LED3\textquotedbl muchas veces. 
+La figura \ref{fig:Testtickhook1} presenta el código de usuario en el área de codificación y la figura \ref{fig:Testtickhook2} muestra en la consola integrada la salida de \textquotedbl Blinky LED3\textquotedbl muchas veces. 
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.20]{./Figures/Testtickhook.png}
+	\includegraphics[scale=.41]{./Figures/Testtickhook1.png}
+	\caption{Código del ensayo del nuevo proyecto tick hook.}
+	\label{fig:Testtickhook1}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.49]{./Figures/Testtickhook2.png}
 	\caption{Salida por consola del ensayo tick hook.}
-	\label{fig:Testtickhook}
+	\label{fig:Testtickhook2}
 \end{figure}
 
 \subsubsection{Ensayo en la placa EDU-CIAA-NXP} 
@@ -624,19 +630,6 @@ Se ejecuta el mismo ejemplo en la placa física EDU-CIAA-NXP y se obtiene por co
 	\label{fig:TesttickhookPlaca}
 \end{figure}
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
 Se observa que la salida por consola de \textquotedbl Blinky LED3\textquotedbl se muestra solo una vez, lo cual difiere de la salida por consola de la plataforma web que muestra \textquotedbl Blinky LED3\textquotedbl{} muchas veces.
 
 La diferencia de este comportamiento en el emulador web esta relacionada con la forma en cómo JavaScript reanuda la ejecución después de que ocurre un tick. Por lo tanto, la forma en que se gestionan los estados en la ejecución de funciones puede diferir del comportamiento en la placa EDU-CIAA-NXP.
@@ -647,7 +640,7 @@ Para solucionar esta diferencia en el entorno del emulador web, se podría explo
 
 \subsection{Periféricos implementados en \textit{Mbed Simulator} y en el Emulador EDU-CIAA-NXP}
 
-La siguiente tabla \ref{tab:perifericosInternosMBED} expone los  periféricos internos implementados actualmente en \textit{Mbed Simulator}.
+A continuación, se presenta los periféricos internos y externos que están disponibles para la simulación en \textit{Mbed Simulator}. La tabla \ref{tab:perifericosInternosMBED} expone los  periféricos internos implementados en \textit{Mbed Simulator}, ademas de realizar una comparacion  si responde a eventos, velocidad y tiempo real.
 
 \begin{table}[h]
 \centering
@@ -671,33 +664,42 @@ PWM & Si & No \\
 \label{tab:perifericosInternosMBED}
 \end{table}
 
+\hfill \break
+\hfill \break
 
-En la figura \ref{fig:GPIOMbed} se muestra el funcionamiento de GPIO y en la figura \ref{fig:PMWMbed} expone el funcionamiento de PWM del \textit{Mbed Simulator}.
+En la figura \ref{fig:GPIOMbed} se muestra el funcionamiento de GPIO y la figura \ref{fig:PMWMbed} expone el funcionamiento de PWM del \textit{Mbed Simulator}.
 
-
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.28]{./Figures/GPIOMbed.png}
+	\includegraphics[scale=.29]{./Figures/GPIOMbed.png}
 	\caption{Funcionamiento GPIO en \textit{Mbed Simulator}.}
 	\label{fig:GPIOMbed}
 \end{figure}
 
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.28]{./Figures/PMWMbed.png}
+	\includegraphics[scale=.29]{./Figures/PMWMbed.png}
 	\caption{Funcionamiento PWM en \textit{Mbed Simulator}.}
 	\label{fig:PMWMbed}
 \end{figure}
@@ -731,19 +733,7 @@ Touch Screen ST7789H2 & Si & Si \\
 \label{tab:perifericosExternosMBED}
 \end{table}
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+
 La figura \ref{fig:perifericosMbed} muestra los periféricos externos de \textit{Mbed Simulator}.
 
 
@@ -754,7 +744,24 @@ La figura \ref{fig:perifericosMbed} muestra los periféricos externos de \textit
 	\label{fig:perifericosMbed}
 \end{figure}
 
-En la siguiente tabla \ref{tab:perifericosInternosCIAA} se exponen los  periféricos internos implementados en la primera versión de la plataforma de emulación web de la placa EDU-CIAA.
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
+También, se presenta los periféricos internos y externos implementados en la primera versión de la plataforma de emulación web de la placa EDU-CIAA. La tabla \ref{tab:perifericosInternosCIAA} expone los  periféricos internos disponibles en el entorno web y expone una comparación si responde a eventos, velocidad y tiempo real.
+
 
 \begin{table}[h]
 \centering
@@ -782,6 +789,8 @@ DAC & Si & No \\
 
 Además, la siguiente tabla \ref{tab:perifericosExternosCIAA} se exponen los  periféricos externos implementados en la plataforma de emulación web.
 
+\hfill \break
+\hfill \break
 
 \begin{table}[h]
 \centering
@@ -808,7 +817,7 @@ Joystick & Si & Si \\
 \end{table}
 
 
-La figura \ref{fig:perifericosCIAA} muestra los periféricos externos implementados en el emulador web EDU-CIAA.
+La figura \ref{fig:perifericosCIAA} muestra los dibujos en formato SVG de los periféricos externos y disponibles en el emulador web EDU-CIAA.
 
 \begin{figure}[ht]
 	\centering
