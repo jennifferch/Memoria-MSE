@@ -112,7 +112,7 @@ En la tabla \ref{tab:simuladores} se comparan las características más importan
 & \textbf{Mbed OS}
 \\
 \midrule
-Placa/Plataforma emulada & Arduino Uno & Varios modelos Arduino & Arduino Uno & Arm Mbed OS\\
+Placa/Plataforma emulada & Arduino Uno y Mega & Varios modelos Arduino & Arduino Uno & Arm Mbed OS\\
 Gratuito &    Sí & No & Sí & Sí\\
 Aplicación & Escritorio & Escritorio & Web & Web\\
 Plataforma & Windows & Windows/Linux & Todas & Todas\\
@@ -128,7 +128,7 @@ Ejemplos & Sí & Sí & Sí & Sí\\
 \label{tab:simuladores}
 \end{table}
 
-Cabe destacar, que de las plataformas revisadas \textit{Arm Mbed OS Simulator} es la única de código abierto. Sin embargo, este análisis sirve tembién para revisar, comprender y comparar las ventajas y desventajas de las otras plataformas, y tomar características útiles para el desarrollo del emulador. 
+Cabe destacar, que de las plataformas revisadas \textit{Arm Mbed OS Simulator} es la única de código abierto. Sin embargo, este análisis sirve también para revisar, comprender, comparar las ventajas y desventajas de las otras plataformas, y tomar características útiles para el desarrollo del emulador. 
 
 Del análisis anterior, se desprende que \textit{Arm Mbed OS Simulator} presenta las siguientes ventajas significativas:
 
@@ -163,15 +163,16 @@ Sim embargo, actualmente, \textit{Arm Mbed OS Simulator} presenta las siguientes
 Dadas todas estas consideraciones y una vez confirmada su compatibilidad para los propósitos del presente trabajo, se decide basar el emulador de la EDU-CIAA-NXP en portar el proyecto \textit{Arm Mbed OS Simulator}, para la EDU-CIAA-NXP y sus bibliotecas.
 
 %----------------------------------------------------------------------------------------
-\section{Análisis del código fuente de \textit{Arm Mbed OS Simulator}}
+\section{Análisis de \textit{Arm Mbed OS Simulator}}
 %----------------------------------------------------------------------------------------
 
 Se procedió a analizar en detalle el código fuente de \textit{Arm Mbed OS Simulator} para adquirir una compresión de su arquitectura, del funcionamiento del \textit{Sistema Operativo Mbed}, de los periféricos simulados y sus las interacciones, así como de las configuraciones necesarias para la plataforma web.
 
 %------------------------------
-\subsection{Análisis de las tecnologías utilizadas}
+\subsection{Tecnologías utilizadas}
+\label{sec:Tecnologías utilizada}
 
-\textit{Arm Mbed OS Simulator} es una aplicación web. Este tipo de aplicaciones son provistas por un servidor web y pueden ser accedidas por los usuarios que se conecten a través de internet desde cualquier lugar mediante un navegador web \citep{NavegadorWeb}. Además, presentan la arquitectura cliente/servidor (que se muestra en la figura \ref{fig:ClienteServidor}) en donde un cliente o navegador web realiza peticiones al servidor y en consecuencia el servidor envía la respuesta de regreso.
+\textit{Arm Mbed OS Simulator} es una aplicación web. Este tipo de aplicaciones son provistas por un servidor web y pueden ser accedidas por los usuarios que se conecten a través de internet desde cualquier lugar mediante un navegador web \citep{NavegadorWeb}. Las aplicaciones web se basan en una arquitectura cliente/servidor (figura \ref{fig:ClienteServidor}), en donde un cliente o navegador web realiza peticiones al servidor y en consecuencia el servidor envía la respuesta de regreso.
 
 \begin{figure}[ht]
 	\centering
@@ -184,183 +185,259 @@ Se procedió a analizar en detalle el código fuente de \textit{Arm Mbed OS Simu
 \hfill \break
 \hfill \break
 
-Las razones por las que se optó por la tecnologia web se debe a las potenciales ventajas que presentan, de las cuales las más importantes son:
+Las ventajas más importantes que presenta la tecnologia web son:
 
 \begin{itemize}
 	\item No es necesario instalar nada en la computadora del usuario.
-	\item No consumen los recursos del ordenador.
-	\item No se encuentra limitado a un lugar físico específico para acceder y utilizar las capacidades de emulación.
-	\item No obliga al usuario usar un determinado sistema operativo, ya que se puede ejecutar en todos los dispositivos con acceso a un navegador web y una conexión a internet.
+	\item Muy bajo consumo de recursos del lado del cliente, la mayor carga se encuentra del lado del servidor.
+	\item Es posible acceder al emulador desde cualquier ubicación con una conexión a internet.
+	\item El usuario no requiere tener un sistema operativo específico, ya que se puede ejecutar en todos los dispositivos con acceso a un navegador web y una conexión a internet.
 \end{itemize}
 
-En el desarrollo web, el \textit{frontend} es la parte del software que interactúa con el usuario y el \textit{backend} es la parte lógica que se encarga de tomar los datos, procesarlos y devolverlos al \textit{frontend}. En la figura \ref{fig:frontBackMbed} se muestra un esquema con las tecnologías web usadas en el presente trabajo.
+\textit{Arm Mbed OS Simulator} está desarrollado principalmente sobre las siguientes tecnologías:
 
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
-\hfill \break
+\begin{itemize}
+
+    \item \textit{Node.JS} \citep{NodeJS}: es un entorno de ejecución del lenguaje de programación \textit{JavaScript} \citep{JavaScript} cuyo propósito es el desarrollo de aplicaciones web y servicios del lado del servidor. También, proporciona una arquitectura orientada a eventos y no bloqueante. 
+ 
+    \item \textit{Emscripten} \citep{Emscripten}: es un \textit{toolchain} de compilación completo para \textit{WebAssembly}, que utiliza \textit{LLVM} \citep{LLVM}) y \textit{Binaryen} \citep{Binaryen}, para compilar C y C++ en \textit{WebAssembly} \citep{WebAssembly} y \textit{JavaScript}. La salida de \textit{Emscripten} puede ejecutarse en la web y en \textit{NodeJS}. Esto permite ejecutar aplicaciones desarrolladas en C y C++ en la web, sin necesidad de plugins o complementos adicionales.
+
+    \item \textit{Arm Mbed OS} \citep{MbedOS}: es un sistema operativo para sistemas embebidos, de de código abierto, diseñado específicamente para los dispositivos \textit{IoT}. Incluye todas las funciones que necesita para desarrollar un producto conectado, basado en un microcontrolador \textit{Arm Cortex-M}, incluida seguridad, conectividad, \textit{RTOS} y controladores para sensores y dispositivos de Eentrada/Salida.
+    
+    \item \textit{Arm Mbed CLI} \citep{MbedCLI}: es una herramienta de línea de comandos que facilita el desarrollo y la gestión de proyectos basados en la plataforma \textit{Arm Mbed OS}, permite realizar tareas como la configuración del entorno de desarrollo, compilación de código, gestión de dependencias y la depuración, además, de identificar y resolver problemas en el código.
+
+\end{itemize}
+
+%------------------------------
+\subsection{Funcionalidad}
+
+Estas tecnologías presentadas en la sección \ref{sec:Tecnologías utilizada} se relacionan entre sí como se observa en el diagrama de secuencia de la figura \ref{fig:DiagramaSecuenciaMBED}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.49]{./Figures/DiagramaSecuenciaMBED.png}
+	\caption{Funcionamiento de \textit{Arm Mbed OS Simulator}.}
+	\label{fig:DiagramaSecuenciaMBED}
+\end{figure}
+
+\textit{Node.js} ejecuta \textit{Arm Mbed OS Simulator} dentro un servidor web. Un usuario puede accedear a la aplicación web mediante un navegador para utilizarla. 
+
+Cuando el usuario finaliza el programa en C/C++ y el ensamblado del hardware, puede proceder a presionar el botón \textit{Run} para compilar y ejecutar el programa. En este proceso, se integra el programa de usuario con la biblioteca \textit{Arm Mbed OS}. Posteriormente, se compila todo en conjunto mediante las herramientas \textit{Emscripten} y \textit{Arm Mbed CLI}.
+
+El resultado de dicha compilación, el es mismo programa en \textit{WebAssembly} y \textit{javascript}, que luego se ejecuta sobre el hardware virtualizado, permitiendole al usuario probar su funcionamiento.
+
+
+
+%------------------------------
+\subsection{\textit{Frontend} y \textit{Backend}}
+
+En el contexto del desarrollo de aplicaciones web, se denomina \textit{Frontend} a la interfaz que los usuarios interactúan directamente, siendo la cara visible del sitio en el lado del cliente. Por otro lado, el \textit{Backend} es la parte lógica que se encarga de la conexión con el servidor, de tomar los datos, procesarlos y devolverlos al \textit{Frontend}. 
+
+
+
+En la figura \ref{fig:FrontendBackendMbed} se muestra un esquema con las tecnologías utilizados tanto en el \textit{Frontend} como en el \textit{Backend} de \textit{Arm Mbed OS Simulator}.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.47]{./Figures/FrontendBackendMbed.png}
 	\caption{Esquema de las tecnologías utlilizadas en \textit{Arm Mbed OS Simulator}.}
-	\label{fig:frontBackMbed}
+	\label{fig:FrontendBackendMbed}
 \end{figure}
 
-En las siguientes secciones se describen las tecnologías que forman parte del \textit{frontend} y \textit{backend} del emulador.
+Como se puede observar, existen tecnologías que se utilizan en ambas partes de la aplicación y otras correspondientes únicamente al \textit{Frontend}, o al \textit{Backend}.
 
-%-------------------------
-\subsection{Frontend}
-\label{subsec:Frontend}
+El lenguaje de programación \textit{JavaScript} del lado del cliente, permite crear páginas web dinámicas y también responder a eventos causados por el propio usuario tales como modificaciones del DOM (siglas en inglés de \textit{Document Object Model} \citep{DOM}). Por consiguiente, el \textit{frontend} permite cargar y ejecutar los archivos resultantes generados por el compilador en el navegador. Asimismo, es el responsable de configurar el entorno necesario para ejecutar la aplicación web y proporcionar la interfaz de usuario para la interacción. 
 
-Se describen brevemente las principales tecnologías utilizadas:
+En el \textit{backend}, \textit{JavaScript} se utiliza para gestionar la comunicación y la interacción entre los diferentes componentes a través de solicitudes HTTP, permitiendo la transferencia de datos y el flujo de información dentro de la plataforma web.
+
+Los paquetes de \textit{Node.JS} consisten en uno o más archivos \textit{.js} o \textit{.ts} (módulos) agrupados (o empaquetados) juntos. Los archivos en un paquete son código reutilizable que realiza una función específica en la aplicación \textit{Node.js}. \textit{Arm Mbed OS Simulator} utiliza los siguientes paquetes:
 
 \begin{itemize}
-	\item JavaScript \citep{JavaScript}: es un lenguaje de programación que se ejecuta del lado del cliente en el navegador, o bien del lado del servidor mediante motores como NodeJS \citep{NodeJS}. En el caso del lado del cliente, permite crear páginas web dinámicas y también responder a eventos causados por el propio usuario tales como modificaciones del DOM, de la sigla en inglés  \textit{Document Object Model} \citep{DOM}. Por consiguiente, el desarrollo con JavaScript en el frontend permitió cargar y ejecutar los archivos resultantes generados por el compilador en el navegador. Asimismo, es el responsable de configurar el entorno necesario para ejecutar el emulador web y proporcionar la interfaz de usuario para la interacción. Además, en el backend fue útil para gestionar la comunicación y la interacción entre los diferentes componentes a través de solicitudes HTTP, permitiendo la transferencia de datos y el flujo de información dentro de la plataforma web.
+    \item En \textit{Frontend} y \textit{Backend}:
+        \begin{itemize}
+    	\item \textit{socket.io}
+    	\item \textit{timesync}
+        \end{itemize}
+    \item Solo en \textit{Frontend}
+        \begin{itemize}
+            \item \textit{xterm}
+        \end{itemize}
+    \item Solo en {Backend}:
+        \begin{itemize}
+            \item \textit{body-parser}
+            \item \textit{express}
+            \item \textit{command-exists}
+            \item \textit{commander}
+            \item \textit{compression}
+            \item \textit{es6-promisify}
+            \item \textit{getmac}
+            \item \textit{hbs}
+            \item \textit{opn}
+            \item \textit{puppeteer}
+        \end{itemize}
+\end{itemize}
 
-	\item NodeJS \citep{NodeJS}: es un entorno de ejecución de JavaScript cuyo propósito es el desarrollo de aplicaciones web y servicios del lado del servidor. También, proporciona una arquitectura orientada a eventos y no bloqueante. 
-De manera que, en el contexto del frontend, se utilizó como parte del flujo de trabajo de desarrollo, incluyendo la gestión de dependencias, automatización de tareas de compilación, pruebas y despliegue. Mientras tanto, en el backend, se utilizó para desarrollar las rutas, controladores y manejar la lógica de la aplicación en respuesta a las solicitudes entrantes y el envío de respuestas.
+Se describen los paquetes más relevantes:
 
-	\item HTML \citep{HTML}: de la sigla en inglés \textit{Lenguaje de Marcas de Hipertexto, del inglés HyperText Markup Language}, es el lenguaje de marcas que sirve para etiquetar contenido y visualizarlos en el navegador web.
-	Este lenguaje es sencillo de aprender y es fácil de interpre­tar tanto por humanos como por máquinas.  En el desarrollo, se utilizó para crear los elementos visuales de la interfaz de usuario, como los botones, lista desplegable, pantallas de visualización, y otros componentes necesarios para interactuar con el emulador web.
+\begin{itemize}
+    \item \textit{Socket.IO} \citep{Socket}: es un paquete que utiliza \textit{websockets} para comunicación bidireccional con baja latencia. La plataforma, utiliza \textit{Socket.IO} para establecer la comunicación entre el \textit{Frontend} y el \textit{Backend}, y de esta manera, permitir la transferencia de datos de manera dinámica con el fin de actualizar los eventos entre ambas partes de la plataforma.
 
-	\item CSS \citep{CSS}: de la sigla en inglés \textit{Cascading Style Sheets},
-	es un lenguaje de diseño gráfico que permite definir estilos, colores, formato, tamaño, tipo de letra del texto, posición de cada elemento dentro de la página, etc. Es la mejor forma de separar los contenidos y es necesario para crear páginas web complejas. El desarrollo con CSS ayudó a controlar la presentación visual y el estilo de la plataforma.
+    \item \textit{Xterm} \citep{Xterm}: es un paquete escrito en \textit{TypeScript} \citep{TypeScript} para el que permite que una aplicación pueda usar terminales emuladas con todas sus funciones en el navegador web (\textit{Frontend}). La plataforma web utiliza esta tecnología en la interfaz de usuario para visualizar la salida de la UART de la placa simulada en una terminal serie.
 
-    \item SVG \citep{SVG}: de la sigla en inglés \textit{Scalable Vector Graphics}, es un formato de gráficos vectoriales bidimensionales con una base matemática que pueden modificarse según se necesite. Las imágenes creadas con este formato se pueden escalar y hacer zoom de forma arbitraria sin pérdida de resolución debido a que no están formadas por píxeles. Además, esta basado en el lenguaje de marcado extensible XML \citep{XML} y es un formato muy útil para ser utilizado en entornos web. 
-Para el desarrollo del diseño de la interfaz fue ideal el uso de este tipo de formato para evitar que las imagenes se deformen y también, ofrecer una experiencia visual interactiva.
-
-    \item Xterm \citep{Xterm}: es un componente escrito en TypeScript \citep{TypeScript} que permite que una aplicación pueda usar terminales emuladas con todas sus funciones en el navegador web. 
-En el desarrollo del emulador web, se utilizó esta tecnología en la interfaz de usuario para visualizar la salida de la terminal.
-
-    \item WebSocket \citep{WebSocket}: esta tecnología permite la comunicación bidireccional entre el cliente y el servidor, trabaja sobre el protocolo TCP/IP y también, es una especificación de protocolo de HTML5, de la sigla en inglés \textit{HyperText Markup Language, versión 5} \citep{HTML5}. 
-Se utilizó WebSocket para establecer la comunicación entre el frontend y el backend, y de esta manera, permitir la transferencia de datos de manera dinámica con el fin de mostrarlos en la terminal serial del emulador. 
-       
-    \item Socket.IO \citep{Socket}: es una biblioteca de Javascript que usa websocket para la comunicación bidireccional y para la baja latencia. También, está basada en el manejo de eventos entre un cliente y un servidor. El desarrollo con esta tecnología facilitó la transmisión de eventos en tiempo real para la salida de los datos de la terminal serial.
+    \item \textit{Express} \citep{Express}: es un marco de aplicaciones web en el \textit{Backend} para \textit{Node.JS} diseñado para crear aplicaciones web y APIs (siglas en inglés de \textit{application programming interface}) \citep{API}. Se utiliza \textit{Express} para configurar \textit{middlewares} que permiten servir archivos estáticos desde carpetas específicas, como \textquotedbl \textit{outUser} \textquotedbl, que contiene los archivos generados por \textit{Emscripten}.
 
 \end{itemize}
 
-%-------------------------
-\subsection{Backend}
-
-Se describen brevemente las principales tecnologías que se usaron en el backend.
+Tecnologías que se utilizan solamente en el \textit{frontend} de \textit{Arm Mbed OS Simulator}:
 
 \begin{itemize}
-	\item Emscripten \citep{Emscripten}: es un compilador que traduce la mayor parte del lenguaje LLVM, de la sigla en inglés \textit{Low Level Virtual Machine} \citep{LLVM}, a JavaScript. De esta forma, permite ejecutar el código de varios lenguajes de programación en los navegadores actuales.
-Emscripten compila C y C++ en WebAssembly \citep{WebAssembly} mediante LLVM y Binaryen \citep{Binaryen}. La salida de Emscripten puede ejecutarse en la web y en NodeJS.
-El uso de esta herramienta tuvo por objetivo el compilar el código escrito en C, a WebAssembly (Wasm) y JavaScript.	Esto permitió ejecutar aplicaciones nativas en la web sin necesidad de plugins o complementos adicionales.
+    \item HTML \citep{HTML}: son las siglas en inglés de \textit{HyperText Markup Language}, o en español, Lenguaje de Marcas de Hipertexto. Es un lenguaje de marcado que permite la estructuración de información y contenido en un documento o sitio web. El marcado se ejecuta a través de etiquetas que cumplen diferentes funciones en la estructuración del documento para visualizarlos en el navegador web.
+    Este lenguaje es sencillo de aprender y es fácil de  tanto por humanos como por máquinas. Se utiliza para definir el contenido de la interfaz de usuario, como los botones, lista desplegable, pantallas de visualización, y otros componentes necesarios para interactuar con la plataforma web.
 
-	\item Python \citep{Python}:  es un poderoso y popular lenguaje de programación multiplataforma de código abierto. Se caracteriza por su sencillez y su gran potencia para el tratamiento de datos en el lado del servidor. En el emulador web, Python se utilizó para escribir scripts que realizan tareas específicas, como la configuración e inicialización de la plataforma web del emulador.
-    
-    \item Express \citep{Express}: es un marco de aplicaciones web en el backend para NodeJS. También, está diseñado para crear aplicaciones web y APIs, de la sigla en inglés \textit{application programming interface} \citep{API}. Se utilizó Express para configurar middlewares que permiten servir archivos estáticos desde carpetas específicas, como \textquotedbl outUser \textquotedbl, que contiene los archivos generados por Emscripten.
-    
-    \item Lenguaje C \citep{LenguajeC}: es de propósito general y es muy popular debido al eficiente código que produce al crear software de sistemas y de aplicaciones. 
-    Asimismo, es un lenguaje de tipos de datos estáticos, fuertemente tipado y tiene estructuras típicas de los lenguajes de alto nivel pero, a su vez, tiene construcciones que permiten un control de los lenguajes de bajo nivel. El desarrollo con C fue fundamental, ya que permitió la integración de la biblioteca sAPI del Proyecto  CIAA en el desarrollo del emulador web.
-    
-    \item Mbed CLI \citep{MbedCLI}: es una herramienta de línea de comandos que facilita el desarrollo y la gestión de proyectos basados en la plataforma Mbed \citep{ArmMbed}. Incluso, permite realizar tareas como la configuración del entorno de desarrollo, compilación de código, gestión de dependencias y la depuración, permitiendo identificar y resolver problemas en el código. Se reutilizó esta herramienta, ya incluída en el emulador sobre el cual se basó este trabajo, para proporcionar una interfaz de línea de comandos que simplificó las tareas de configuración y despliegue del emulador web.
- 
-    
-     \item Mbed events \citep{ArmMbed}: es una biblioteca de código que se utiliza en el desarrollo de software embebido para facilitar la gestión de eventos y temporizadores. Para el desarrollo de la plataforma del emulador web se reutilizó esta biblioteca para la creación y gestión de tareas en el RTOS.
-     
+    \item SVG \citep{SVG}: de las siglas en inglés \textit{Scalable Vector Graphics}, es un estándar web para definir imágenes vectoriales bidimensionales. Las imágenes creadas con este formato se pueden escalar y hacer zoom de forma arbitraria sin pérdida de resolución debido a que, en lugar de estar formádos por píxeles, como otros formatos de imagen, están descritas en base a objetos tales como líneas, círculos y polígonos, entre otros. Este tipo de gráficos se describe mediante un archivo de texto cuya estructura está basada en el lenguaje de marcado extensible \textit{XML} \citep{XML}, siendo un formato muy útil para ser utilizado en entornos web. Este tipo de gráficos se utiliza en la plataforma para representar gráficamente la placa de desarrollo donde se ejecutan los programas, y permitir interactuar con su botón y LED.
+
+    \item CSS \citep{CSS}: de las siglas en inglés \textit{Cascading Style Sheets}, es un lenguaje de diseño gráfico que permite definir estilos, colores, formato, tamaño, tipo de letra del texto, posición de cada elemento dentro de la pantalla en una página HTML o imagen SVG. Es la mejor forma de separar los contenidos de su diseño, y es necesario para crear páginas web complejas. De esta manera, CSS controla la presentación visual y el estilo del contenido HTML y SVG de esta plataforma web.
+
+    \item Imágenes: Se utilizan imágenes \textit{.png} de los LEDs virtuales a conectar con la placa virtual.
+
 \end{itemize}
+
+Finalmmente, se describen las tecnologías se utilizan solamente en el \textit{Backend} de \textit{Arm Mbed OS Simulator}:
+
+\begin{itemize}
+
+    \item \textit{Python} \citep{Python}: es un poderoso y popular lenguaje de programación multiplataforma, de código abierto, y un entorno de ejecución. Se caracteriza por su sencillez y su gran potencia para el tratamiento de datos en el lado del servidor. En la plataforma web, \textit{Python} 2.7 se utiliza para ejecutar scripts que realizan tareas específicas, como la configuración e inicialización y la ejecución de \textit{Arm Mbed CLI}.
+
+    \item Lenguajes C / C++ \citep{LenguajeC}: son lenguajes de propósito general y muy populares debido al eficiente código que produce al crear software de sistemas y de aplicaciones.  Las bibliotecas \textit{Arm MBed OS} y los programas que el usuario desarrolla para la placa virtual, están escritos en estos lenguajes.
+
+    \item \textit{Mbed events} \citep{ArmMbedEvents}: es una biblioteca de código escrita en lenguaje C que se utiliza en el desarrollo de software embebido para facilitar la gestión de eventos y temporizadores. Para el desarrollo de la plataforma usa esta biblioteca para la creación y gestión de tareas en el \textit{RTOS}. Aunque su uso no permite obtener las funcionalidades requeridas.
+    
+\end{itemize}
+
+%------------------------------
+\subsection{Capas de software}
+
+En el diagrama de bloques de la figura \ref{fig:Arquitectura} se muestra la arquitectura básica de una aplicación de usuario que ejecuta en \textit{Arm Mbed OS Simulator} y las capas de software involucradas.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.55]{./Figures/ArquitecturaMBED.png}
+	\caption{Arquitectura de capas de la plataforma \textit{Arm Mbed OS Simulator}.}
+	\label{fig:Arquitectura}
+\end{figure}
+
+\textit{Arm Mbed OS Simulator} presenta una emulación a nivel de API de la biblioteca \textit{Mbed OS} debido a que gran parte de las API son genéricas entre diferentes plataformas de hardware objetivo soportadas (\textit{targets}). Esto incluye las capas GPIO, \textit{stacks} de redes IP4/IPV6 y bibliotecas de comunicación como \textit{CoAP} o \textit{LoRaWAN}. 
+
+El código específico del \textit{target}, como, por ejemplo, en qué registros escribir para cambiar el valor de pin GPIO, se implementa utilizando la capa \textit{Mbed C HAL}. 
+
+De esta manera, \textit{Arm Mbed OS Simulator} utiliza el mismo enfoque, implementando un nuevo \textit{target} (TARGET\_SIMULATOR) que implementa la capa \textit{Mbed C HAL}, que pasa eventos a una \textit{HAL} de JavaScript (capa \textit{JS HAL}). Luego, la interfaz de usuario se suscribe a estos eventos y actualiza el simulador en consecuencia (capa \textit{JS UI}).
+
+Se toma, por ejemplo, un elemento la API \textit{DigitalOut} de \textit{Mbed OS}, el flujo de la información para controlar un \textit{LED} conectado a una salida es el que se describe en la figura \ref{fig:flujoGpio-LedMbed}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.50]{./Figures/flujoGpio-LedMbed.png}
+	\caption{Ejemplo de flujo de información de pin de salida controlando un led en \textit{Arm Mbed OS Simulator}.}
+	\label{fig:flujoGpio-LedMbed}
+\end{figure}
+
+La capa (\textit{JS HAL}), que actúa como intermediario, distribuyendo eventos entre los componentes de las capas \textit{JS UI} y \textit{C HAL}, implementa un bus de eventos para permitir que la interfaz de usuario se suscriba a eventos de C++, y se comunica con la capa \textit{C HAL} a través de los archivos \textit{WebAssembly} y \textit{JavaScript} generados por el proceso de compilación de \textit{Emscripten}. La capa \textit{JS UI}, maneja los eventos de la interfaz de usuario y solo se comunica con \textit{JS HAL}.
+
+En resumen, el diagrama representa cómo un programa escrito en lenguaje \textit{C/C++} interactúa con la capa de abstracción de la emulación a nivel de API hasta llegar a la interfaz de usuario en \textit{JavaScript} para interactuar con los componentes de hardware virtuales, ya sea de la placa de desarrollo, o de componentes externos. 
 
 %------------------------------
 \subsection{Análisis estructural de archivos y carpetas}
 
-
-En la figura \ref{fig:estructuraMbed1} se exhibe la estructura de arbol de las carpetas y archivos de \textit{Arm Mbed OS Simulator} clonado desde GitHub.
-
-
-\hfill \break
-
+En la figura \ref{fig:estructuraMbed1} se exhibe la estructura de arbol de las carpetas y archivos de \textit{Arm Mbed OS Simulator} en el momento en que fue clonado desde \textit{GitHub}  para la realización de este trabajo.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.37]{./Figures/estructuraMbed.jpg}
+	\includegraphics[scale=.50]{./Figures/carpetasYArchivosMbedOS.png}
 	\caption{Estructura de carpetas y archivos de \textit{Arm Mbed OS Simulator}.}
 	\label{fig:estructuraMbed1}
 \end{figure}
- 
-La carpeta \textquotedbl build-tools\textquotedbl{}  contiene tres archivos javascript: 
+
+La carpeta \textquotedbl build-tools\textquotedbl{} contiene tres archivos \textit{javaScript}: 
 
 \begin{enumerate}
-	\item build-application.js, que contiene funciones para construir aplicaciones en el contexto de \textit{Arm Mbed OS Simulator}. Asimismo, contiene métodos para encontrar los periféricos y manejar la construcción de componentes.
+    \item \textit{build-application.js}, que contiene funciones para construir aplicaciones en el contexto de \textit{Arm Mbed OS Simulator}. Asimismo, contiene métodos para encontrar los periféricos y manejar la construcción de componentes.
 	
-	\item build-libmbed.js, es un módulo de Node.js que realiza la compilación \textit{(build)} y gestión de dependencias. También, proporciona métodos que verifican las dependencias necesarias antes de la construcción.
+    \item \textit{build-libmbed.js}, es un módulo de la aplaicación web que realiza la compilación (\textit{(build)}) y gestión de dependencias.
 
-	\item helpers.js,  es un módulo de Node.js que proporciona funciones relacionadas con operaciones de sistema de archivos, compilación, y manipulación de directorios y archivos.
+    \item \textit{helpers.js}, es un módulo de la aplaicación web que proporciona funciones relacionadas con operaciones de sistema de archivos, compilación, y manipulación de directorios y archivos.
 \end{enumerate}
  
-Dentro de la carpeta \textquotedbl demos\textquotedbl{}  se encuentran todos los programas ejemplo que muestran cómo utilizar ciertas funcionalidades de \textit{Arm Mbed OS Simulator} y son útiles como referencia para comenzar con el desarrollo en el entorno web. 
+Dentro de la carpeta \textquotedbl demos\textquotedbl{} se encuentran todos los programas ejemplo que el usuario puede seleccionar en \textit{Arm Mbed OS Simulator}. Estos están escritos en C/C++ y se utilizan como ejemplos didácticos que utilizan algunas de las funcionalidades de \textit{Arm Mbed OS}.
  
-La carpeta \textquotedbl server\textquotedbl{}  contiene tres archivos javascript: 
+La carpeta \textquotedbl \textit{server}\textquotedbl{} contiene tres archivos \textit{JavaScript}: 
 
 \begin{enumerate}
-	\item compile.js, este archivo realiza la generación de los archivos de salida compilados a partir del codigo fuente.
-	
-	\item get\_ips.js, proporciona una función para la configuración de las aplicaciones de red.
+    \item \textit{compile.js}, este archivo realiza la generación de los archivos de salida compilados a partir del codigo fuente.
 
-	\item launch-server.js, define y configura un servidor web que permite ejecutar solicitudes de ejecución de aplicaciones, gestionar las conexiones de red y la comunicación LoRaWAN.
-	
+    \item \textit{get\_ips.js}, proporciona una función para la configuración de las aplicaciones de red.
+
+    \item \textit{launch-server.js}, define y configura un servidor web que permite ejecutar solicitudes de ejecución de aplicaciones, gestionar las conexiones de red y la comunicación LoRaWAN.	
 \end{enumerate}
  
-La carpeta \textquotedbl viewer\textquotedbl{}  contiene los archivos necesarios para crear interacción con el navegador. Entre estos archivos se encuentran: HTML, CSS, JavaScript, imágenes y bibliotecas de terceros o frameworks.
- 
-La carpeta \textquotedbl mbed-simulator-hal\textquotedbl{}  contiene las siguientes sub-carpetas y son usadas en el contexto de \textit{Arm Mbed OS Simulator}: 
+La carpeta \textquotedbl viewer\textquotedbl{} contiene los archivos necesarios para crear interacción con el navegador en el \textit{Frontend}. Dentro de esta carpeta, se incuye:
 
 \begin{itemize}
-	\item easy-connect, dentro de esta carpeta se encuentran archivos que facilitan la conexión a una red utilizando Ethernet para manipular conexiones de red, sockets y eventos.
-	
-	\item lora-radio-drv, proporciona un marco para interactuar y controlar el módulo de radio LoRa, lo que permite enviar y recibir datos, administrar el estado y el funcionamiento.
+    \item Carpeta \textit{ace}: es un editor de código independiente escrito en \textit{JavaScript}. El objetivo es crear un editor de código basado en web que coincida y amplíe las características, la facilidad de uso y el rendimiento de los editores nativos existentes, como TextMate, Vim o Eclipse. 
+    \item Carpeta \textit{img}: contiene imágenes \textit{.png} y \textit{.svg} utilizadas para describir los LEDs y la placa dde desarrollo respectivamente.
+    \item Carpeta \textit{js-hal}: incluye todos los archivos que implementan la capa de abstracción de hardware en \textit{JavaScript}, o \textit{JavaScript HAL}.
+    \item Carpeta \textit{js-ui}: incluye todos los archivos que implementan los componentes de interfaz de usuario en \textit{JavaScript}, nombrado \textit{JavaScript UI}.
+    \item Carpeta \textit{style}: contiene la hoja de estilos \textit{simulator.css} que define los estilos de la página principal.
+    \item Carpeta \textit{xterm}: contiene la parte de \textit{Frontend} de este paquete.
+    \item Archivos \textit{simulator.html} y \textit{viewer.html}: definenen el contenido de la página we de la interfaz gráfica de \textit{Arm Mbed OS Simulator}.
+\end{itemize}
+ 
+La carpeta \textquotedbl mbed-simulator-hal\textquotedbl{} contiene las siguientes sub-carpetas: 
 
-	\item mcc, establece una cola de eventos que se utilizará para manejar eventos en \textit{Arm Mbed OS Simulator}. 
-	
-	\item MQTTNetwork, establece la interfaz para la comunicación de red con el protocolo MQTT. 
-	
-	\item pelion-dm, implementación de temporizadores y manejo de eventos para la plataforma mbed.
-	
-	\item peripherals, proporciona implementación de los periféricos externos para ejecutarse en el entorno web.
-	
-	\item simblockdevice, establece una interfaz para interactuar con  dispositivos de bloques que emula un dispositivo de almacenamiento físico en el navegador web.
-	
-	\item mbed-os.lib, es un archivo de biblioteca en formato binario que contiene la versión del código fuente del sistema operativo de Mbed OS  que usa \textit{Arm Mbed OS Simulator}.
+\begin{itemize}
+    \item \textit{easy-connect}, dentro de esta carpeta se encuentran archivos que facilitan la conexión a una red utilizando Ethernet para manipular conexiones de red, sockets y eventos.
+
+    \item \textit{lora-radio-drv}, proporciona un marco para interactuar y controlar el módulo de radio \textit{LoRa}, lo que permite enviar y recibir datos, administrar el estado y el funcionamiento.
+
+    \item \textit{mcc}, establece una cola de eventos que se utilizará para manejar eventos en \textit{Arm Mbed OS Simulator}. 
+
+    \item \textit{MQTTNetwork}, establece la interfaz para la comunicación de red con el protocolo MQTT. 
+
+    \item \textit{pelion-dm}, implementación de temporizadores y manejo de eventos para la plataforma mbed.
+
+    \item \textit{peripherals}, contiene las bibliotecas de \textit{drivers} en C/C++ para los displays virtuales a conectar a la placa de desarrollo virtual.
+
+    \item \textit{simblockdevice}, establece una interfaz para interactuar con  dispositivos de bloques que emula un dispositivo de almacenamiento físico en el navegador web.
+
+    \item \textit{mbed-os}, es la carpeta que contiene la biblioteca \textit{Arm Mbed OS}.
 	
 \end{itemize}
 
-La biblioteca \textquotedbl mbed-os.lib\textquotedbl{} se compone de las siguiente carpetas: 
+La carpeta \textquotedbl mbed-os\textquotedbl{} se compone de: 
 
 \begin{itemize}
 
-	\item drivers, dentro de esa carpeta se encuentran los diversos controladores que interactúan con los periféricos de hardware, y además, proporcionan una interfaz para acceder a ellos. 
+    \item Carpeta \textit{drivers}, dentro de esa carpeta se encuentran los diversos controladores que interactúan con los periféricos de hardware, y además, proporcionan una interfaz para acceder a ellos. 
 	
-	\item events, presenta archivos relacionados con la infraestructura de manejo de eventos para las tareas y operaciones de manera asíncrona.
+    \item Carpeta \textit{events}, presenta archivos relacionados con la infraestructura de manejo de eventos para las tareas y operaciones de manera asíncrona.
 
-	\item features, contiene varias subcarpetas con varios módulos que gestionan la conexión celular en dispositivos integrados, proporcionan una interfaz para interactuar con LoRaWAN, manejar la manipulación de memoria para el uso de la pila LWIP, proporciona mbed TLS, implementación del protocolo de red 6LoWPAN, sockets de red, comunicación inalámbrica de corto alcance entre dispositivos y almacenamiento de datos en sistemas embebidos. 
+    \item Carpeta \textit{features}, contiene varias subcarpetas con varios módulos que gestionan la conexión celular en dispositivos integrados, proporcionan una interfaz para interactuar con LoRaWAN, manejar la manipulación de memoria para el uso de la pila \textit{LWIP}, proporciona \textit{mbed TLS}, implementación del protocolo de red \textit{6LoWPAN}, \textit{sockets} de red, comunicación inalámbrica de corto alcance entre dispositivos y almacenamiento de datos en sistemas embebidos. 
 	
-	\item hal, contiene implementaciones específicas de hardware para diferentes plataformas y microcontroladores.  
+    \item Carpeta \textit{hal}, contiene implementaciones específicas de hardware para diferentes plataformas y microcontroladores.  
 	
-	\item platform, proporciona una capa de abstracción adicional sobre la capa de abstracción de hardware (HAL) .
+    \item Carpeta \textit{platform}, proporciona una capa de abstracción adicional sobre la capa de abstracción de hardware (\textit{HAL}) .
 	
-	\item rtos, contiene la implementación del sistema operativo en tiempo real (RTOS).
+    \item Carpeta \textit{rtos}, contiene la implementación del sistema operativo en tiempo real (\textit{RTOS}).
 	
-	\item targets, cada sub-carpeta corresponde a un microcontrolador o una plataforma específica y, además, contiene información sobre cómo Mbed OS debe funciona con una plataforma en particular.
-	
-	\item TEST\_APPS, contiene ejemplos y aplicaciones de prueba de diferentes plataformas de hardware que se utilizan para probar y verificar diversas funcionalidades de Mbed OS.
-	
-	\item TESTS, contiene pruebas unitarias y de integración que verifican y validan el correcto funcionamiento de los módulos y características de Mbed OS.
-	
-	\item tools, contiene herramientas y utilidades para el desarrollo, compilación, depuración y prueba para diferentes plataformas de hardware y sistemas operativos.
+    \item Carpeta \textit{targets}, cada sub-carpeta corresponde a una plataforma de hardware específica donde se puede ejecutar \textit{Mbed OS}. Además, contiene información sobre cómo \textit{Mbed OS} debe funcionar con cada plataforma en particular.
 
-	\item UNITTESTS, contiene pruebas unitarias para diferentes componentes del sistema operativo Mbed.
-
-	\item mbed.h, este archivo contiene declaraciones y definiciones iniciales para que estén disponibles para el desarrollo web del usuario. 
+    \item Carpeta \textit{TEST\_APPS}, contiene ejemplos y aplicaciones de prueba de diferentes plataformas de hardware que se utilizan para probar y verificar diversas funcionalidades de \textit{Mbed OS}.
 	
+    \item Carpeta \textit{TESTS}, contiene pruebas unitarias y de integración que verifican y validan el correcto funcionamiento de los módulos y características de \textit{Mbed OS}.
+	
+    \item Carpeta \textit{tools}, contiene herramientas y utilidades para el desarrollo, compilación, depuración y prueba para diferentes plataformas de hardware y sistemas operativos.
+
+    \item Carpeta \textit{UNITTESTS}, contiene pruebas unitarias para diferentes componentes del sistema operativo Mbed.
+
+    \item Archivo \textit{mbed.h}, este archivo contiene declaraciones y definiciones iniciales para que estén disponibles para el desarrollo web del usuario. 
+
 \end{itemize}
