@@ -128,7 +128,7 @@ Ejemplos & Sí & Sí & Sí & Sí\\
 \label{tab:simuladores}
 \end{table}
 
-Cabe destacar, que de las plataformas revisadas \textit{Arm Mbed OS Simulator} es la única de código abierto. Sin embargo, este análisis sirve también para revisar, comprender, comparar las ventajas y desventajas de las otras plataformas, y tomar características útiles para el desarrollo del emulador. 
+Cabe destacar, que de las plataformas revisadas \textit{Arm Mbed OS Simulator} es la única de código abierto. Sin embargo, este análisis sirve tembién para revisar, comprender y comparar las ventajas y desventajas de las otras plataformas, y tomar características útiles para el desarrollo del emulador. 
 
 Del análisis anterior, se desprende que \textit{Arm Mbed OS Simulator} presenta las siguientes ventajas significativas:
 
@@ -200,7 +200,7 @@ Las ventajas más importantes que presenta la tecnologia web son:
 
     \item \textit{Node.JS} \citep{NodeJS}: es un entorno de ejecución del lenguaje de programación \textit{JavaScript} \citep{JavaScript} cuyo propósito es el desarrollo de aplicaciones web y servicios del lado del servidor. También, proporciona una arquitectura orientada a eventos y no bloqueante. 
  
-    \item \textit{Emscripten} \citep{Emscripten}: es un \textit{toolchain} de compilación completo para \textit{WebAssembly}, que utiliza \textit{LLVM} \citep{LLVM}) y \textit{Binaryen} \citep{Binaryen}, para compilar C y C++ en \textit{WebAssembly} \citep{WebAssembly} y \textit{JavaScript}. La salida de \textit{Emscripten} puede ejecutarse en la web y en \textit{NodeJS}. Esto permite ejecutar aplicaciones desarrolladas en C y C++ en la web, sin necesidad de plugins o complementos adicionales.
+    \item \textit{Emscripten} \citep{Emscripten}: es una \textit{toolchain} de compilación completo para \textit{WebAssembly}, que utiliza \textit{LLVM} \citep{LLVM}) y \textit{Binaryen} \citep{Binaryen}, para compilar C y C++ en \textit{WebAssembly} \citep{WebAssembly} y \textit{JavaScript}. La salida de \textit{Emscripten} puede ejecutarse en la web y en \textit{Node.JS}. Esto permite ejecutar aplicaciones desarrolladas en C y C++ en la web, sin necesidad de plugins o complementos adicionales.
 
     \item \textit{Arm Mbed OS} \citep{MbedOS}: es un sistema operativo para sistemas embebidos, de de código abierto, diseñado específicamente para los dispositivos \textit{IoT}. Incluye todas las funciones que necesita para desarrollar un producto conectado, basado en un microcontrolador \textit{Arm Cortex-M}, incluida seguridad, conectividad, \textit{RTOS} y controladores para sensores y dispositivos de Eentrada/Salida.
     
@@ -209,31 +209,27 @@ Las ventajas más importantes que presenta la tecnologia web son:
 \end{itemize}
 
 %------------------------------
-\subsection{Funcionalidad}
+\subsection{Descirpción funcional básica}
 
-Estas tecnologías presentadas en la sección \ref{sec:Tecnologías utilizada} se relacionan entre sí como se observa en el diagrama de secuencia de la figura \ref{fig:DiagramaSecuenciaMBED}.
+Estas tecnologías presentadas en la sección \ref{sec:Tecnologías utilizada} se relacionan entre sí como se meustra en la figura \ref{fig:AsiFuncionaMbedSim}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.49]{./Figures/DiagramaSecuenciaMBED.png}
+	\includegraphics[scale=.52]{./Figures/funcionamientoMbed.png}
 	\caption{Funcionamiento de \textit{Arm Mbed OS Simulator}.}
-	\label{fig:DiagramaSecuenciaMBED}
+	\label{fig:AsiFuncionaMbedSim}
 \end{figure}
 
-\textit{Node.js} ejecuta \textit{Arm Mbed OS Simulator} dentro un servidor web. Un usuario puede accedear a la aplicación web mediante un navegador para utilizarla. 
+\textit{Node.JS} ejecuta \textit{Arm Mbed OS Simulator} dentro un servidor web. Un usuario puede accedear a la aplicación web mediante un navegador web para utilizarla. 
 
 Cuando el usuario finaliza el programa en C/C++ y el ensamblado del hardware, puede proceder a presionar el botón \textit{Run} para compilar y ejecutar el programa. En este proceso, se integra el programa de usuario con la biblioteca \textit{Arm Mbed OS}. Posteriormente, se compila todo en conjunto mediante las herramientas \textit{Emscripten} y \textit{Arm Mbed CLI}.
 
-El resultado de dicha compilación, el es mismo programa en \textit{WebAssembly} y \textit{javascript}, que luego se ejecuta sobre el hardware virtualizado, permitiendole al usuario probar su funcionamiento.
-
-
+El resultado de dicha compilación, el es mismo programa en \textit{WebAssembly} y \textit{JavaScript}, que luego se ejecuta sobre el hardware virtualizado, permitiendole al usuario probar su funcionamiento.
 
 %------------------------------
 \subsection{\textit{Frontend} y \textit{Backend}}
 
-En el contexto del desarrollo de aplicaciones web, se denomina \textit{Frontend} a la interfaz que los usuarios interactúan directamente, siendo la cara visible del sitio en el lado del cliente. Por otro lado, el \textit{Backend} es la parte lógica que se encarga de la conexión con el servidor, de tomar los datos, procesarlos y devolverlos al \textit{Frontend}. 
-
-
+En el contexto del desarrollo de aplicaciones web, se denomina \textit{Frontend} a la interfaz que los usuarios interactúan directamente, siendo la cara visible del sitio en el lado del cliente. Por otro lado, el \textit{Backend} es la parte lógica que se encarga de la conexión con el servidor, de tomar los datos, procesarlos y devolverlos al \textit{Frontend}.
 
 En la figura \ref{fig:FrontendBackendMbed} se muestra un esquema con las tecnologías utilizados tanto en el \textit{Frontend} como en el \textit{Backend} de \textit{Arm Mbed OS Simulator}.
 
@@ -244,13 +240,15 @@ En la figura \ref{fig:FrontendBackendMbed} se muestra un esquema con las tecnolo
 	\label{fig:FrontendBackendMbed}
 \end{figure}
 
-Como se puede observar, existen tecnologías que se utilizan en ambas partes de la aplicación y otras correspondientes únicamente al \textit{Frontend}, o al \textit{Backend}.
+\newpage
 
-El lenguaje de programación \textit{JavaScript} del lado del cliente, permite crear páginas web dinámicas y también responder a eventos causados por el propio usuario tales como modificaciones del DOM (siglas en inglés de \textit{Document Object Model} \citep{DOM}). Por consiguiente, el \textit{frontend} permite cargar y ejecutar los archivos resultantes generados por el compilador en el navegador. Asimismo, es el responsable de configurar el entorno necesario para ejecutar la aplicación web y proporcionar la interfaz de usuario para la interacción. 
+Como se puede observar, existen tecnologías que utilizan en ambas partes de la aplicación y otras correspondientes únicamente al \textit{Frontend}, o al \textit{Backend}.
+
+El lenguaje de programación \textit{JavaScript} del lado del cliente, permite crear páginas web dinámicas y también responder a eventos causados por el propio usuario tales como modificaciones del DOM (siglas en inglés de \textit{Document Object Model} \citep{DOM}). Por consiguiente, en el \textit{frontend} permite cargar y ejecutar los archivos resultantes generados por el compilador en el navegador. Asimismo, es el responsable de configurar el entorno necesario para ejecutar la aplicación web y proporcionar la interfaz de usuario para la interacción. 
 
 En el \textit{backend}, \textit{JavaScript} se utiliza para gestionar la comunicación y la interacción entre los diferentes componentes a través de solicitudes HTTP, permitiendo la transferencia de datos y el flujo de información dentro de la plataforma web.
 
-Los paquetes de \textit{Node.JS} consisten en uno o más archivos \textit{.js} o \textit{.ts} (módulos) agrupados (o empaquetados) juntos. Los archivos en un paquete son código reutilizable que realiza una función específica en la aplicación \textit{Node.js}. \textit{Arm Mbed OS Simulator} utiliza los siguientes paquetes:
+Los paquetes de \textit{Node.JS} consisten en es uno o más archivos \textit{.js} o \textit{.ts} (módulos) agrupados (o empaquetados) juntos. Los archivos en un paquete son código reutilizable que realiza una función específica en la aplicación \textit{Node.JS}. \textit{Arm Mbed OS Simulator} utiliza los siguientes paquetes:
 
 \begin{itemize}
     \item En \textit{Frontend} y \textit{Backend}:
@@ -284,21 +282,21 @@ Se describen los paquetes más relevantes:
 
     \item \textit{Xterm} \citep{Xterm}: es un paquete escrito en \textit{TypeScript} \citep{TypeScript} para el que permite que una aplicación pueda usar terminales emuladas con todas sus funciones en el navegador web (\textit{Frontend}). La plataforma web utiliza esta tecnología en la interfaz de usuario para visualizar la salida de la UART de la placa simulada en una terminal serie.
 
-    \item \textit{Express} \citep{Express}: es un marco de aplicaciones web en el \textit{Backend} para \textit{Node.JS} diseñado para crear aplicaciones web y APIs (siglas en inglés de \textit{application programming interface}) \citep{API}. Se utiliza \textit{Express} para configurar \textit{middlewares} que permiten servir archivos estáticos desde carpetas específicas, como \textquotedbl \textit{outUser} \textquotedbl, que contiene los archivos generados por \textit{Emscripten}.
+    \item \textit{Express} \citep{Express}: es un marco de aplicaciones web en el \textit{Backend} para \textit{Node.JS} diseñado para crear aplicaciones web y APIs (siglas en inglés de \textit{application programming interface}) \citep{API}. Se utiliza \textit{Express} para configurar \textit{middlewares} que permiten servir archivos estáticos desde carpetas específicas, como \textquotedbl \textit{out} \textquotedbl, que contiene los archivos generados por \textit{Emscripten}.
 
 \end{itemize}
 
 Tecnologías que se utilizan solamente en el \textit{frontend} de \textit{Arm Mbed OS Simulator}:
 
 \begin{itemize}
-    \item HTML \citep{HTML}: son las siglas en inglés de \textit{HyperText Markup Language}, o en español, Lenguaje de Marcas de Hipertexto. Es un lenguaje de marcado que permite la estructuración de información y contenido en un documento o sitio web. El marcado se ejecuta a través de etiquetas que cumplen diferentes funciones en la estructuración del documento para visualizarlos en el navegador web.
+    \item HTML \citep{HTML}: son las siglas en inglés de \textit{HyperText Markup Language}, o en español, Lenguaje de Marcas de Hipertexto. Es un lenguaje de marcado que permite la estructuración de información y contenido en un documento o sitio web. El marcado se ejecuta a través de etiquetas que cumplen diferentes funciones en la estructuración del documento paravisualizarlos en el navegador web.
     Este lenguaje es sencillo de aprender y es fácil de  tanto por humanos como por máquinas. Se utiliza para definir el contenido de la interfaz de usuario, como los botones, lista desplegable, pantallas de visualización, y otros componentes necesarios para interactuar con la plataforma web.
 
-    \item SVG \citep{SVG}: de las siglas en inglés \textit{Scalable Vector Graphics}, es un estándar web para definir imágenes vectoriales bidimensionales. Las imágenes creadas con este formato se pueden escalar y hacer zoom de forma arbitraria sin pérdida de resolución debido a que, en lugar de estar formádos por píxeles, como otros formatos de imagen, están descritas en base a objetos tales como líneas, círculos y polígonos, entre otros. Este tipo de gráficos se describe mediante un archivo de texto cuya estructura está basada en el lenguaje de marcado extensible \textit{XML} \citep{XML}, siendo un formato muy útil para ser utilizado en entornos web. Este tipo de gráficos se utiliza en la plataforma para representar gráficamente la placa de desarrollo donde se ejecutan los programas, y permitir interactuar con su botón y LED.
+    \item SVG \citep{SVG}: de las siglas en inglés \textit{Scalable Vector Graphics}, es un estándar web para definir imágenes vectoriales bidimensionales. Las imágenes creadas con este formato se pueden escalar y hacer zoom de forma arbitraria sin pérdida de resolución debido a que, en lugar de estar formádos por píxeles, como otros formatos de imagen, son descriptos en base a objetos como líneas, círculos y poligonos, entre otros. Este tipo de gráficos se describe mediante un archivo de texto cuya estructura está basada en el lenguaje de marcado extensible \textit{XML} \citep{XML}, siendo un formato muy útil para ser utilizado en entornos web. Este tipo de gráficos se utiliza en la plataforma para representar gráficamente la placa de desarrollo donde se ejecutan los programas, y permitir interactuar con su botón y LED.
 
-    \item CSS \citep{CSS}: de las siglas en inglés \textit{Cascading Style Sheets}, es un lenguaje de diseño gráfico que permite definir estilos, colores, formato, tamaño, tipo de letra del texto, posición de cada elemento dentro de la pantalla en una página HTML o imagen SVG. Es la mejor forma de separar los contenidos de su diseño, y es necesario para crear páginas web complejas. De esta manera, CSS controla la presentación visual y el estilo del contenido HTML y SVG de esta plataforma web.
+    \item CSS \citep{CSS}: de las siglas en inglés \textit{Cascading Style Sheets}, es un lenguaje de diseño gráfico que permite definir estilos, colores, formato, tamaño, tipo de letra del texto, posición de cada elemento dentro dentro de la pantalla en una páhina HTML o imagen SVG. Es la mejor forma de separar los contenidos de su diseño, y es necesario para crear páginas web complejas. De esta manera, CSS controla la presentación visual y el estilo del contenido HTML y SVG de esta plataforma web.
 
-    \item Imágenes: Se utilizan imágenes \textit{.png} de los LEDs virtuales a conectar con la placa virtual.
+    \item Imágenes: se utilizan imágenes \textit{.png} de los LEDs virtuales a conectar con la placa virtual.
 
 \end{itemize}
 
@@ -308,14 +306,14 @@ Finalmmente, se describen las tecnologías se utilizan solamente en el \textit{B
 
     \item \textit{Python} \citep{Python}: es un poderoso y popular lenguaje de programación multiplataforma, de código abierto, y un entorno de ejecución. Se caracteriza por su sencillez y su gran potencia para el tratamiento de datos en el lado del servidor. En la plataforma web, \textit{Python} 2.7 se utiliza para ejecutar scripts que realizan tareas específicas, como la configuración e inicialización y la ejecución de \textit{Arm Mbed CLI}.
 
-    \item Lenguajes C / C++ \citep{LenguajeC}: son lenguajes de propósito general y muy populares debido al eficiente código que produce al crear software de sistemas y de aplicaciones.  Las bibliotecas \textit{Arm MBed OS} y los programas que el usuario desarrolla para la placa virtual, están escritos en estos lenguajes.
+    \item Lenguajes C / C++ \citep{LenguajeC}: son lenguajes de propósito general y muy populares debido al eficiente código que produce al crear software de sistemas y de aplicaciones.  Las bibliotecas \textit{Arm MBed OS} y los programas que el usuarrio desarrolla para la placa virtual, están escritos en estos lenguajes.
 
     \item \textit{Mbed events} \citep{ArmMbedEvents}: es una biblioteca de código escrita en lenguaje C que se utiliza en el desarrollo de software embebido para facilitar la gestión de eventos y temporizadores. Para el desarrollo de la plataforma usa esta biblioteca para la creación y gestión de tareas en el \textit{RTOS}. Aunque su uso no permite obtener las funcionalidades requeridas.
     
 \end{itemize}
 
 %------------------------------
-\subsection{Capas de software}
+\subsection{Descipción funcional en detalle}
 
 En el diagrama de bloques de la figura \ref{fig:Arquitectura} se muestra la arquitectura básica de una aplicación de usuario que ejecuta en \textit{Arm Mbed OS Simulator} y las capas de software involucradas.
 
@@ -326,13 +324,13 @@ En el diagrama de bloques de la figura \ref{fig:Arquitectura} se muestra la arqu
 	\label{fig:Arquitectura}
 \end{figure}
 
-\textit{Arm Mbed OS Simulator} presenta una emulación a nivel de API de la biblioteca \textit{Mbed OS} debido a que gran parte de las API son genéricas entre diferentes plataformas de hardware objetivo soportadas (\textit{targets}). Esto incluye las capas GPIO, \textit{stacks} de redes IP4/IPV6 y bibliotecas de comunicación como \textit{CoAP} o \textit{LoRaWAN}. 
+\newpage
 
-El código específico del \textit{target}, como, por ejemplo, en qué registros escribir para cambiar el valor de pin GPIO, se implementa utilizando la capa \textit{Mbed C HAL}. 
+\textit{Arm Mbed OS Simulator} presenta una emulación a nivel de API de la biblioteca \textit{Mbed OS} debido a que gran parte de las API son genéricas entre diferentes plataformas de hardware objetivo soportadas (en inglés, \textit{targets}). Esto incluye las capas de periféricos, como GPIO, \textit{stacks} de redes IP4/IPV6 y bibliotecas de comunicación como \textit{CoAP} o \textit{LoRaWAN}. El código específico del \textit{target}, como, por ejemplo, en qué registros escribir para cambiar el valor de pin GPIO, se implementa utilizando la capa \textit{Mbed C HAL}. \textit{HAL} son las siglas en inglés de \textit{Hardware Abstaction Layer}, en español, capa de abstacción de hardware. De esta manera, para implementar el \textit{port} de la biblioteca \textit{Arm Mbed OS} a una nueva plataforma de hardware, solamente se deben portar los archivos pertenecientes a la capa \textit{Mbed C HAL}.
 
-De esta manera, \textit{Arm Mbed OS Simulator} utiliza el mismo enfoque, implementando un nuevo \textit{target} (TARGET\_SIMULATOR) que implementa la capa \textit{Mbed C HAL}, que pasa eventos a una \textit{HAL} de JavaScript (capa \textit{JS HAL}). Luego, la interfaz de usuario se suscribe a estos eventos y actualiza el simulador en consecuencia (capa \textit{JS UI}).
+\textit{Arm Mbed OS Simulator} utiliza el mismo enfoque, implementando un nuevo \textit{target}, nombrado (TARGET\_SIMULATOR) que implementa la capa \textit{Mbed C HAL}. Sin embargo, la diferencia más importante, es que la capa \textit{Mbed C HAL} que implementa en \textit{Arm Mbed OS Simulator}, en lugar de escribir registros de un microcontrolador real, pasa eventos a una \textit{HAL} implementada en JavaScript (nombrada capa \textit{JS HAL}). Luego, la interfaz de usuario se suscribe a estos eventos y actualiza en consecuencia los componentes gráficos del simulador, esto se implementa en una capa nombrada \textit{JS UI}).
 
-Se toma, por ejemplo, un elemento la API \textit{DigitalOut} de \textit{Mbed OS}, el flujo de la información para controlar un \textit{LED} conectado a una salida es el que se describe en la figura \ref{fig:flujoGpio-LedMbed}.
+Si se toma por ejemplo, un elemento la API \textit{DigitalOut} de \textit{Mbed OS}, el flujo de la información para controlar un \textit{LED} conectado a un pin configurado como salida es el que se describe en la figura \ref{fig:flujoGpio-LedMbed}.
 
 \begin{figure}[ht]
 	\centering
@@ -341,14 +339,115 @@ Se toma, por ejemplo, un elemento la API \textit{DigitalOut} de \textit{Mbed OS}
 	\label{fig:flujoGpio-LedMbed}
 \end{figure}
 
-La capa (\textit{JS HAL}), que actúa como intermediario, distribuyendo eventos entre los componentes de las capas \textit{JS UI} y \textit{C HAL}, implementa un bus de eventos para permitir que la interfaz de usuario se suscriba a eventos de C++, y se comunica con la capa \textit{C HAL} a través de los archivos \textit{WebAssembly} y \textit{JavaScript} generados por el proceso de compilación de \textit{Emscripten}. La capa \textit{JS UI}, maneja los eventos de la interfaz de usuario y solo se comunica con \textit{JS HAL}.
+Para que \textit{Mbed C HAL} pueda pasar los  eventos a la capa \textit{JS HAL} se utiliza la biblioteca \textit{emscripten.h}. Esta biblioteca provee las funciones y macros necesarias para interactuar con el compilador de \textit{Emscripten}, permitiendo que el código \textit{C} use funciones nativas \textit{JavaScript}. De esta manera, cuando se compila el programa de usuario, junto a \textit{Arm Mbed OS} con \textit{Emscripten} se obtienen archivos \textit{WebAssembly} y \textit{Javascrtipt} que pueden comunicarse con la capa \textit{JS HAL}.
 
-En resumen, el diagrama representa cómo un programa escrito en lenguaje \textit{C/C++} interactúa con la capa de abstracción de la emulación a nivel de API hasta llegar a la interfaz de usuario en \textit{JavaScript} para interactuar con los componentes de hardware virtuales, ya sea de la placa de desarrollo, o de componentes externos. 
+La capa (\textit{JS HAL}) actúa como intermediario, distribuyendo eventos entre los componentes de las capas \textit{JS UI} y \textit{C HAL}. Para relizarlo, implementa un bus de eventos para permitir que la interfaz de usuario se suscriba a eventos de C++.
+Para lograr este objetivo se utiliza la clase \textit{EventEmitter} del paquete \textit{Events} de \textit{Node.JS}. \textit{EventEmitter} monitoriza y activa los eventos, facilitando la interacción del navegador con el código \textit{JavaScript} y permitiendo la actualización de la interfaz de usuario de manera flexible y eficiente. 
+
+\textit{EventEmitter} se basa en el modelo de publicación/suscripción que se trata de un paradigma de envío de mensajes asíncrono mediante el cual un usuario publica mensajes y uno o varios objetos se suscriben a esos eventos.
+
+En la figura \ref{fig:PublicarSuscribir} se muestra el modelo de \textit{publicación/suscripción}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.49]{./Figures/PublicarSuscribir.png}
+	\caption{Modelo de \textit{publicación/suscripción}.}
+	\label{fig:PublicarSuscribir}
+\end{figure}
+
+Laos objetos de la capa \textit{JS UI} manejan los eventos de la interfaz de usuario y solo se comunica con \textit{JS HAL}. Para enviar cambios desde la inrefaz gráfica a la capa \textit{JS HAL}, se utiliza directamente su API, mientras que para recibir cambios en la interfaz gráfica desde la capa \textit{JS HAL}, los objetos de la capa \textit{JS UI} se sucriben al detector de eventos. 
+
+Para describir este funcionamiento de la suscripción a los eventos, se debe introducir el concepto de \textit{listeners} (en español, oyentes) de \textit{JavaScript}. Los \textit{listeners} se crean utilizando el método \texttt{on()} y pasando como argumento el nombre del evento al que se quiere suscribir. 
+
+La figura \ref{fig:EventemitterNodeJSUI} muestra que cuando se emite algún evento en la \textit{JS HAL}, entonces el oyente suscrito a ese evento en esta capa \textit{JS UI} lo podrá escuchar y realizar las acciones que correspondan para la funcionalidad requerida. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.52]{./Figures/EventemitterNodeJSUI.png}
+	\caption{Diagrama de bloques de los oyentes de \textit{EventEmitter} en la capa UI.}
+	\label{fig:EventemitterNodeJSUI}
+\end{figure}
+
+\newpage
+
+De esta manera, existen varios subscriptores para un mismo evento en diferentes archivos \textit{JavaScript}. En consecuencia, se logra una mayor interactividad entre los componentes de la plataforma.
+
+En resumen, se explica cómo un programa escrito en lenguaje \textit{C/C++} interactúa con la capa de abstracción de la emulación a nivel de API hasta llegar a la interfaz de usuario en \textit{JavaScript} para interactuar con los componentes de hardware virtuales, ya sea de la placa de desarrollo, o de componentes externos. 
+
+%---------------------------------
+\subsection{Caso de estudio: programa que activa un LED en la placa virtual}
+\label{sec:caso_de_estudio}
+
+Para exhibir el funcionamiento de \textit{Arm Mned OS} en su totalidad, se presenta en esta sección, un caso de estudio, correspondiente a la ejecución de un programa que activa un LED en la placa virtual.
+
+El usuario escribe un programa en lenguaje \textit{C++}, que utiliza la biblioteca \textit{\textbf{Arm Mbed OS}} para interactuar con un pin configurado como salida, conectado a un \textit{LED}, ubicado en la propia placa virtual. 
+
+A continuación, ejecuta el programa dentro de la plataforma web. Para lograr esto, mediante \textit{Node.js} se ejecutan los comandos necesarios para que \textit{Emscripten} realice la compilación del código \textit{C++}, que incluye: 
+
+\begin{itemize}
+    \item El codigo de la aplicacion de usuario escrito en lenguaje \textit{C++}.
+    \item La biblioteca \textit{Arm Mbed Os}, capa \textit{Bibioteca C++}.
+    \item El archivo \texttt{gpio\_api.c} de la capa \textit{C HAL}.
+    \item El archivo \texttt{emscripten.h}.
+\end{itemize} 
+
+El proceso de compilación comienza con el preprocesamiento del código \textit{C++}, que incluye el manejo de directivas del preprocesador como \texttt{\#include} y \texttt{\#define}. Luego, el compilador utiliza \textit{LLVM} para compilar el código \textit{C} en \texttt{bitcode}. Después, de obtener el \texttt{bitcode} realiza optimizaciones para mejorar el rendimiento y reducir el tamaño del código resultante. Finalmente, \textit{Emscripten} toma el bitcode optimizado y lo traduce a código \textit{WebAssembly} y \textit{JavaScript}, permitiendo que el programa escrito originalmente en \textit{C++} pueda ser ejecutado dentro del entorno web. Los archivos resultantes de este proceso incluyen: 
+
+\newpage
+
+\begin{itemize}
+    \item \texttt{user\_tiempoenmilisegundos.js}.
+    \item \texttt{user\_tiempoenmilisegundos.wasm}.
+    \item \texttt{user\_tiempoenmilisegundos.wast}.
+    \item \texttt{user\_tiempoenmilisegundos.js.components}.
+    \item \texttt{user\_tiempoenmilisegundos.wasm.map}.
+\end{itemize}
+
+\textit{Emscripten} utiliza un identificador único para los archivos generados. Este identificador esta compuesto por el prefijo \texttt{user\_} y un número entero que representa el tiempo en milisegundos.
+
+Una vez que los archivos \texttt{.js} y \texttt{.wasm} se han generado a partir del código \textit{C++} mediante \textit{Emscripten}, pueden interactuar con el código \textit{JavaScript} de los archivos en las capas \textit{JS HAL} y \textit{JS UI}.
+
+La figura \ref{fig:DiagramaSecuenciaMBED} muestra un diagrama de secuencia que expone la interacción del usuario con el sistema y sus capas interiores.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.49]{./Figures/DiagramaSecuenciaMBED.png}
+	\caption{Funcionamiento de \textit{Arm Mbed OS Simulator}.}
+	\label{fig:DiagramaSecuenciaMBED}
+\end{figure}
+
+La capa \textit{JS HAL} se encarga de notificar los eventos ocurridos. Mediante la función \texttt{write}, se realiza la activación del evento que escribe en el GPIO. 
+Como resultado, emitirá el evento con el nombre \texttt{pin\_write}, pasando como argumentos el número de pin, el valor digital y el tipo de pin declarado, como se muestra en el diagrama en bloques de la figura \ref{fig:GPIOEventEmitter}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.55]{./Figures/GPIOEventEmitter.png}
+	\caption{Activación de evento con el nombre \texttt{pin\_write}.}
+	\label{fig:GPIOEventEmitter}
+\end{figure}
+
+En la capa \textit{JavaScript UI} cuando se emite el evento con el nombre \texttt{gpio\_write}, cualquier oyente que esté suscrito a ese evento podrá escucharlo y realizar las acciones correspondientes para la funcionalidad que se requiere. En este caso, la acción solicitada es encender el LED. Esto se ilustra en el diagrama en bloques de la figura \ref{fig:ListeningGPIOEventEmitter}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.50]{./Figures/ListeningGPIOEventEmitter.png}
+	\caption{GPIO oyente del evento con el nombre \texttt{pin\_write}.}
+	\label{fig:ListeningGPIOEventEmitter}
+\end{figure}
+
+Mediante estas interacciones entre todas las capas de programación, se muestrarán los cambios de \texttt{gpio\_write} en la placa virtual. Esto se resume en la figura \ref{fig:AplicacionUsuarioLeds}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.62]{./Figures/AplicacionUsuarioLeds.png}
+	\caption{Interacción entre todas las capas de programación.}
+	\label{fig:AplicacionUsuarioLeds}
+\end{figure}
 
 %------------------------------
 \subsection{Análisis estructural de archivos y carpetas}
 
-En la figura \ref{fig:estructuraMbed1} se exhibe la estructura de arbol de las carpetas y archivos de \textit{Arm Mbed OS Simulator} en el momento en que fue clonado desde \textit{GitHub}  para la realización de este trabajo.
+En la figura \ref{fig:estructuraMbed1} se exhibe la estructura de arbol de las carpetas y archivos de \textit{Arm Mbed OS Simulator} al momento que fue clonado desde \textit{GitHub} para la realización de este trabajo.
 
 \begin{figure}[ht]
 	\centering
@@ -356,6 +455,8 @@ En la figura \ref{fig:estructuraMbed1} se exhibe la estructura de arbol de las c
 	\caption{Estructura de carpetas y archivos de \textit{Arm Mbed OS Simulator}.}
 	\label{fig:estructuraMbed1}
 \end{figure}
+
+\newpage
 
 La carpeta \textquotedbl build-tools\textquotedbl{} contiene tres archivos \textit{javaScript}: 
 

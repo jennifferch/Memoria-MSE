@@ -41,23 +41,39 @@
 % Resumen de capitulo
 %----------------------------------------------------------------------------------------
 
-En este capítulo se detallan las herramientas utilizadas para el desarrollo del presente trabajo. Luego se exponen los cambios fundamentales realizados sobre la estructura del código exitente, para portarlo a la EDU-CIAA-NXP y las mejoras introducidas. Se documenta además, el desarrollo de los nuevos componentes de hardware virtuales, los ports de las bibliotecas y ejemplos de programa, así como nuevos programas.
+En este capítulo se detallan los cambios fundamentales realizados sobre la estructura del código exitente, para portarlo a la EDU-CIAA-NXP y las mejoras introducidas. Además, se documenta, el desarrollo de los nuevos componentes de hardware virtuales, los ports de las bibliotecas y ejemplos de programa, así como nuevos programas.
 
 %----------------------------------------------------------------------------------------
 \section{Herramientas de desarrollo}
 \label{sec:Herramientas de trabajo}
 %----------------------------------------------------------------------------------------
 
-Se exponen las herramientas que se utilizan en el desarrollo de este trabajo:
+En esta sección se exponen las herramientas del desarrollo que se utilizan en este trabajo.
 
-\begin{itemize}
-	\item EDU-CIAA-NXP: esta es la plataforma de hardware objetivo a emular del presente trabajo. Es uno de los diseños de hardware del Proyecto CIAA. En particular, el enfoque es ayudar a las Universidades Argentinas a migrar de microcontroladores de 8 bits a modernos microcontroladores de 32 bits al usar una placa diseñada en Argentina con hardware y software abiertos. Estas placas se difundieron en todas las universidades Argentinas con carreras de electrónica y afines, y también, en algunos países limítrofes. 
+%-------------------
+\subsection{Plataforma de desarrollo EDU-CIAA-NXP}
+\label{sec:EDU-CIAA-NXP}
+
+La EDU-CIAA-NXP esta es la plataforma de hardware objetivo a emular del presente trabajo. Es uno de los diseños de hardware del Proyecto CIAA. En particular, el enfoque es ayudar a las Universidades Argentinas a migrar de microcontroladores de 8 bits a modernos microcontroladores de 32 bits al usar una placa diseñada en Argentina con hardware y software abiertos. Estas placas se difundieron en todas las universidades Argentinas con carreras de electrónica y afines, y también, en algunos países limítrofes. 
 Se utilizó la placa física para ensayos de comparación entre lo real y el emulador web desarrollado.
 
-	\item Visual Studio Code \citep{VisualStudioCode}: es un editor de código fuente gratuito y de código abierto desarrollado por Microsoft. Incluye soporte para la depuración, control integrado de Git, resaltado de sintaxis, finalización inteligente de código, fragmentos, refactorización de código y muchas otras herramientas más. Se eligio este IDE, de la sigla en inglés Integrated Development Environment \citep{IDE}, por la capacidad de sus herramientas y la simpleza de su editor de código. El uso de este editor facilitó la escritura y el mantenimiento del código del emulador, mejorando la productividad y la calidad del desarrollo.
-	
-	\item Inkscape \citep{inkscape}: es un editor de gráficos vectoriales que permite crear, editar y modificar gráficos. En el proceso de desarrollo de la interfaz del emulador web se utilizó para diseñar algunos elementos gráficos dentro del dibujo de la placa EDU-CIAA-NXP.
+%-------------------
+\subsection{Editor \textit{VSCode}}
+\label{sec:gitYAmigos}
 
+Visual Studio Code \citep{VisualStudioCode}: es un editor de código fuente gratuito y de código abierto desarrollado por Microsoft. Incluye soporte para la depuración, control integrado de Git, resaltado de sintaxis, finalización inteligente de código, fragmentos, refactorización de código y muchas otras herramientas más. Se eligio este IDE, de la sigla en inglés Integrated Development Environment \citep{IDE}, por la capacidad de sus herramientas y la simpleza de su editor de código. El uso de este editor facilitó la escritura y el mantenimiento del código del emulador, mejorando la productividad y la calidad del desarrollo.
+	
+%---------------------------------------------
+\subsection{Editor de gráficos vectoriales \textit{Inkscape}}
+\label{sec:Inkscape}
+
+Inkscape \citep{inkscape}: es un editor de gráficos vectoriales que permite crear, editar y modificar gráficos. En el proceso de desarrollo de la interfaz gráfica, se utilizó para diseñar diversos componentes de hardware.
+
+%---------------------------------------------
+\subsection{Sistemas de control de versiones e integración contínua}
+\label{sec:gitYAmigos}
+
+\begin{itemize}
 	\item GitHub \citep{GitHub}: es una plataforma de desarrollo colaborativo que permite alojar proyectos utilizando el sistema de control de versiones Git. Se utilizó los servicios de esta plataforma para almacenar y
 compartir el código fuente, de manera que se pueda hacer un seguimiento
 de las últimas modificaciones realizadas.
@@ -66,108 +82,96 @@ de las últimas modificaciones realizadas.
 De esta manera, se asegura la calidad del software. Incluso, proporciona informes detallados de las pruebas realizadas y servicio de notificaciones por correo electrónico.
 
 	\item GitLab \citep{GitLab}: es una plataforma web de gestión de repositorios y permite la colaboración en el desarrollo de software. Proporciona un conjunto completo de herramientas para el ciclo de vida del desarrollo de software, por lo tanto, permite configurar pipelines de integración y entrega continua, en consecuencia, automatiza la compilación, las pruebas y el despliegue de software de manera eficiente. Es una alternativa a otras plataformas como GitHub con Travis CI.
-	
-	\item DigitalOcean \citep{DigitalOcean}: ofrece servicios de infraestructura de computación en la nube, tales como permitir a los usuarios crear y administrar servidores virtuales, conocidos como Droplets. Incluso, ofrece opciones de almacenamiento, configuración de redes privadas virtuales, servicios de bases de datos, entre otros. DigitalOcean se destaca por su enfoque en la simplicidad y la facilidad de uso de su plataforma. El emulador desarrollado en el presente trabajo se encuentra desplegado en el servidor de DigitalOcean.
-
 \end{itemize}
 
+%---------------------------------------------
+\subsection{Herramientas de\textit{Testing}}
+\label{sec:TestingFrontendBackend}
+
+\textit{Arm Mbed OS Simulator} no posee ninguna plataforma de \textit{tests}. Los únicos tests encontrados pertenecen a la biblioteca \textit{Arm Mbed OS}, es por esto que se agregan las siguientes herramientas para \textit{testing} en el \textit{Frontend}:
+
+\begin{itemize}
+     \item Mocha \citep{Mocha}: es un marco de trabajo para pruebas de JavaScript que tiene funciones que se ejecutan en \textit{Node.JS} y en el navegador web. En consecuencia, hace que las pruebas asincrónicas sean simples. Asimismo, Las pruebas se ejecutan en serie y se realiza el envío de excepciones aún no detectadas a los casos de prueba correctos.
+El uso de este marco de trabajo permite hacer pruebas sobre la interfaz de usuario de la plataforma.
+     
+     \item Chai \citep{Chai}: es una biblioteca de aserciones (como por ejemplo, \textit{assert}, \textit{expect} y \textit{should}) que puede usarse con cualquier marco de pruebas de Javascript. Chai se utiliza en las pruebas de \textit{EmuCIAA} para  verificar el comportamiento esperado de las funciones, componentes y datos generados. 
+\end{itemize}
+
+Mientras que para \textit{testing} en el \textit{Backend}, se agregan las siguientes:
+
+\begin{itemize}
+    \item \textit{Check} \citep{Check}: es una biblioteca de pruebas unitarias para el lenguaje de programación C que proporciona un conjunto de macros y funciones que facilitan la escritura y la ejecución de las pruebas unitarias. Además, provee mecanismos que aislan y ejecutan las pruebas en un entorno controlado y separado, usando suites de pruebas, funciones de inicialización y limpieza. Se utilizó en \textit{EmuCIAA} para verificar el correcto funcionamiento de las funciones y componentes implementados en el backend escritos en lenguaje C.
+    
+    \item \textit{CMocka} \citep{CMocka}: es una biblioteca de pruebas unitarias especialmente diseñada para C, destacandose por su capacidad de crear \textit{mocks} (falsos) y \textit{stubs} (simulaciones) de funciones. De esta manera se logra probar componentes de código que dependen de funciones externas. Y, además, facilita el aislamiento de las unidades de código y la creación de escenarios de prueba que pueden ser controlados. El uso de esta tecnología permite simular funciones mediante \textit{mocks} para controlar el comportamiento de las funciones dependientes y facilitar las pruebas de código que interactúa con dichas funciones.
+\end{itemize}
+
+En el capítulo \ref{Chapter4} se muestran estas herramientas en uso.
+
+%---------------------------------------------
+\subsection{Servidor en la nube \textit{DigitalOcean}}
+\label{sec:DigitalOcean}
+
+\textit{DigitalOcean} \citep{DigitalOcean}: ofrece servicios de infraestructura de computación en la nube, tales como permitir a los usuarios crear y administrar servidores virtuales, conocidos como Droplets. Incluso, ofrece opciones de almacenamiento, configuración de redes privadas virtuales, servicios de bases de datos, entre otros. DigitalOcean se destaca por su enfoque en la simplicidad y la facilidad de uso de su plataforma. El emulador desarrollado en el presente trabajo se encuentra desplegado en el servidor de DigitalOcean.
+
+
 %----------------------------------------------------------------------------------------
-\section{Introducción al desarrollo}
+\section{Restructuración de archivos y carpetas}
 %----------------------------------------------------------------------------------------
 
-Luego de comprender el funcionamiento de \textit{Arm Mbed OS Simulator}, se comenzó el desarrollo del emulador eliminando módulos y dependencias innecesarias, tales como: mbed-http, simple-mbed-cloud-client, features, rtos y todas las sub-carpetas dentro de la carpeta \textquotedbl target\textquotedbl{}  excluyendo la sub-carpeta TARGET\_SIMULATOR. 
-Se modificaron las carpetas y archivos de configuración para adaptarlos al desarrollo del entorno del emulador para la placa EDU-CIAA-NXP. Luego, se reemplazó \textquotedbl mbed-os\textquotedbl{}  por la biblioteca \textit{\textbf{sAPI}}, pero se mantuvieron algunos componentes propios de Mbed, como \textquotedbl events\textquotedbl{}  y \textquotedbl callback\textquotedbl, para agilizar el desarrollo.
+Luego de comprender el funcionamiento de \textit{Arm Mbed OS Simulator}, se comienza el desarrollo de este trabajo. Se utiliza a partir de aquí el nombre \textit{EmuCIAA}, para referirse al \textit{Emulador de la placa EDU-CIAA-NXP}.
 
-La figura \ref{fig:estructuraCiaa} exhibe la nueva estructura de carpetas y archivos, realizada para el \textit{Emulador de la placa EDU-CIAA-NXP}, el cual a partir de aquí se nombra como \textit{EmuCIAA}.
+En principio, se eliminaron módulos y dependencias innecesarias para el alcance de este trabajo, tales como: \textit{mbed-http}, \textit{simple-mbed-cloud-client}, \textit{features}, \textit{rtos} y todas las sub-carpetas dentro de la carpeta \textit{target} excluyendo la sub-carpeta TARGET\_SIMULATOR. Se modificaron las carpetas y archivos de configuración para adaptarlos al desarrollo del entorno del emulador para la placa EDU-CIAA-NXP. Luego, se reemplazó \textquotedbl mbed-os\textquotedbl{}  por la biblioteca \textit{\textbf{sAPI}}, pero se mantuvieron algunos componentes propios de Mbed, como \textit{events} y \textit{callback}, para agilizar el desarrollo.
+
+La figura \ref{fig:estructuraCiaa}, exhibe la nueva estructura de carpetas y archivos realizada para \textit{EmuCIAA}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.57]{./Figures/estructuraCiaa.jpg}
+	\includegraphics[scale=.55]{./Figures/estructuraCiaa.jpg}
 	\caption{Estructura de carpetas y archivos de \textit{EmuCIAA}.}
 	\label{fig:estructuraCiaa}
 \end{figure}
 
-
-
-
-%----------------------------------------------------------------------------------------
-\section{Cambios realizados sobre la estructura del código exitente}
-\label{sec:Cambios realizados sobre la estructura del código exitente}
-%----------------------------------------------------------------------------------------
-
-%-----------------------------------------------
-\subsection{Nuevas tecnologías agrgadas}
-
-Cambios en el Frontend
-
-\begin{itemize}
-    \item SVG EDU-CIAA-NXP \citep{SVGFirmwareV3}, SVG GLCD 128x64, SVG LCD DISPLAY 20x4, SVG DHT11, SVG Potenciómetro \(10K\Omega\), SVG Termistor NTC, SVG Analog Stick, SVG LEDs: esta reutilización fue necesaria para brindar a los usuarios una experiencia visual interactiva. Asimismo, se incorporaron fuentes tipográficas en los dibujos SVG para las representaciones de texto. Estas fuentes  están definidas en información vectorial,  lo que permitió una visualización nítida y escalable en diferentes tamaños para las pantallas LCD.
-
-     \item Mocha \citep{Mocha}: es un marco de trabajo para pruebas de JavaScript que tiene funciones que se ejecutan en NodeJS y en el navegador web. En consecuencia, hace que las pruebas asincrónicas sean simples. Asimismo, Las pruebas se ejecutan en serie y se realiza el envío de excepciones aún no detectadas a los casos de prueba correctos.
-El uso de este marco de trabajo permitió hacer pruebas sobre la interfaz de usuario de la plataforma.
-     
-     \item Chai \citep{Chai}: es una biblioteca de aserciones que puede usarse con cualquier marco de pruebas de Javascript. Asimismo, tiene varias interfaces: \textit{assert}, \textit{expect} y \textit{should}, que permiten al desarrollador elegir cuál usar. Chai se utiliza en las pruebas del emulador web para  verificar el comportamiento esperado de las funciones, componentes y datos generados por el emulador. 
-\end{itemize}
-
-Cambios en el Backend
-
-\begin{itemize}
-    \item Check \citep{Check}: es una biblioteca de pruebas unitarias para el lenguaje de programación C que proporciona un conjunto de macros y funciones que facilitan la escritura y la ejecución de las pruebas unitarias. Además, provee mecanismos que aislan y ejecutan las pruebas en un entorno controlado y separado, usando suites de pruebas, funciones de inicialización y limpieza. Se utilizó en el emulador web para verificar el correcto funcionamiento de las funciones y componentes implementados en el backend del emulador escritos en lenguaje C.
-    
-    \item CMocka \citep{CMocka}: es una biblioteca de pruebas unitarias especialmente diseñada para C, destacandose por su capacidad de crear mocks (falsos) y stubs (simulaciones) de funciones. De esta manera se logra probar componentes de código que dependen de funciones externas. Y, además, facilita el aislamiento de las unidades de código y la creación de escenarios de prueba que pueden ser controlados. El uso de esta tecnología permitió simular funciones mediante mocks para controlar el comportamiento de las funciones dependientes y facilitar las pruebas de código que interactúa con dichas funciones.
-    
-    \item sAPI CIAA \citep{sAPICIAA}: esta biblioteca escrita en lenguaje C y compatible con C++ implementa una API simple que funciona como una capa de abstracción de hardware para microcontroladores. Es la principal biblioteca del Proyecto CIAA para el desarrollo de aplicaciones en C/C++ en los frameworks Firmware v2\citep{firmwareV2} y Firmware v3\citep{firmwareV3}. 
-Para la emulación a nivel de API, se utilizó como base la API de la sAPI v0.6.2 disponible en firmware v3 del Proyecto CIAA \citep{sAPIv0.6.2} y se realizarón las implementaciones necesarias para que funcione en la web, en lugar de funcionar en el hardware de un microcontrolador real.
-De esta manera, se proporcionó una interfaz idéntica, permitiendo a los usuarios del emulador, programar en la plataforma web de la misma manera que lo harían con la placa EDU-CIAA-NXP real, logrando que cualquier programa escrito utilizando la sAPI pueda correr en el emulador.
-Cabe destacar que al emular a nivel de sAPI, el usuario no podrá utilizar funciones de bajo nivel de la EDU-CIAA-NXP, como ser la biblioteca del fabricante del microcontrolador (LPCopen\citep{lpcopen}), o el acceso directo a registros físicos del microcontrolador, al igual que sucede con el emulador \textit{Arm Mbed OS Simulator}.
-\end{itemize}
-
+En las siguientes secciones se detallan todos estos cambios y agregados relizados.
 
 %----------------------------------------------------------------------------------------
-\section{Frontend}
+\section{\textit{Frontend}: rediseño de la Interfaz de Usuario}
 %----------------------------------------------------------------------------------------
 
-En esta parte de la plataforma web se implementó el desarrollo de la interacción entre el \textit{backend} y el navegador del usuario.
+Para el rediseño de la interfaz, se optó por un diseño intuitivo, de manera que el usuario se sienta familiarizado con las herramientas de trabajo y que la disposición de los componentes sea cómoda y esté organizada al momento de usarlas, reordenando los elementos en pantalla.
 
-%------------------------------------------------------
-\subsection{Diseño de la Interfaz de Usuario}
-
-Para el desarrollo de la interfaz, se optó por un diseño intuitivo, de manera que el usuario se sienta familiarizado con las herramientas de trabajo y que la disposición de los componentes sea cómoda y esté organizada al momento de usarlas.
-
-Para su estudio, la figura \ref{fig:PlataformaEmulador1} muestra la plataforma web del Emulador de la placa EDU-CIAA-NXP, dividida en tres partes.
+Para su estudio, la figura \ref{fig:PlataformaEmulador1} muestra la interfaz gráfica de \textit{EmuCIAA}dividida en tres partes.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.28]{./Figures/PlataformaEmulador.png}
-	\caption{Plataforma de emulación para la placa EDU-CIAA-NXP.}
+	\caption{Interfaz gráfica de \textit{EmuCIAA}.}
 	\label{fig:PlataformaEmulador1}
 \end{figure}
 
 Por consiguiente, el diseño de la interfaz de usuario de la plataforma proporciona las siguientes áreas:
 
 \begin{itemize}
-	\item Área de ensamblado: el valor predeterminado muestra la placa EDU-CIAA-NXP, y también se permite agregar componentes.
-	\item Área de codificación: se proporciona un editor de código en línea para programar con la placa EDU-CIAA-NXP. La primera vez que se accede a la platafoma se muestra en ejecución un ejemplo de código predeterminado.
-	\item Área de consola integrada: se muestra en una ventana la salida que se vería a través del puerto serie. 
+	\item Área de ensamblado: el valor predeterminado muestra la placa EDU-CIAA-NXP, y también se permite agregar componentes externos.
+	\item Área de codificación: se proporciona un editor de código en línea para programar con la placa EDU-CIAA-NXP. La primera vez que se accede a la platafoma se muestra en ejecución un ejemplo de código predeterminado (ejemplo \textit{blinky.c}). Se mantuvo \textit{Ace} como editor.
+	\item Área de consola integrada: se muestra en una ventana la salida de las UARTs de la EDU-CIAA-NXP. Se reutilizó \textit{xterm} para la consola.
 \end{itemize}
 
-Debido a las áreas de trabajo que presenta la plataforma, el usuario programador podrá realizar las siguientes tareas:
+Dadas las áreas de trabajo que presenta la plataforma, el usuario programador podrá realizar las siguientes tareas:
 
 \begin{itemize}
-	\item Ver los programas de ejemplo predeterminados.
-	\item Crear un nuevo proyecto.
-	\item Ejecutar un programa de ejemplo o uno nuevo.
-	\item Editar programas.
-	\item Visualizar los cambios programados para la placa virtual.
-	\item Agregar nuevos componentes.
+	\item Probar los programas de ejemplo predeterminados.
+	\item Crear un nuevo programa desde cero, o bien, modificar un ejemplo.
+	\item Editar y ejecutar programas.
+	\item Visualizar los cambios programados en la placa virtual.
+	\item Agregar componentes de hardware virtual para conectar a la placa virtual.
 	\item Ver los errores obtenidos en la programación.
-	\item Ver lo programado en la salida de consola.
+	\item Ver la salida de las UARTs de la placa virtual.
 \end{itemize}
 
 %--------------------------------------
-\subsubsection{Área de ensamblado}
+\subsection{Área de ensamblado}
 
-Para el desarrollo de la placa EDU-CIAA-NXP y componentes externos se usaron dibujos en formato de gráficos vectoriales bidimensionales (SVG) por las siguientes características:
+Para el desarrollo de la placa EDU-CIAA-NXP, y componentes externos para conectar a la misma, se agregaron los gráficos SVG (SVG) por las siguientes características:
 
 \begin{itemize}
 	\item Son más ligeras, entonces se cargan más rápido en el navegador.
@@ -176,15 +180,24 @@ Para el desarrollo de la placa EDU-CIAA-NXP y componentes externos se usaron dib
 	\item Permite programar animaciones.
 \end{itemize}
 
-En ese sentido, para la capa de programación \textit{JavaScript UI}, se pudo implementar el comportamiento interactivo para los botones de la placa (TEC1, TEC2, TEC3 y TEC4) usando el código SVG generado para la placa EDU-CIAA-NXP, incluso, se pudo modificar también el comportamiento de los LEDs, que permitió mostrar dinamicamente en la placa el encendido y apagado.
+Estos gáficos fueron proporcionados por el co-director del presente trabajo, Mg. Ing. Eric Pernia:
 
-Además, con el objetivo de optimizar la experiencia del usuario, esta área permite elegir uno o más dispositivos virtuales de entrada/salida desde la barra lateral \textit{sidebars} derecho. En esta barra se exhiben todos los periféricos disponibles para la plataforma web. 
+\begin{itemize}
+    \item SVG EDU-CIAA-NXP \citep{SVGFirmwareV3}.
+    \item SVG LED.
+    \item SVG DHT11.
+    \item SVG Potenciómetro \(10K\Omega\).
+    \item SVG Termistor NTC. 
+    \item SVG Analog Stick. 
+    \item SVG Display LCD 20x4 caracteres.
+    \item SVG Display GLCD 128x64 píxeles y 16x4 caracteres.
+\end{itemize}
 
-Una vez que el usuario elige un periférico de la barra lateral y realiza la configuración de las conexiones, la barra automáticamente colapsa, ocultándose del área de ensamblado. Al colapsarse, se muestra el periférico integrado en la aplicación. Asimismo,  el usuario tiene la opción de volver a expandir la barra lateral para agregar un nuevo periférico.
+Estos componenetes se combinan con a elementos de \textit{JavaScript}, para brindar a los usuarios una experiencia visual interactiva. Asimismo, se incorporaron fuentes tipográficas en los dibujos SVG para las representaciones de texto. Estas fuentes están definidas en información vectorial, lo que permitió una visualización nítida y escalable en diferentes tamaños para las pantallas LCD y GLCD.
 
-También, al añadir un periférico virtual, el usuario tiene la posibilidad de eliminarlo. Para realizarlo, simplemente debe seleccionar el periférico deseado, lo que habilitará el icono de \textquotedbl Eliminar periféricos externos\textquotedbl. Al hacer clic en el icono, el periférico virtual es eliminado de forma automática y efectiva.
+En la capa de programación \textit{JS UI}, se implementa el comportamiento interactivo para los botones de la placa (TEC1, TEC2, TEC3 y TEC4), los cuales permiten ser pulsados; y los LEDs (LED\_RGB, LED1, LED2 y LED3), que permiten mostrar los estados de encendido y apagado en la placa virtual.
 
-En la figura \ref{fig:AgregarPeriferico} se observa que el usuario puede elegir qué componente agregar a la aplicación y en la figura \ref{fig:AgregarPeriferico2} se muestra que el componente se agregó a la aplicación.
+En \textit{Arm Mbed OS Simulator}, para agregar componentes y conectarlos a la placa de desarrollo, existe botón que muestra la lista de componentes disponibles en una ventana. Con el objetivo de optimizar la experiencia del usuario, se desarrollo para \textit{EmuCIAA} un nuevo \textit{sidebar} (barra lateral) colapsable, donde se exhiben todos componentes. De esta manera, para agregar un componente, el usuario debe expandir la barra lateral y hacer \textit{click} sobre el perifperico elegido. Al realizar esta acción aparece una ventana modal para realizar la configuración de las conexiones entre el componente y la EDU-CIAA-NXPl (figura \ref{fig:AgregarPeriferico}). 
 
 \begin{figure}[ht]
 	\centering
@@ -193,6 +206,10 @@ En la figura \ref{fig:AgregarPeriferico} se observa que el usuario puede elegir 
 	\label{fig:AgregarPeriferico}
 \end{figure}
 
+\newpage
+
+Una vez aceptada la configuración, la barra automáticamente colapsa, ocultándose del área de ensamblado. Al colapsarse, se muestra el periférico integrado en la aplicación (figura \ref{fig:AgregarPeriferico2}). 
+
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.37]{./Figures/AgregarPeriferico2.png}
@@ -200,29 +217,28 @@ En la figura \ref{fig:AgregarPeriferico} se observa que el usuario puede elegir 
 	\label{fig:AgregarPeriferico2}
 \end{figure}
 
-%-----------------------------------------
-\subsubsection{Área de codificación}
+Para eliminar un componente, simplemente debe seleccionar el componente deseado, y se habilita el icono de \textquotedbl Eliminar periféricos externos\textquotedbl. Al hacer clic en el icono, el periférico virtual es eliminado de la pantalla.
 
-Esta parte de la plataforma se reserva al usuario para que pueda programar sus propias aplicaciones. Esta ventana de edición presenta las siguientes capacidades:
+%-----------------------------------------
+\subsection{Área de codificación}
+
+Esta parte de la plataforma se reserva al usuario para que pueda programar sus aplicaciones. Esta ventana de edición presenta las siguientes capacidades:
 
 \begin{itemize}
-\item Manejar la sintaxis para el lenguaje C.
-\item Soportar el uso de las constantes, como por ejemplo: '\#define'.
-\item Permitir el uso de las palabras claves, comentarios, etc.
-\item Permitir el resaltado de líneas de código, sangría automática y número de línea.
-\item Utilizar la función buscar (ctrl + f).
-\item Utilizar la función buscar/reemplazar (ctrl + h).
-\item Utilizar la función rehacer (ctrl + y).
+\item Manejar la sintaxis para los lenguajes C/C++. Esto significa que permite el uso de las palabras claves, comentarios, constantes, etc., realizando el coloreo de sintaxis.
+\item Resaltado de líneas de código, sangría automática y número de línea.
+\item Función buscar (ctrl + f).
+\item Función buscar/reemplazar (ctrl + h).
+\item Función deshacer (ctrl + z).
+\item Función rehacer (ctrl + y).
 \end{itemize}
 
-Para compilar un programa, la plataforma provee al usuario el botón “ejecutar”. Sin embargo, si hubo problemas de sintaxis, errores lógicos, etc., se mostrarán esos errores al usuario.
-
-En la figura \ref{fig:PlataformaErrores2} se muestra el código que generó los errores de compilación y en la figura \ref{fig:PlataformaErrores1} se observa los errores de compilación en el área de ensamblado.
+Para compilar un programa, la plataforma provee al usuario el botón “Ejecutar”. Si existen errores en el código, que no permitan la compilación, se muestran los mismos en pantalla. Como ejemplo, en la figura \ref{fig:PlataformaErrores2} se muestra un código que genera los errores de compilación. Mientras que en la figura \ref{fig:PlataformaErrores1} se presentan los errores de compilación que se muestran en el área de ensamblado en dicho caso luego de intentar ejecutar el programa.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=.42]{./Figures/PlataformaErrores1.png}
-	\caption{Código que generó los errores de compilación.}
+	\caption{Código que genera errores de compilación.}
 	\label{fig:PlataformaErrores2}
 \end{figure}
 
@@ -233,9 +249,9 @@ En la figura \ref{fig:PlataformaErrores2} se muestra el código que generó los 
 	\label{fig:PlataformaErrores1}
 \end{figure}
 
-También, se implementó una estructura jerárquica en la lista desplegable de ejemplos. El propósito es organizar y presentar los ejemplos agrupados por periféricos, de manera más ordenada y fácil de navegar para el usuario.
+\hfill \break
 
-La figura \ref{fig:listExamples} muestra la estructura jerárquica de la lista de ejemplos.
+También, se implementó una estructura jerárquica en la lista desplegable de ejemplos. El propósito es organizar y presentar los ejemplos agrupados por periféricos, de manera más ordenada y fácil de navegar para el usuario. La figura \ref{fig:listExamples} muestra la estructura jerárquica de la lista de ejemplos.
 
 \begin{figure}[ht]
 	\centering
@@ -244,148 +260,87 @@ La figura \ref{fig:listExamples} muestra la estructura jerárquica de la lista d
 	\label{fig:listExamples}
 \end{figure}
 
-Ademas, al seleccionar algún ejemplo que contiene un periférico externo de la lista desplegable, la aplicación, automáticamente carga dentro del área de ensamblado el periférico con las conexiones a los pines configurados por defecto. Es decir, el usuario no tiene la necesidad de seleccionar y configurar el periférico desde la barra lateral del área de ensamblado.
-
-La figura \ref{fig:cargarPeriferico} muestra el periférico agregado automáticamente al seleccionar el ejemplo \textquotedbl potentiometer\textquotedbl.
+Ademas, la aplicación automáticamente carga dentro del área de ensamblado un periférico con las conexiones a los pines configurados por defecto, cuando el usuario selecciona algún ejemplo que contenga un periférico externo, De esta manera, el usuario ya no tiene la necesidad de seleccionar y configurar el periférico para probar un ejemplo. La figura \ref{fig:cargarPeriferico} muestra el periférico agregado automáticamente al seleccionar el ejemplo \textquotedbl potentiometer\textquotedbl.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.21]{./Figures/cargarPeriferico.png}
+	\includegraphics[scale=.31]{./Figures/cargarPeriferico.png}
 	\caption{Carga automática del periférico. }
 	\label{fig:cargarPeriferico}
 \end{figure}
 
 %------------------------------------------
-\subsubsection{Área de consola integrada}
+\subsection{Área de consola integrada}
 
-Dentro del código traducido en el proceso de compilación por \textit{Emscripten}, se encuentran las siguientes funciones definidas y configuradas previamente, las cuales son: 
+Dentro del código traducido en el proceso de compilación por \textit{Emscripten}, se encuentran las siguientes funciones definidas y configuradas previamente: 
 
 \begin{itemize}
 \item \texttt{print}, esta función envía el texto a la terminal de la interfaz gráfica del emulador web, al utilizar la función \texttt{terminal.write}.
 \item \texttt{printErr}, se comunica con la consola de error del navegador, al usar \newline \texttt{console.error}.
 \end{itemize}
 
-Ambas funciones interactuan con el código \textit{JavaScript}. La función \texttt{printErr} se comunica con la consola de error del navegador y la función \texttt{print} se comunica con la terminal del emulador web a través de la biblioteca xterm.js, que es un componente de terminal de front-end escrito en \textit{JavaScript} y que permite construir terminales en el navegador. 
+Ambas funciones interactuan con el código \textit{JavaScript}. La función \texttt{printErr} se comunica con la consola de error del navegador y la función \texttt{print} se comunica con la terminal de \textit{EmuCIAA} a través de la biblioteca \textit{xterm.js}.
 
-Entre las principales características de xterm.js se destaca:
+Entre las principales características de \textit{xterm.js} se destaca:
 
 \begin{itemize}
-	\item Funciona con la mayoría de las aplicaciones de terminal, como bash, es compatible con aplicaciones basadas y eventos de mouse.
-	\item Es de alto rendimiento, por eso es realmente rápido.
-	\item No requiere de dependencias externas para funcionar. La dependencia principal para el funcionamiento básico es el propio navegador web.
-	\item API bien documentada.
+    \item Funciona con la mayoría de las aplicaciones de terminal, como por ejemplo, bash, siendo compatible con aplicaciones basadas y eventos de mouse.
+    \item Es de alto rendimiento, por eso es realmente rápido.
+    \item No requiere de dependencias externas para funcionar. La dependencia principal para el funcionamiento básico es el propio navegador web.
+    \item API bien documentada.
 \end{itemize}
 
-Además de las características destacadas, xterm.js es una biblioteca que fue adoptada por diversos proyectos populares, tales como VS Code, Hyper y Theia. La amplia adopción de xterm.js por parte de estos proyectos contribuyo a la expansión de su comunidad de desarrolladores, quienes brindan un sólido respaldo y soporte.
+Además de las características destacadas, \textit{xterm.js} es una biblioteca que fue adoptada por diversos proyectos populares, tales como VS Code, Hyper y Theia. La amplia adopción de \textit{xterm.js} por parte de estos proyectos contribuyo a la expansión de su comunidad de desarrolladores, quienes brindan un sólido respaldo y soporte.
 
-En la figura \ref{fig:Terminal2} se puede observar la salida por consola de un programa y en la figura \ref{fig:Terminal1} se muestra el programa de usuario que generó la salida por consola.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.59]{./Figures/Terminal2.png}
-	\caption{Salida de la terminal serie.}
-	\label{fig:Terminal2}
-\end{figure}
+En la figura \ref{fig:Terminal1} se muestra un programa de ejemplo que genera imprime por consola y en la figura \ref{fig:Terminal2} se puede observar dicha salida reflejada.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.42]{./Figures/Terminal1.png}
+	\includegraphics[scale=.70]{./Figures/Terminal1.png}
 	\caption{Programa de usuario que imprime por consola.}
 	\label{fig:Terminal1}
 \end{figure}
 
-%---------------------------------
-\subsection{JavaScript UI}
-
-Esta capa se desarrolló con el propósito de que se comunique con la capa \textit{JavaScript HAL}, y también con el objetivo de proporcionar componentes de código, utilidades y manejo de eventos en la aplicación de usuario.
-
-Por tanto, para lograr la comunicación con la capa \textit{JavaScript HAL}, se desarrolló en esta capa los objetos que se sucriben al detector de eventos programados en la \textit{HAL}.
-
-\textit{JavaScript} permite crear oyentes, utilizando el método \texttt{on()} y pasando como argumento el nombre del evento al que se quiere suscribir. De esta manera, se  programaron varios subscriptores para un mismo evento en diferentes archivos \textit{JavaScript} dentro de esta capa. En consecuencia, se logró una mayor interactividad entre los componentes de la plataforma.
-
-Es decir, cuando se emite algún evento en la \textit{HAL}, entonces el oyente suscrito a ese evento en esta capa \textit{UI} lo podrá escuchar y realizar las acciones que correspondan para la funcionalidad requerida. La figura \ref{fig:EventemitterNodeJSUI} describe esta situación.
-
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.52]{./Figures/EventemitterNodeJSUI.png}
-	\caption{Diagrama de bloques de los oyentes de \textit{EventEmitter} en la capa UI.}
-	\label{fig:EventemitterNodeJSUI}
+	\includegraphics[scale=.70]{./Figures/Terminal2.png}
+	\caption{Salida de la terminal serie.}
+	\label{fig:Terminal2}
 \end{figure}
 
-%---------------------------------------
-\subsection{Aplicación de Usuario}
 
-La plataforma de emulación para la placa EDU-CIAA-NXP es una aplicación en línea, que se ejecuta en el \textit{browser} del usuario. La interfaz fue diseñada como una herramienta que permite al usuario realizar sus tareas de programación dentro de una plataforma simple e intuitiva.
+%----------------------------------------------------------------------------------------
+\section{\textit{Backend}: bibliotecas de C portadas}
+\label{sec:BibC}
+%----------------------------------------------------------------------------------------
 
-Sin embargo, presenta una limitación en las unidades de tiempo especificadas por los valores en las constantes, por ejemplo cuando el usuario define \texttt{TASK1\_PERIODICITY} con un valor de 1000 para ser usado dentro del codigo siguiente: 
-	
-\begin{lstlisting}[caption={Ejemplo TASK1\_PERIODICITY}]
-#define TASK1_PERIODICITY 1000} 
+A continuación se describen las principales bibliotecas de C portadas a \textit{EmuCIAA}, las cuales fueron extraídas del repositorio \textit{firmware\_v3} del Proyecto CIAA, descargando la última release estable al momento de comenzar este proyecto. Esta release corresponde a la versión \textit{r1.3.0} \citep{firmwareV3r130}:
 
-if( task1Counter++ == TASK1_PERIODICITY ){
-  task1();
-  task1Counter = 0;
-}
-\end{lstlisting}	
+\begin{itemize}
+    \item \textit{sAPI} \citep{sAPICIAA}: esta biblioteca escrita en lenguaje C y compatible con C++ implementa una API simple que funciona como una capa de abstracción de hardware para microcontroladores. Es la principal biblioteca del Proyecto CIAA para el desarrollo de aplicaciones en C/C++ en los \textit{frameworks Firmware v2} \citep{firmwareV2} y \textit{Firmware v3}. 
+    \item \textit{seos\_pont} \citep{seospont}: es un sistema operativo de tiempo real para microcontroladores, de código abierto, muy sencillo que permite definir tareas que se ejecutan en forma cooperativa, periódicamente. 
+    \item \textit{freeRTOS}: \citep{freeRTOS} FreeRTOS es un sistema operativo de tiempo real para microcontroladores, de código abierto, que facilita la programación, el despliegue, la protección, la conexión y la administración de dispositivos periféricos pequeños y de bajo consumo. Permite trabajar en modo de ejecuciópn de tareas apropiativo o cooperativo.
+\end{itemize}
 
-Significa que la tarea  planificada se ejecutará cada 1000 milisegundos en la placa fisica. Sin embargo, en el emulador web, la velocidad de ejecución puede variar y no necesariamente coincidir con el tiempo real. Por lo tanto, el tiempo de ejecución de cada iteración de la tarea \texttt{task1} podría ser más lento en el emulador web. Estas diferencias en la ejecución se deben a las limitaciones inherentes de \textit{JavaScript} y \textit{Emscripten}, que pueden afectar la precisión del tiempo.
+En las siguientes secciones se describen los detalles más sobresalientes de la implementación realizada para llevar a cabo estos \textit{ports}.
 
-%-------------------------
-\section{Backend}
+%----------------------------------------------------------------------------------------
+\section{Biblioteca \textit{sAPI}}
+\label{sec:sAPI}
+%----------------------------------------------------------------------------------------
 
-En esta capa de programación se desarrolló toda la lógica necesaria para emular las funcionalidades que proporcionan las bibliotecas: \textit{\textbf{sAPI}}, \textit{\textbf{freeRTOS}} y \textit{\textbf{seos\textunderscore pont}} para la placa EDU-CIAA-NXP.
+Para la emulación a nivel de API, se implementa el \textit{port} de la biblioteca \textit{sAPI v0.6.2} para que funcione en la web, en lugar de funcionar en el hardware de un microcontrolador real. De esta manera, se proporciona una interfaz idéntica, permitiendo a los usuarios del emulador, programar en la plataforma web de la misma manera que lo harían con la placa EDU-CIAA-NXP real, logrando que cualquier programa escrito utilizando la sAPI pueda correr en el emulador.
 
-%-----------------------------
-\subsection{Biblioteca C}
+Cabe destacar que al emular a nivel de sAPI, el usuario no podrá utilizar funciones de bajo nivel de la EDU-CIAA-NXP, como ser la biblioteca del fabricante del microcontrolador (LPCopen\citep{lpcopen}), o el acceso directo a registros físicos del microcontrolador, al igual que sucede con el emulador \textit{Arm Mbed OS Simulator}.
 
-En primer lugar, se identificaron las funciones de las bibliotecas \textit{C} originales para empezar a emular. Luego, en el emulador se crearon interfaces que reflejen las estructuras de las bibliotecas originales, que incluyo definiciones de funciones, estructuras de datos y constantes.
+Para llevar a cabo la tarea de portar la sAPI a \textit{EmuCIAA}, se identificaron las funciones originales. Luego, en \textit{EmuCIAA} se han creado interfaces que reflejan su composición, que incluye definiciones de funciones, estructuras de datos y constantes.
+De esta manera, en las funciones originales se examinaron los parámetros de entrada y los valores de retorno, para luego mapearlos correctamente en las definiciones de las funciones de \textit{EmuCIAA}. 
 
-Es decir, en las funciones originales se examinaron los parámetros de entrada y los valores de retorno, para luego mapearlos correctamente en las definiciones de las funciones del emulador.  A modo de referencia se muestra en la tabla \ref{tab:gpioMap} las definiciones de las funciones para \texttt{sapi\_gpio.h}, que incluye los nombres de la funciones, los tipos de parámetros y el tipo de valor de retorno. Cabe destacar que estas definiciones son idénticas tanto en las \textit{\textbf{sAPI}} como en el emulador, lo que permite una fácil correspondencia entre ambas.
+Asimismo, se utiliza un esquema de nomenclatura de los archivos de encabezado y de código fuente igual al de las bibliotecas originales. Esto permite mantener una estructura organizada y coherente en la emulación, que facilita el mantenimiento y comprensión.
 
-\begin{table}[h]
-	\centering
-	\caption[Módulo \textit{GPIO}]{Módulo \textit{GPIO}}
-	\begin{tabular}{l c c}    
-		\toprule
-		\textbf{Nombre de la función} 	 & \textbf{Parámetros} 		& \textbf{Tipo de retorno}  \\
-		\midrule
-		gpioInit & gpioMap\_t, gpioInit				&  bool\_t \\		
-		gpioRead	 & gpioMap\_t				&  bool\_t \\
-		gpioWrite	 & gpioMap\_t, bool\_t				&  bool\_t \\
-		gpioToggle	 & gpioMap\_t				&  bool\_t \\
-		\bottomrule
-		\hline
-	\end{tabular}
-	\label{tab:gpioMap}
-\end{table}
+Se reutilizó el archivo de encabezado \texttt{sapi.h} que cumple con la misma funcionalidad que en la biblioteca \textit{\textbf{sAPI}}, la cual consiste en incluir todos los módulos que conforman la biblioteca para utilizar en el programa de usuario. 
 
-Al igual que en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA, los archivos de código fuente para la plataforma de emulación, conservan el mismo nombre, por ejemplo  \texttt{sapi\_gpio.c}. Sin embargo, la implementación de las funciones es totalmente distinta. En el caso de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA, para \texttt{sapi\_gpio.c}  se incluyen los archivos de encabezado: \texttt{gpio\_18xx\_43xx.h} y \newline \texttt{scu\_18xx\_43xx.h}. Y en el caso de la plataforma de emulación se usa otro archivos de encabezado como \texttt{gpio\_api.h} para replicar el mismo comportamiento.
-
-A continuación, se presenta una comparación entre las clases del módulo GPIO de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA y el módulo GPIO implementado en la plataforma de emulación. 
-
-La figura \ref{fig:GPIOsAPI} muestra las dependencias que se usan para la implementación de \newline \texttt{sapi\_gpio.c} del proyecto CIAA y en la figura \ref{fig:GPIOEmulador} se muestran las dependencias utilizadas en el emulador para el mismo módulo, logrando el \textit{port} al emulador de las funciones para el manejo del periférico GPIO.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.41]{./Figures/DiagramaClasesGPIOsAPI.png}
-	\caption{Diagrama de dependencias del módulo \textit{GPIO} de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA.}
-	\label{fig:GPIOsAPI}
-\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.41]{./Figures/DiagramaClasesEmulador.png}
-	\caption{Diagrama de dependencias del módulo \textit{GPIO} de la plataforma de emulación para la placa EDU-CIAA-NXP.}
-	\label{fig:GPIOEmulador}
-\end{figure}
-
-Asimismo, se utilizó un esquema de nomenclatura de los archivos de encabezado y de código fuente similar al de las bibliotecas originales.  Esto permitió mantener una estructura organizada y coherente en la emulación, que facilita el mantenimiento y comprensión.
-
-También, se reutilizó el archivo de encabezado \texttt{sapi.h} que cumple con la misma funcionalidad que en la biblioteca \textit{\textbf{sAPI}}, la cual consiste en incluir todos los módulos que conforman la biblioteca para utilizarla en el programa de usuario. 
-
-Además, se reutilizaron los archivos de encabezado: \texttt{sapi\_datatypes.h} y \newline \texttt{sapi\_peripheral\_map.h} incluidos en todos los módulos de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA. Esta reutilización busca emular las características de hardware y prevalecer el uso de todos los tipos de datos básicos y configuraciones de la placa.
-
-En la tabla \ref{tab:ConfiguracionGPIO} se muestran los tipos de datos de \texttt{sapi\_peripheral\_map.h} que se usan en la plataforma de emulación. Se puede observar que se reutilizó los nombres: TEC1, TEC2, TEC3 y TEC4 para los botones y los nombres LEDR, LEDG, LEDB, LED1, LED2 y LED3 para los LEDs de la placa EDU-CIAA-NXP.
+También se reutilizaron los archivos de encabezado: \texttt{sapi\_datatypes.h} y \newline \texttt{sapi\_peripheral\_map.h} incluidos en todos los módulos de la biblioteca \textit{\textbf{sAPI}} para permitir el uso de los tipos de datos básicos y nombres de periféricos de la placa. En la tabla \ref{tab:ConfiguracionGPIO} se muestran los tipos de datos de \texttt{sapi\_peripheral\_map.h} que se usan para los pines GPIO en la plataforma de emulación. 
 
 \begin{table}[h]
 	\centering
@@ -408,80 +363,30 @@ En la tabla \ref{tab:ConfiguracionGPIO} se muestran los tipos de datos de \textt
 	\label{tab:ConfiguracionGPIO}
 \end{table}
 
-%--------------------
-\subsection{C HAL}
+Se puede observar que se reutilizó los nombres: TEC1, TEC2, TEC3 y TEC4 para los botones y los nombres LEDR, LEDG, LEDB, LED1, LED2 y LED3 para los LEDs de la placa EDU-CIAA-NXP.
 
-La capa de abstracción de hardware en \textit{C (C HAL)}  permitió replicar el comportamiento del hardware de la placa, lo que a su vez posibilitó la compatibilidad de las bibliotecas de nivel superior escritas en \textit{C} en el entorno de emulación de la plataforma web.
-
-En esta capa se encuentra la biblioteca \textit{emscripten.h}, la cual provee las funciones y macros necesarias para interactuar con el compilador de \textit{Emscripten}. El compilador transforma el código \textit{C} a \textit{JavaScript}, de esta manera, se facilita la interacción y comunicación entre el código \textit{C} y el entorno web, donde se ejecuta el código ya convertido a \textit{JavaScript}.
-
-\textit{Emscripten} se ejecuta en el entorno de \textit{Node.js}. para compilar el código \textit{C} a \textit{JavaScript}. Además, incluye la biblioteca \textit{emscripten.h} presentes en la capa \textit{C (C HAL)}. Esto permite que el código \textit{C} use estas funciones nativas para interactuar con el entorno de \textit{JavaScript}, llamando a funciones \textit{JavaScript} desde código \textit{C} o viceversa.
-
-El proceso de compilación con \textit{Emscripten} involucra los siguientes pasos:
+Se realizó el \textit{port} de los siguientes módulos de la biblioteca \textit{sAPI}:
 
 \begin{itemize}
-	\item Preprocesamiento: donde prepara el código fuente antes de la compilación real del código \textit{C} de manera similar a un compilador tradicional. Esto incluye el manejo de directivas como la inclusión de archivos de cabecera \texttt{\#include}, directivas que permiten la inclusión condicional de código: \newline \texttt{\#ifdef}, \texttt{\#ifndef}, \texttt{\#else}, \texttt{\#endif}, la expansión de macros \texttt{\#define}, etc. Lo que facilita el trabajo del compilador.
-	
-	\item Compilación: \textit{Emscripten} utiliza LLVM para compilar el código \textit{C} en un formato intermedio binario llamado  \textit{bitcode}. 
-Además. \textit{LLVM} proporciona múltiples componentes que pueden intercambiarse entre sí, a diferencia de los compiladores \textit{GCC} que presentan una estructura monolítica. 
-
-	\item Optimización: Después de obtener el \textit{bitcode}, el compilador busca mejorar el rendimiento, la eficiencia y reducir el tamaño del código resultante, por tanto,  aplica diversas técnicas de optimizaciones antes de traducirlo a \textit{JavaScript} o WebAssembly. Estas optimizaciones pueden incluir eliminación de código muerto, reordenamiento de instrucciones, detección y eliminación de código redundante, \textit{inlining de funciones}, entre otras.
-	
-	\item Generación de código \textit{JavaScript}: Finalmente, \textit{Emscripten} toma el \textit{bitcode} optimizado y lo traduce a código \textit{JavaScript}.
-
+    \item \textit{sapi\_board}: Contiene funciones de inicialización para la plataforma de hardware.
+    \item \textit{sapi\_gpio}: Es una \textit{HAL} para pines E/S de porpósito general (en inglés, \textit{GPIO}).
+    \item \textit{sapi\_uart}: Es una \textit{HAL} para periféricos \textit{UART}.
+    \item \textit{sapi\_adc}: Es una \textit{HAL} para conversores a Analógico-Digital \textit{ADC}.
+    \item \textit{sapi\_rtc}: Es una \textit{HAL} para el periférico rejoj de tiempo real, \textit{RTC}.
+    \item \textit{sapi\_tick}: Es una \textit{HAL} que permite programar interrupciones períodicas.
+    \item \textit{sapi\_delay}: Implementa funciones de retardos bloqueantes y no bloqueantes.
+    \item \textit{sapi\_dht11}: Implementa un driver para el sensor de Humedad y temperatura DHT11.
+    \item \textit{sapi\_display}: Implementa un driver para displays LCD y GLCD.
 \end{itemize}
 
-En la figura \ref{fig:Emscripten} se muestra el diagrama con el principal funcionamiento de \textit{Emscripten}. 
+Existen otros módulos de \textit{sAPI} independientes del hardware como, por ejemplo, \textit{sapi\_button}, los cuales son independientes del hardware y se utilizaron para los ejemplos de en este trabajo sin modificaciones. El resto de los módulos que implementan otros periféricos, como por ejemplo \textit{I2C}, se dejan como trabajo a futuro.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.47]{./Figures/Emscripten.png}
-	\caption{Diagrama de funcionamiento de \textit{Emscripten}.}
-	\label{fig:Emscripten}
-\end{figure}
+En las siguientes secciones se muestran destalles de implementación de algunos de los módulos \textit{portados}.
 
-En ese sentido, para la aplicación de usuario dentro de la plataforma, cuando se ejecuta un programa de usuario, \textit{Emscripten} utiliza una función del módulo de \textit{Node.js} para la generación de un identificador único que será utilizado para los archivos generados. Este identificador esta compuesto por el prefijo \texttt{user\_} y un número entero que representa el tiempo en milisegundos. Es decir, \textit{Emscripten} creará los siguientes archivos:
-
-\begin{itemize}
-	\item Archivo \texttt{user\_tiempoenmilisegundos.js}: resultado final de la compilación y contiene el código \textit{JavaScript} que representa el programa \textit{C}.
-	\item Archivo \texttt{user\_tiempoenmilisegundos.wasm}: contiene el código binario equivalente al código \textit{C} compilado. Se utiliza si el navegador del usuario admite \textit{WebAssembly} y proporciona un rendimiento mejorado en comparación con el código \textit{JavaScript} puro.
-	\item Archivo \texttt{user\_tiempoenmilisegundos.js.components}: contiene datos utilizados por el programa.
-	\item Archivo \texttt{user\_tiempoenmilisegundos.wasm.map}: contiene rutas de mapeos a los archivos de código \textit{C} que fueron compilados en formato \textit{Json}.
-	\item Archivo \texttt{user\_tiempoenmilisegundos.wast}: representa el módulo \textit{WebAssembly} generado, pero en una representación de texto legible.
-\end{itemize}
-
-Estos archivos se ubicarán dentro del directorio de salida  \textit{outUser}, el cual fue predefinido en la configuración de la aplicación.
-
-%-----------------------------
-\subsection{JavaScript HAL}
-
-Esta capa de programación se diseñó para proporcionar la funcionalidad de distribuir los eventos entre los componentes de la interfaz de usuario de \textit{JavaScript} y la capa \textit{C HAL}. Para lograr este objetivo se usaron las clases \textit{EventEmitter} del módulo \textit{Events} que monitorizan y activan los eventos. Además, facilita la interacción del navegador con el código \textit{JavaScript} y la actualización de la interfaz de usuario de manera flexible y eficiente.
-
-También, la clase \textit{EventEmitter} se basa en el modelo de publicación/suscripción que se trata de un paradigma de envío de mensajes asíncrono mediante el cual un usuario publica mensajes y uno o varios objetos se suscriben a esos eventos.
-
-En la figura \ref{fig:PublicarSuscribir} se muestra el modelo de \textit{publicación/suscripción}.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.49]{./Figures/PublicarSuscribir.png}
-	\caption{Modelo de \textit{publicación/suscripción}.}
-	\label{fig:PublicarSuscribir}
-\end{figure}
-
-Para la implementacion de esta capa de emulación, se crearon archivos \textit{JavaScript} con instancias de la clase \textit{EventEmitter}, que al utilizar el método \textit{emit} lanzan eventos con nombre. El nombre del evento es un string y permite que los oyentes registrados al evento sean notificados. La figura \ref{fig:EventemitterNodejs} muestra el diagrama de bloques de la instancia de \textit{EventEmitter} en la plataforma de emulación.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.49]{./Figures/EventemitterNodejs.png}
-	\caption{Diagrama de bloques de \textit{EventEmitter} implementado en la plataforma.}
-	\label{fig:EventemitterNodejs}
-\end{figure}
-
-En la sección de \ref{sec:caso_de_estudio}, se mostrará la implementación de este modelo en los archivos \textit{JavaScript} del emulador web.
-
+%---------------------------------------------
 \subsection{\textit{\textbf{sapi\_gpio}}}
 
-Para comenzar a emular la biblioteca \textit{sapi\_gpio} del proyecto CIAA, se identificaron las funciones principales que el entorno de la plataforma web debería ofrecer al usuario. La siguiente tabla \ref{tab:sapiGPIO} muestra las funciones del archivo de código fuente \textit{sapi\_gpio} en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA que también están presentes en el emulador.
+Para comenzar a emular la biblioteca \textit{sapi\_gpio} del proyecto CIAA, se identificaron las funciones principales que el entorno de la plataforma web debería ofrecer al usuario. La siguiente tabla \ref{tab:sapiGPIO} muestra las funciones del archivo de código fuente \textit{sapi\_gpio} en la biblioteca \textit{\textbf{sAPI}}, que incluye los nombres de la funciones, los tipos de parámetros y el tipo de valor de retorno. Cabe destacar que estas definiciones son idénticas tanto en las \textit{\textbf{sAPI}} como en \textit{EmuCIAA}, lo que permite una correspondencia directa entre ambas.
 
 \begin{table}[h]
 	\centering
@@ -500,47 +405,126 @@ Para comenzar a emular la biblioteca \textit{sapi\_gpio} del proyecto CIAA, se i
 	\label{tab:sapiGPIO}
 \end{table}
 
-Además, para lograr replicar el comportamiento de cada función emulada de manera que, al invocarlas, produzcan resultados similares a los que se obtendrían al utilizar las funciones con el hardware físico, se utilizó la capa de \textit{C HAL}. Esta capa interactúa con la capa \textit{Javascript HAL}, que se encarga de comunicarse con la interfaz de usuario, permitiendo mostrar el comportamiento de los pines GPIO programados en la aplicación del usuario.
+Al igual que en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA, los archivos de código fuente para la plataforma de emulación, conservan el mismo nombre, por ejemplo  \texttt{sapi\_gpio.c}. Sin embargo, la implementación de las funciones es totalmente distinta. En el caso de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA, para \texttt{sapi\_gpio.c}  se incluyen los archivos de encabezado: \texttt{gpio\_18xx\_43xx.h} y \newline \texttt{scu\_18xx\_43xx.h}. Y en el caso de la plataforma de emulación se usa otro archivos de encabezado como \texttt{gpio\_api.h} para replicar el mismo comportamiento.
 
-Entonces, se utilizó la capa de emulación correspondiente a \textit{C HAL} para emular las siguientes funcionalidades:
+A continuación, se presenta una comparación entre las dependencias del módulo GPIO de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA (figura \ref{fig:GPIOsAPI}) y el módulo GPIO implementado en \textit{EmuCIAA} (figura \ref{fig:GPIOEmulador}). 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.50]{./Figures/DiagramaClasesGPIOsAPI.png}
+	\caption{Dependencias del módulo \textit{GPIO} de la \textit{sAPI}}
+	\label{fig:GPIOsAPI}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.46]{./Figures/DiagramaClasesEmulador.png}
+	\caption{Dependencias del módulo \textit{GPIO} de \textit{EmuCIAA}.}
+	\label{fig:GPIOEmulador}
+\end{figure}
+
+\newpage
+
+Para lograr replicar el comportamiento de cada función, de manera que al invocarlas produzcan los mismos resultados sque se obtendrían al utilizar las funciones con el hardware físico, se utiliza la \textit{API} de \textit{Emscripten} en la capa de \textit{C HAL} para emular las siguientes funcionalidades:
 
 \begin{itemize}
-	\item \texttt{Chip\_GPIO\_Init(LPC\_GPIO\_PORT)}se utiliza para inicializar y configurar el hardware de los pines GPIO de la placa. En la capa de emulación \textit{C HAL}, utilizando  \textit{Emscripten}, también se realizaron configuraciones de variables para representar los tipos de pines e inicializarlos.
+	\item \texttt{Chip\_GPIO\_Init(LPC\_GPIO\_PORT)} se utiliza para inicializar y configurar el hardware de los pines GPIO de la placa. En la capa de emulación \textit{C HAL} se realizaron configuraciones de variables para representar los tipos de pines e inicializarlos.
 	
-	\item \texttt{Chip\_GPIO\_SetDir (LPC\_GPIO\_PORT, gpioPort, \newline (1 \<<\<<  gpioPin), GPIO\_OUTPUT)}se utiliza para establecer si un pin GPIO se utilizará para recibir datos (entrada) o enviar datos (salida). De manera similar, en la capa de abstracción de datos en \textit{C}, se implementaron configuraciones similares para la capa \textit{Javascript HAL} usando las macros de \textit{Emscripten}.
+	\item \texttt{Chip\_GPIO\_SetDir (LPC\_GPIO\_PORT, gpioPort, \newline (1 \<<\<<  gpioPin), GPIO\_OUTPUT)} se utiliza para establecer la dirección de un pin, es decir, si se utilizará como entrada o salida. Se implementaron configuraciones similares para la capa \textit{JS HAL} usando las macros de \textit{Emscripten}.
 	
-	\item \texttt{Chip\_GPIO\_SetPinState(LPC\_GPIO\_PORT, gpioPort, \newline gpioPin, 0)} se utiliza para gestionar el estado de los pines GPIO, permitiendo configurarlos como salidas y establecer su valor (alto o bajo). En la capa de abstracción de datos \textit{C}, esta función actualiza la estructura de datos utilizada para almacenar información sobre la configuración de los pines GPIO. Además, registra el valor del pin especificado como parámetro.
+	\item \texttt{Chip\_GPIO\_SetPinState(LPC\_GPIO\_PORT, gpioPort, \newline gpioPin, 0)} se utiliza para establecer el estado de los pines configurados como salida y establecer su valor lógico (alto o bajo). En la capa de abstracción de datos \textit{C}, esta función actualiza la estructura de datos utilizada para almacenar información sobre la configuración de los pines GPIO. Además, registra el valor del pin especificado como parámetro.
 
-	\item \texttt{Chip\_GPIO\_ReadPortBit(LPC\_GPIO\_PORT, gpioPort, \newline gpioPin)} se utiliza para obtener el estado actual de un pin GPIO específico en la placa, lo que permite leer datos provenientes de dispositivos externos o de otros componentes conectados a los pines GPIO. En la capa de emulación \textit{C HAL}, se emula la lectura del estado de un pin GPIO utilizando la información almacenada en la estructura de datos.
+	\item \texttt{Chip\_GPIO\_ReadPortBit(LPC\_GPIO\_PORT, gpioPort, \newline gpioPin)} se utiliza para obtener el estado actual de un pin específico en la placa. En la capa de emulación \textit{C HAL}, se emula la lectura del estado de un pin GPIO utilizando la información almacenada en la estructura de datos.
 \end{itemize}
 
-Para emular las funciones mencionadas anteriormente, se utilizó la macro \newline \texttt{EM\_ASM\_}, mediante la cual se incrustó código \textit{JavaScript} directamente en el código \textit{C}. Este código \textit{JavaScript} incrustado se compila junto con el código C y se ejecutará en el entorno de ejecución de \textit{Emscripten}  cuando la aplicación de usuario invoque a esas funciones. La figura \ref{fig:gpioEmscripten} muestra el diagrama de bloques de la macro \texttt{EM\_ASM\_}.
+Para emular las funciones mencionadas anteriormente, se utiliza la macro de \textit{Emscripten} nombrada \texttt{EM\_ASM\_}, mediante la cual se incrusta código \textit{JavaScript} directamente en el código \textit{C}. Este código \textit{JavaScript} incrustado se compila junto con el código C y se ejecutará cuando la aplicación de usuario invoque a esas funciones. Esto es el equivalente a embeber asembler de unda dada arquitectura de procesamiento en un programa en C.
+
+Asimismo, para emular las interacciones entre la interfaz de usuario y las GPIO TEC1, TEC2, TEC3 y TEC4, se utiliza en la capa \textit{C HAL} la macro \newline \texttt{EMSCRIPTEN\_KEEPALIVE}. Su funcionamiento se detalla en la sección \ref{sec:sapi_tick}. 
+
+%---------------------------------------------
+\subsection{\textit{\textbf{sapi\_adc}}}
+
+Se realizó el mapeo de las funciones del módulo de la biblioteca \textit{\textbf{sAPI}} a la plataforma web, que se expone en la tabla \ref{tab:sapiADC}.
+
+\begin{table}[h]
+	\centering
+	\caption[Funciones \texttt{sapi\_adc}]{Funciones \texttt{sapi\_adc}}
+	\begin{tabular}{p{0.20\linewidth} p{0.50\linewidth}  p{0.20\linewidth}}    
+		\toprule
+		\textbf{Función} 	 & \textbf{Parámetros} 		& \textbf{Tipo de retorno}  \\
+		\midrule
+		adcInit & adcInit\_t config		&  void \\		
+		adcRead	 & adcMap\_t analogInput	&  uint16\_t \\
+		\bottomrule
+		\hline
+	\end{tabular}
+	\label{tab:sapiADC}
+\end{table}
+
+El módulo \textit{adc} es utilizado en los ejemplos desarrolaldos, junto con los periféricos externos: potenciómetro, termistor NTC y \textit{AnalogStick}, los cuales no existían en \textit{Arm Mbed Os Simulator} y fueron desarrollados para este trabajo.
+
+Además, se implementaron las funciones de inicialización y de lectura del componente \textit{adc} en la capa \textit{C HAL}. Posteriormente, son utilizadas por la capa \textit{JS HAL} para la interacción con el hardware y permitir al usuario trabajar con los periféricos externos en un entorno web. La figura \ref{fig:adcEmscripten} presenta el diagrama de bloques de las capas: \textit{C HAL} y \textit{JS HAL} para el \textit{adc}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.40]{./Figures/gpioEmscripten.png}
-	\caption{Diagrama de bloques de la macro \texttt{EM\_ASM\_}.}
-	\label{fig:gpioEmscripten}
+	\includegraphics[scale=.52]{./Figures/adcEmscripten.png}
+	\caption{Diagrama de bloques de \textit{C HAL} y \textit{JS HAL} para el módulo \textit{adc}.}
+	\label{fig:adcEmscripten}
 \end{figure}
 
-Asimismo, para emular las interacciones entre la interfaz de usuario y las GPIO TEC1, TEC2, TEC3 y TEC4, se utilizó en la capa \textit{C HAL} la macro \newline \texttt{EMSCRIPTEN\_KEEPALIVE}. Su funcionamiento se explica en la siguiente sección \ref{sec:sapi_tick}. 
+En la capa \textit{JS UI}, se implementó la obtención de datos para los periféricos externos que interactúan con el \textit{adc}. 
 
-A continuación, en la capa \textit{Javascript HAL}, se distribuyen eventos a la capa \textit{Javascript UI} para notificarle que el pin GPIO ha sido configurado desde la capa \textit{C HAL}. Estos eventos incluyen información que será útil para gestionar los pines GPIO en la capa de interfaz de usuario. La figura \ref{fig:gpioEmit} muestra el diagrama de bloques del envío de eventos de la capa \textit{Javascript HAL} a la capa \textit{Javascript UI}.
+Para el potenciómetro, los datos son establecidos por el usuario a través de la interfaz gráfica utilizando el componente HTML  \textit{input} de tipo \textit{range}. De esta manera, cuando el usuario desliza este componente dentro de un rango mínimo y máximo establecido (0 a 3.3V), se realiza el siguiente cálculo para obtener el valor del \textit{adc} correspondiente en un valor entero:
+
+\begin{lstlisting}[caption={Cálculo del ADC para el potenciómetro.}]
+  window.JSHal.gpio.write(self.dataPin.ADC, range.value/ 3.3 * 1023);
+\end{lstlisting}
+
+En consecuencia, los cálculos actualizados se muestran en la interfaz gráfica del emulador web emulando el comportamiento del conversor Analógico-Digital, que convierte de volteje a un número entero dependiendo de su resolución y voltaje de referencia. En el caso del \textit{ADC} del microcontroladore de la \textit{EDU-CIAA-NXP}, posee 10 bits de resolución (dando valores entre 0 y 1023) y 3.3V de voltaje de referencia.
+
+Para la implementación del termistor NTC, se se reutiliza en la interfaz grafica un elemento gráfico (termómetro) para representar la temperatura en grados Celsius. A medida que el usuario ajusta el termómetro, la temperatura en kelvin se va actualizando en función de la temperatura en grados Celsius y, además, el valor del \textit{adc} se actualiza mediante la siguiente función:
+
+\begin{lstlisting}[caption={Cálculo ADC del termistor NTC.}]
+     ThermistorNTC.prototype.updateSampleADC= function(R_NTC) {
+        let R_NTC_float = parseFloat(R_NTC);
+        let R_10k_float = parseFloat(R_10k);
+        let Vsupply_float = parseFloat(Vsupply);    
+        let VoutT = (R_NTC_float * Vsupply_float) / (R_10k_float + R_NTC_float);
+        Vout = parseFloat(VoutT.toFixed(2)); 
+
+        this.sample = parseFloat((Vout * 1023.0 / Vsupply).toPrecision(4));
+        console.log('this.sample ', this.sample);
+        window.JSHal.gpio.write(this.dataPin.ADC, this.sample);     
+    };
+\end{lstlisting}
+
+Esto permite convertir entre temperatura a voltaje y de allí a muestra leída por el ADC.
+
+En el caso del \textit{AnalogStick} se implementó un componente web encargado de gestionar los movimientos y acciones en las interacciones con el usuario. Los datos de los movimientos de los ejes X e Y del \textit{AnalogStick} son obtenidos y se utilizan para realizar cálculos de voltajes en las respectivas resistencias de cada eje, así como también, para calcular el valor del \textit{adc}. A modo de referencia se muestra las cálculos para eleje X del \textit{AnalogStick}:
+
+\begin{lstlisting}[caption={Cálculo de la resistencia del eje X y del ADC.}]
+            var VRx = Joy.GetVRx();
+            var voltage = (Math.floor(VRx/ 3.3 * 1023)* 3.3 / 1023.0).toFixed(2);
+            joyVRx.textContent = voltage;
+            joyADCx.textContent = Math.trunc(VRx/ 3.3 * 1023);
+            window.JSHal.gpio.write(self.dataPin.ADCx, VRx/ 3.3 * 1023);
+\end{lstlisting}
+
+Luego, para cada periférico externo, el cálculo del \textit{adc} es envíado desde la capa \textit{JS UI} a la capa \textit{JS HAL}, como se esquematiza en la figura \ref{fig:uiADC}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.40]{./Figures/gpioEmit.png}
-	\caption{Diagrama de bloques del envío de eventos de la capa \textit{Javascript HAL}.}
-	\label{fig:gpioEmit}
+	\includegraphics[scale=.57]{./Figures/uiADC.png}
+	\caption{Diagrama de bloques con la interaccion entre las capas \textit{JS HAL} y \textit{JS UI}.}
+	\label{fig:uiADC}
 \end{figure}
 
-Por consiguiente, en la capa \textit{Javascript UI} se manipulan esos eventos, y en consecuencia, se actualiza la interfaz de la plataforma web para mostrar al usuario los cambios.
-
+\newpage
 %-----------------------------------------
 \subsection{\textit{\textbf{sapi\_tick}}}
 \label{sec:sapi_tick}
 
-En la tabla \ref{tab:sapiTick} se puede observar las funciones del archivo de código fuente \texttt{sapi\_tick} en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA y en el emulador.
+En la tabla \ref{tab:sapiTick} se detallan las funciones del archivo de código fuente \texttt{sapi\_tick}.
 
 \begin{table}[h]
 	\centering
@@ -564,11 +548,7 @@ Para emular a nivel de API, se tuvo como objetivo replicar el comportamiento de 
 
 Para emular la funcionalidad de \texttt{SysTick\_Config}, se utilizó la capa de emulación correspondiente a \textit{C HAL}. Esta capa de emulación permitió ejecutar código \textit{JavaScript} en el contexto de \textit{Emscripten}, lo que posibilitó replicar el comportamiento del temporizador \textit{SysTick}. 
 
-Una vez habilitada la interrupción del temporizador, se realiza una invocación periódica a la función \texttt{tickerCallback}, que tiene la misma implementación que en \texttt{sapi\_tick} de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA. La función \newline \texttt{tickerCallback} realiza las siguientes acciones: incrementa los contadores de ticks y, si el puntero \texttt{tickHookFunction} no es nulo, ejecuta la función establecida como \textit{calback} mediante la función de \textit{\textbf{sAPI}} \texttt{tickCallbackSet()}, pasando los parámetros \texttt{callBackFuncParams}. En consecuencia, esto permite la ejecución de tareas específicas programadas por el usuario en cada interrupción del temporizador periódico.
-
-En el capítulo 4 se detallarán las diferencias encontradas al realizar las pruebas entre la placa y el emulador utilizando estas funciones.
-
-En el contexto de la emulación a nivel de API, para implementar las demás bibliotecas de las \textit{\textbf{sAPI}}, se siguió el mismo esquema utilizado en \texttt{sapi\_tick}. Primeramente, se identificaron las funciones que requerían interacción con el hardware de la placa. Luego, en la capa \textit{C HAL} se implementaron funciones de emulación con \textit{Emscripten} para reflejar el comportamiento del hardware.
+Una vez habilitada la interrupción del temporizador, se realiza una invocación periódica a la función \texttt{tickerCallback}, que tiene la misma implementación que en \texttt{sapi\_tick} de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA. La función \newline \texttt{tickerCallback} realiza las siguientes acciones: incrementa el contador de ticks y, si el puntero \texttt{tickHookFunction} no es nulo, ejecuta la función establecida como \textit{callback} mediante la función de \textit{\textbf{sAPI}} \texttt{tickCallbackSet()}, pasando los parámetros \texttt{callBackFuncParams}. En consecuencia, esto permite la ejecución de tareas específicas programadas por el usuario en cada interrupción del temporizador periódico.
 
 Para emular el comportamiento de la interrupción del temporizador \textit{SysTick} y proporcionar la invocación periódica a la función \texttt{tickerCallback} de \textit{sapi\_tick}, se utilizó la macro \texttt{EMSCRIPTEN\_KEEPALIVE} de \textit{Emscripten}, que le dice al compilador de \textit{Emscripten} que conserve la función marcada con esta macro en el código compilado, incluso si no es accedida desde el código \textit{JavaScript} del lado del cliente.
 
@@ -576,7 +556,7 @@ Es decir, cuando la función marcada con la macro \texttt{EMSCRIPTEN\_KEEPALIVE}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.55]{./Figures/tickerCallback.png}
+	\includegraphics[scale=.46]{./Figures/tickerCallback.png}
 	\caption{Diagrama de bloques \texttt{EMSCRIPTEN\_KEEPALIVE}.}
 	\label{fig:tickerCallback}
 \end{figure}
@@ -589,17 +569,20 @@ A continuacion, se muestra en la figura  \ref{fig:ccall} el funcionamiento de \t
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.49]{./Figures/ccall.png}
+	\includegraphics[scale=.46]{./Figures/ccall.png}
 	\caption{Diagrama de bloques de la función \textit{ccall}.}
 	\label{fig:ccall}
 \end{figure}
 
 Sin embargo, debido a la naturaleza asíncrona de \textit{JavaScript} y al uso de la función \texttt{ccall}, la función no mantiene el contexto entre las ejecuciones del temporizador. En consecuencia, cada vez que se reinicia el temporizador y se ejecuta la función  \texttt{tickerCallback}, la tarea específica programada por el usuario comienza desde el principio en lugar de continuar desde el punto donde quedó anteriormente. 
 
+En el capítulo 4 se detallarán las diferencias encontradas al realizar las pruebas entre la placa y el emulador utilizando estas funciones.
+
+\newpage
 %-----------------------------------------
 \subsection{\textit{\textbf{sapi\_delay}}}
 
-La tabla \ref{tab:sapiDelay} expone las funciones del archivo de código fuente \texttt{sapi\_delay} en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA y en el emulador.
+La tabla \ref{tab:sapiDelay} expone las funciones del archivo de código fuente \texttt{sapi\_delay}.
 
 \begin{table}[h]
 	\centering
@@ -621,77 +604,24 @@ La tabla \ref{tab:sapiDelay} expone las funciones del archivo de código fuente 
 	\label{tab:sapiDelay}
 \end{table}
 
-La función \texttt{delay} en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA crea una pausa en la ejecución del programa durante el tiempo especificado en \texttt{duration\_ms} implementando un bucle de espera. Este bucle se ejecutará mientras la diferencia de tiempo entre \texttt{tickRead()} y startTime(inicio actual de \texttt{tickRead()} sea menor que \texttt{duration\_ms/ tickRateMS}.
+La función \texttt{delay} en la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA crea una pausa en la ejecución del programa durante el tiempo especificado en \texttt{duration\_ms} implementando un bucle de espera. Este bucle bloqueante se ejecutará mientras la diferencia de tiempo entre \texttt{tickRead()} y startTime(inicio actual de \texttt{tickRead()} sea menor que \texttt{duration\_ms/ tickRateMS}.
 
-Sin embargo, cuando \textit{Emscripten} compila código \textit{C} a \textit{JavaScript}, la función \texttt{delay} tal como está escrita, causa que la ejecución de la plataforma web se bloquee o congele. Esto se debe a que la función \texttt{tickRead()} no se actualiza a la velocidad que se espera, lo que lleva a que se obtenga el mismo valor repetidamente. Es decir, debido a la naturaleza asincrónica de \textit{JavaScript} y al no tener una pausa controlada en el bucle (como \texttt{delay(1)}), \textit{JavaScript} no tiene tiempo suficiente para actualizar el valor de \texttt{tickRead()} entre iteraciones. De esta manera,  el bucle \texttt{while} se queda esperando activamente e impide al navegador atender otros eventos.
+Este comortamiento cae en las limitaciones de \textit{Arm Mbed OS Simulator}, presentadas en la sección \ref{sec:Análisis de los emuladores revisados}, causando que la ejecución de la plataforma web se bloquee o congele, debido a que es como si se ejecutase un \textit{while(1)}. Por esta razón, se decide utilizar en su lugar las funciones nativas de \textit{Emscripten} en la capa de emulación \textit{C HAL}. En consecuencia, se aprovecho su eficiencia y precisión.
 
-Por esta razón, se decidio usar las funciones nativas de \textit{Emscripten} en la capa de emulación \textit{C HAL}. En consecuencia, se aprovecho su eficiencia y precisión.
-
-Para emular las funciones de espera de la biblioteca \textit{C} se implemento la función \texttt{emscripten\_sleep}, que utiliza funciones asincrónicas internas de \textit{Emscripten} para realizar pausas. 
-
-Por lo tanto, permite al navegador atender otros eventos mientras el programa se encuentra en espera. Es decir, evita el bloqueo de la ejecución del resto del código y también, que la página no responda.
-
-Además, proporciona pausas precisas, debido a que, \textit{Emscripten}  utiliza las capacidades de temporización del navegador para garantizar que el tiempo indicado sea realizado.
-
-La figura \ref{fig:emscriptenDelay} representa el funcionamiento de  \texttt{emscripten\_sleep}. 
+Para emular las funciones de espera de la biblioteca \textit{C} se utiliza la función \newline \texttt{emscripten\_sleep}, que usa funciones asincrónicas internas de \textit{Emscripten} para realizar pausas. Por lo tanto, permite al navegador atender otros eventos mientras el programa se encuentra en espera. De esta manera, evita el bloqueo de la ejecución del resto del código y también, que la página no responda. Además, proporciona pausas precisas, debido a que, \textit{Emscripten} utiliza las capacidades de temporización del navegador para garantizar que el tiempo indicado sea realizado. La figura \ref{fig:emscriptenDelay} representa el funcionamiento de  \texttt{emscripten\_sleep}. 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.50]{./Figures/emscriptenDelay.png}
+	\includegraphics[scale=.48]{./Figures/emscriptenDelay.png}
 	\caption{Diagrama de bloques \texttt{emscripten\_sleep.}}
 	\label{fig:emscriptenDelay}
 \end{figure}
 
-%---------------------------------------
-\subsection{\textit{\textbf{freeRTOS}}}
-
-Para emular la funcionalidad de las tareas de \textit{freeRTOS} en el contexto del emulador web, se utilizó la biblioteca de eventos de \textit{mbed}. Entonces, para las funciones \texttt{xTaskCreate} y \texttt{xTaskCreateStatic}, se programaron funciones periódicas utilizando las siguientes funciones de la biblioteca de \textit{Mbed events}: 
-
- \begin{itemize}
-	\item \texttt{int equeue\_create}:  crea una cola de eventos, configura e inicializa los recursos de plataforma necesarios, como semáforos y mutexes.
-	
-	\item \texttt{int equeue\_call\_every}:  se utiliza para crear un evento periódico en la cola de eventos equeue, programando llamadas repetidas a una función en intervalos regulares.
-	
-	\item \texttt{int equeue\_post}: permite publicar un evento en la cola de eventos equeue, estableciendo el tiempo y estableciendo el evento en la cola para su posterior procesamiento.
-	
-	\item \texttt{void equeue\_dispatch}: se encarga de despachar los eventos en la cola de eventos equeue de manera continua, verificando los tiempo y realizando acciones específicas según la configuración.
-
-	\item \texttt{void equeue\_destroy}: permite liberar y limpiar todos los recursos asociados a una cola de eventos, libera los mutexes, semáforos y memoria asignada.
-\end{itemize}
-
-Estas funciones permiten ejecutar tareas periódicas en intervalos de tiempo regulares, lo que proporcionó una aproximación simplificada a la funcionalidad de tareas en el emulador web. Aunque esta solución no ofrece todas las características de un sistema operativo de tiempo real completo como \textit{freeRTOS}, fue adecuada para emular el funcionamiento de programas de usuario simples.
-
-Es importante destacar que la implementación de tareas en el emulador web tiene una limitación significativa. Debido a que solo puede ejecutar un subproceso (hilo de ejecución) a la vez, no es posible que se ejecuten tareas simultáneas. Esto significa que, a diferencia del sistema operativo de tiempo real \textit{freeRTOS}, donde se pueden crear múltiples tareas que se ejecutan de manera concurrente, en el emulador web solo es posible ejecutar una sola tarea. Por lo tanto, esta solución es adecuada para programas de usuario simples que no requieran multitarea.
-
-La tabla \ref{tab:ConceptosRTOS} expone algunos de los conceptos importantes de \textit{freeRTOS} que se cumplen en el emulador.
-
-\begin{table}[h]
-\centering
-\caption[Conceptos importantes de \textit{freeRTOS} que se cumplen en el emulador.]{Conceptos importantes de \textit{freeRTOS} que se cumplen en el emulador.}
-\begin{tabular}{p{0.45\linewidth} p{0.15\linewidth}  p{0.15\linewidth}}
-\toprule
-\textbf{Capacidades} 
-& \textbf{\textit{freeRTOS}}
-& \textbf{Emulador}
-\\
-\midrule
-Multitareas & Si & No  \\
-Funciones de espera &  Si & Si \\
-Cambio de contexto &  Si & Si \\
-Tarea de procesamiento continuo &  Si & Si \\
-Manejo de prioridades & Si & No  \\
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:ConceptosRTOS}
-\end{table}
-
-En el emulador, se encuentran implementados varios conceptos importantes de \textit{freeRTOS}, como funciones de espera y cambio de contexto. Sin embargo, en esta primera versión del emulador, no se han incluido el manejo de multitareas y de prioridades presentes en \textit{freeRTOS}.
-
+\newpage
 %------------------------------------------
 \subsection{\textit{\textbf{sapi\_dht11}}}
 
-Al emular los periféricos externos de la biblioteca \textit{\textbf{sAPI}} del proyecto CIAA, se continuó con la misma lógica de programación utilizada para interactuar con los periféricos de la placa EDU-CIAA-NXP. Asimismo, se mapearon las funcionalidades ofrecidas por la biblioteca \textit{\textbf{sAPI}} a la plataforma web. En la siguiente tabla \ref{tab:sapiDht11} se muestran las funciones presentes en ambas plataformas.
+Para emular drivers de periféricos externos de la biblioteca \textit{\textbf{sAPI}}, se continuó con la misma lógica de programación utilizada para interactuar con los periféricos internos. Estos se mapean las funcionalidades ofrecidas por la biblioteca \textit{\textbf{sAPI}} a la plataforma web. En la siguiente tabla \ref{tab:sapiDht11} se describen las funciones presentes.
 
 \begin{table}[h]
 	\centering
@@ -708,24 +638,24 @@ Al emular los periféricos externos de la biblioteca \textit{\textbf{sAPI}} del 
 	\label{tab:sapiDht11}
 \end{table}
 
-En esta primera versión de la plataforma web, no se ofrece la capacidad gráfica de las interacciones virtuales entre la placa y los periféricos externos. Sin embargo, el usuario debe realizar las configuraciones manualmente, eligiendo las conexiones correctas, que luego serán verificadas en la capa de \textit{JavaScript UI}.
-Además, en \textit{JavaScript UI}, principalmente se centró el trabajo de emular el envío de los datos de temperatura y humedad del sensor DHT11 al microcontrolador.
+En esta primera versión de la plataforma web, no se ofrece la capacidad gráfica de realizar las conexiones mediante cables virtuales entre la placa y los periféricos externos. Simplemente se muestran indicados los pines que el usuario debe elegir, para configurar a qué pin se conecta cada pin del sensor de humedad y temperatura \textit{DHT11}. Estas conexiones luego serán verificadas en la capa de \textit{JS UI}.
 
-Entonces, en la capa de abstracción de datos \textit{C HAL} se implementó la lectura de los datos provenientes de la capa \textit{JavaScript HAL} al usar la macro \texttt{EM\_ASM\_INT} de \textit{Emscripten}. A continuación, en la figura \ref{fig:dht11Emscripten} se presenta el diagrama de bloques de la macro \texttt{EM\_ASM\_INT}.
+En la capa \textit{JS UI} se centra principalmente el trabajo de emular el envío de los datos de temperatura y humedad del sensor \textit{DHT11} a la placa de desarrollo.
+Entonces, en la capa de abstracción de datos \textit{C HAL} se implementa la lectura de los datos provenientes de la capa \textit{JS HAL} al usar la macro \texttt{EM\_ASM\_INT} de \textit{Emscripten}, que se presenta mediante un diagrama en bloques en la figura \ref{fig:dht11Emscripten}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=.53]{./Figures/dht11Emscripten.png}
+	\includegraphics[scale=.55]{./Figures/dht11Emscripten.png}
 	\caption{Diagrama de bloques de la macro \texttt{EM\_ASM\_INT}.}
 	\label{fig:dht11Emscripten}
 \end{figure}
 
-La capa \textit{JavaScript HAL} recibe los datos enviados desde \textit{JavaScript UI} y los transmite a la capa \textit{C HAL}. La generación de los datos  emulados de temperatura y humedad, se realiza en \textit{JavaScript UI} a través de dos opciones elegidas por el usuario:
+La capa \textit{JS HAL} recibe los datos enviados desde \textit{JS UI} y los transmite a la capa \textit{C HAL}. La generación de los datos  emulados de temperatura y humedad, se realiza en \textit{JS UI} a través de dos opciones elegidas por el usuario:
  
  \begin{itemize}
 	\item Obtener los datos de temperatura y humedad local conectándose a una central meteorológica a través de la geolocalización del navegador del usuario. Sin embargo, si el servidor donde se encuentra desplegada la plataforma web no puede acceder al servicio de geolocalización del navegador por motivos de seguridad, o el usuario no permite el acceso, entonces se realizará la consulta a la central meteorológica utilizando la ubicación predeterminada de la ciudad de Buenos Aires. Acto seguido se actualizará la interfaz gráfica con los datos de temperatura y humedad.
 	
-	\item Generar los datos manualmente haciendo click en la interfaz gráfica que representa a la temperatura y humedad. De esta manera, el usuario puede generar los datos según su elección.
+	\item Generar los datos manualmente haciendo \textit{click} en la interfaz gráfica que representa a la temperatura y humedad. De esta manera, el usuario puede generar los datos según su elección.
 \end{itemize}
 
 En la figura \ref{fig:uiDht11} se muestra el diagrama de bloques de la capa de interfaz de usuario \textit{JavaScript UI} con las dos opciones de usuario.
@@ -737,173 +667,257 @@ En la figura \ref{fig:uiDht11} se muestra el diagrama de bloques de la capa de i
 	\label{fig:uiDht11}
 \end{figure}
 
-%---------------------------------------------
-\subsection{\textit{\textbf{sapi\_adc}}}
-
-Para comenzar, se realizó el mapeo de las funciones del módulo de la biblioteca \textit{\textbf{sAPI}} a la plataforma web. La tabla \ref{tab:sapiADC} expone las funciones presentes en ambas plataformas.
-
-
-\begin{table}[h]
-	\centering
-	\caption[Funciones \texttt{sapi\_adc}]{Funciones \texttt{sapi\_adc}}
-	\begin{tabular}{p{0.20\linewidth} p{0.50\linewidth}  p{0.20\linewidth}}    
-		\toprule
-		\textbf{Función} 	 & \textbf{Parámetros} 		& \textbf{Tipo de retorno}  \\
-		\midrule
-		adcInit & adcInit\_t config		&  void \\		
-		adcRead	 & adcMap\_t analogInput	&  uint16\_t \\
-		\bottomrule
-		\hline
-	\end{tabular}
-	\label{tab:sapiADC}
-\end{table}
-
-El módulo \textit{adc} fue implementado en el emulador  y es utilizado por varios periféricos externos, que incluyen: el potenciómetro, el termistor NTC y el joystick. De esta manera, permite al usuario realizar pruebas de funcionamiento de un \textit{adc} real. 
-
-Luego, se implementaron las funciones de inicialización y de lectura del componente \textit{adc}  en la capa \textit{C HAL}. Posteriormente, son utilizadas por la capa \textit{JavaScript HAL} para la interacción con el hardware y permitir al usuario trabajar con los periféricos externos en un entorno web. La figura \ref{fig:adcEmscripten} presenta el diagrama de bloques de las capas: \textit{C HAL} y \textit{JavaScript HAL} para el \textit{adc}.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.53]{./Figures/adcEmscripten.png}
-	\caption{Diagrama de bloques de \textit{C HAL} y \textit{JavaScript HAL} para el módulo \textit{adc}.}
-	\label{fig:adcEmscripten}
-\end{figure}
-
-En la capa \textit{JavaScript UI}, se implementó la obtención de datos para los periféricos externos que interactúan con el \textit{adc}. Por ejemplo, para el potenciómetro, los datos son establecidos por el usuario a través de la interfaz gráfica utilizando el componente HTML  \textit{input} de tipo \textit{range}. De esta manera, el usuario al deslizar este componente dentro de un rango mínimo y máximo establecido, se va realizando el siguiente cálculo para obtener el valor del \textit{adc} correspondiente:
-
-\begin{lstlisting}[caption={Cálculo del ADC para el potenciómetro.}]
-  window.JSHal.gpio.write(self.dataPin.ADC, range.value/ 3.3 * 1023);
-\end{lstlisting}
-
-En consecuencia, los cálculos actualizados se muestran en la interfaz gráfica del emulador web.
-
-En el caso del termistor NTC, se implementó en la interfaz grafica un elemento gráfico (termómetro) para representar la temperatura en grados celsius. A medida que el usuario ajusta el termómetro, la temperatura en kelvin se va actualizando en función de la temperatura en grados celsius y, además, el valor del \textit{adc} se actualiza mediante la siguiente función:
-
-\begin{lstlisting}[caption={Cálculo ADC del termistor NTC.}]
-     ThermistorNTC.prototype.updateSampleADC= function(R_NTC) {
-        let R_NTC_float = parseFloat(R_NTC);
-        let R_10k_float = parseFloat(R_10k);
-        let Vsupply_float = parseFloat(Vsupply);    
-        let VoutT = (R_NTC_float * Vsupply_float) / (R_10k_float + R_NTC_float);
-        Vout = parseFloat(VoutT.toFixed(2)); 
-
-        this.sample = parseFloat((Vout * 1023.0 / Vsupply).toPrecision(4));
-        console.log('this.sample ', this.sample);
-        window.JSHal.gpio.write(this.dataPin.ADC, this.sample);     
-    };
-\end{lstlisting}
-
-Además, se implementó un componente web para el joystick, encargado de gestionar los movimientos y acciones en las interacciones con el usuario. Los datos de los movimientos de los ejes X e Y del joystick son obtenidos y se utilizan para realizar cálculos de voltajes en las respectivas resistencias de cada eje, así como también, para calcular el valor del \textit{adc}. A modo de referencia se muestra las cálculos que se hicieron para el eje X del joystick:
-
-\begin{lstlisting}[caption={Cálculo de la resistencia del eje X y del ADC.}]
-            var VRx = Joy.GetVRx();
-            var voltage = (Math.floor(VRx/ 3.3 * 1023)* 3.3 / 1023.0).toFixed(2);
-            joyVRx.textContent = voltage;
-            joyADCx.textContent = Math.trunc(VRx/ 3.3 * 1023);
-            window.JSHal.gpio.write(self.dataPin.ADCx, VRx/ 3.3 * 1023);
-\end{lstlisting}
-
-Luego, para cada periférico externo, el cálculo del \textit{adc} es envíado a la capa \textit{JavaScript HAL}.
-En la figura \ref{fig:uiADC} se muestra el diagrama de bloques con la interaccion de ambas capas de desarrollo.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.57]{./Figures/uiADC.png}
-	\caption{Diagrama de bloques con la interaccion de las capas  \textit{JavaScript HAL} y \textit{JavaScript UI}.}
-	\label{fig:uiADC}
-\end{figure}
-
-
 %----------------------------------------------------------------------------------------
-\section{Caso de estudio}
-\label{sec:caso_de_estudio}
+\section{\textit{freeRTOS}}
+\label{sec:freeRTOS}
 %----------------------------------------------------------------------------------------
 
-El usuario escribe o modifica el programa llamado \texttt{blinky} en lenguaje \textit{C}, que utiliza la biblioteca \textit{\textbf{sAPI}} para interactuar con los periféricos de hardware GPIO y controlar el LED. A continuación, ejecuta el programa dentro de la plataforma web. Para lograr esto, Node.js se encarga de ejecutar los comandos necesarios para que \textit{Emscripten} realice la compilación del código \textit{C}, que incluye: 
+Para emular la funcionalidad de las tareas de \textit{freeRTOS} en el contexto del emulador web, se utilizó la biblioteca de eventos de \textit{mbed}. Entonces, para las funciones \texttt{xTaskCreate} y \texttt{xTaskCreateStatic}, se programaron funciones periódicas utilizando las siguientes funciones de la biblioteca de \textit{Mbed events}: 
 
-\begin{itemize}
-	\item El codigo de la aplicacion de usuario escrito en lenguaje \textit{C}.
-	\item El archivo \texttt{sapi\_gpio.c} de la capa \textit{Bibioteca C}.
-	\item El archivo \texttt{gpio\_api.c} de la capa \textit{C HAL}.
-\end{itemize} 
+ \begin{itemize}
+	\item \texttt{int equeue\_create}:  crea una cola de eventos, configura e inicializa los recursos de plataforma necesarios, como semáforos y mutexes.
+	
+	\item \texttt{int equeue\_call\_every}:  se utiliza para crear un evento periódico en la cola de eventos equeue, programando llamadas repetidas a una función en intervalos regulares.
+	
+	\item \texttt{int equeue\_post}: permite publicar un evento en la cola de eventos equeue, estableciendo el tiempo y estableciendo el evento en la cola para su posterior procesamiento.
+	
+	\item \texttt{void equeue\_dispatch}: se encarga de despachar los eventos en la cola de eventos equeue de manera continua, verificando los tiempo y realizando acciones específicas según la configuración.
 
-El proceso de compilación comienza con el preprocesamiento del código \textit{C}, que incluye el manejo de directivas del preprocesador como \texttt{\#include} y \texttt{\#define}. Luego, el compilador utiliza \textit{LLVM} para compilar el código \textit{C} en \texttt{bitcode}. Después, de obtener el \texttt{bitcode} realiza optimizaciones para mejorar el rendimiento y reducir el tamaño del código resultante. Finalmente, \textit{Emscripten} toma el bitcode optimizado y lo traduce a código \textit{JavaScript}, lo que permite que el programa escrito originalmente en \textit{C} pueda ser ejecutado dentro del entorno web. Los archivos resultantes de este proceso incluyen: 
-
-
-\begin{itemize}
-	\item \texttt{user\_tiempoenmilisegundos.js}.
-	\item \texttt{user\_tiempoenmilisegundos.wasm}.
-	\item \texttt{user\_tiempoenmilisegundos.wast}.
-	\item \texttt{user\_tiempoenmilisegundos.js.components}.
-	\item \texttt{user\_tiempoenmilisegundos.wasm.map}.
+	\item \texttt{void equeue\_destroy}: permite liberar y limpiar todos los recursos asociados a una cola de eventos, libera los mutexes, semáforos y memoria asignada.
 \end{itemize}
 
-Una vez que los archivos \texttt{.js} y \texttt{.wasm} se han generado a partir del código \textit{C}  mediante \textit{Emscripten}, pueden interactuar con el código \textit{JavaScript} de las capas: \textit{JavaScript HAL} y \textit{JavaScript UI}. Ahora bien, desde estos archivos \textit{JavaScript} de la \textit{HAL} y \textit{UI}, se pueden invocar directamente las funciones \textit{C} compiladas como si fueran funciones \textit{JavaScript} regulares, y podrán ser ejecutadas en el entorno del navegador. Por lo tanto, esto permite que el programa \textit{C} interactúe con el resto del código \textit{JavaScript} de la aplicación web y que las funciones \textit{C} puedan ser utilizadas y llamadas de manera transparente en el navegador.
+Estas funciones permiten ejecutar tareas periódicas en intervalos de tiempo regulares, lo que proporciona una aproximación simplificada a la funcionalidad de tareas en el emulador web. Aunque esta solución no ofrece todas las características de un sistema operativo de tiempo real completo como \textit{freeRTOS}, fue adecuada para emular el funcionamiento de programas de usuario simples.
 
+Es importante destacar que la implementación de tareas en el emulador web tiene una limitación significativa. Debido a que solo puede ejecutar un subproceso (hilo de ejecución) a la vez, no es posible que se ejecuten tareas simultáneas. Esto significa que, a diferencia del sistema operativo de tiempo real \textit{freeRTOS}, donde se pueden crear múltiples tareas que se ejecutan de manera concurrente, en el emulador web solo es posible ejecutar una sola tarea. Por lo tanto, esta solución es adecuada para programas de usuario simples que no requieran multitarea.
 
-La figura \ref{fig:DiagramaSecuencia} muestra la interacción del usuario con el sistema y el orden en que se producen. Además, se muestra los mensajes que se pasan entre las dependencias.
+La tabla \ref{tab:ConceptosRTOS} expone la comparación entre funcionalidades presentes en \textit{freeRTOS} y las implementadas en \textit{EmuCIAA.}.
 
+\begin{table}[h]
+\centering
+\caption[Comparación entre funcionalidades de \textit{freeRTOS} que se cumplen en el emulador.]{Comparación entre funcionalidades de \textit{freeRTOS} y las implementadas en \textit{EmuCIAA.}}
+\begin{tabular}{p{0.45\linewidth} p{0.15\linewidth}  p{0.15\linewidth}}
+\toprule
+\textbf{Funcionalidad} 
+& \textbf{\textit{freeRTOS}}
+& \textbf{Emulador}
+\\
+\midrule
+Multitareas & Si & No  \\
+Funciones de espera &  Si & Si \\
+Cambio de contexto &  Si & Si \\
+Tarea de procesamiento continuo &  Si & Si \\
+Manejo de prioridades & Si & No  \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:ConceptosRTOS}
+\end{table}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.49]{./Figures/DiagramaSecuencia.png}
-	\caption{Interacción del usuario con las dependencias del emulador.}
-	\label{fig:DiagramaSecuencia}
-\end{figure}
-
-Además, la capa \textit{JavaScript HAL}, que interactúa con el código \textit{JavaScript} resultante de la compilación de la \textit{Biblioteca C} y \textit{C HAL}, se encarga de notificar los eventos ocurridos en esas capas para el programa de usuario \texttt{blinky}. Mediante la función \texttt{write}, se realiza la activación del evento que escribe en la GPIO, Como resultado, emitirá el evento con el nombre \texttt{gpio\_write}, pasando como argumentos el número de pin, el valor digital y el tipo de pin declarado.
-
-La figura \ref{fig:GPIOEventEmitter} muestra el diagrama en bloques del evento con el nombre \newline \texttt{gpio\_write}.
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.50]{./Figures/GPIOEventEmitter.png}
-	\caption{Activación de evento con el nombre \texttt{gpio\_write}.}
-	\label{fig:GPIOEventEmitter}
-\end{figure}
-
-
-
-En ese sentido, en la capa \textit{JavaScript UI}  cuando se emite el evento con el nombre \texttt{gpio\_write}, cualquier oyente que esté suscrito a ese evento podrá escucharlo y realizar las acciones correspondientes para la funcionalidad que se requiere. En este caso, la acción solicitada es encender el LED.
-
-La figura \ref{fig:ListeningGPIOEventEmitter} muestra el diagrama en bloques del oyente subscrito al evento \texttt{gpio\_write}.
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.50]{./Figures/ListeningGPIOEventEmitter.png}
-	\caption{GPIO oyente del evento con el nombre \texttt{gpio\_write}.}
-	\label{fig:ListeningGPIOEventEmitter}
-\end{figure}
-
-Entonces, en la plataforma web se muestrarán los cambios de \texttt{gpio\_write} en la placa virtual. 
-
-En la figura \ref{fig:AplicacionUsuarioLeds} se presenta para una función de la GPIO, la interacción entre todas las capas de programación.
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=.36]{./Figures/AplicacionUsuarioLeds.png}
-	\caption{Interacción entre todas las capas de programación.}
-	\label{fig:AplicacionUsuarioLeds}
-\end{figure}
-
+En esta primera versión del emulador, no se han incluido el manejo de multitareas y de prioridades presentes en \textit{freeRTOS}.
 
 %----------------------------------------------------------------------------------------
-\section{Despliegue}
+\section{Comparación de periféricos implementados}
 %----------------------------------------------------------------------------------------
 
-Para hacer público el emulador de la plataforma en un servidor web, se realizó el proceso de despliegue en el servidor de \textit{DigitalOcean} mediante los siguientes pasos:
+La tabla \ref{tab:perifericosInternosMBED} expone los  periféricos internos implementados actualmente en \textit{Mbed OS Simulator} y los implementados en \textit{EmuCIAA}.
+
+\begin{table}[htbp]
+\centering
+\caption[Periféricos internos implementados]{Comparación de periféricos internos implementados en \textit{Mbed OS Simulator} y  \textit{EmuCIAA}}
+\begin{tabular}{p{0.24\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
+\toprule
+\textbf{Periféricos} 
+& \textbf{MbeOS Sim}
+& \textbf{EmuCIAA}
+\\
+\midrule
+GPIO & Si & Si  \\
+UART & Si & Si \\
+BUTTON & SI & Si \\
+ADC & Si & Si \\
+DAC & Si & No \\
+PWM & Si & No \\ 
+RTC & No & Si \\ 
+Systick & No & Si \\ 
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:perifericosInternosMBED}
+\end{table}
+
+En la tabla \ref{tab:perifericosExternosMBED} se comparan los periféricos externos implementados actualmente en \textit{Mbed Simulator} con los implementados en \textit{EmuCIAA},
+
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+\hfill \break
+
+\begin{table}[htbp]
+\centering
+\caption[Periféricos externos]{Comparación de periféricos externos implementados en \textit{Mbed OS Simulator} y  \textit{EmuCIAA}}
+\begin{tabular}{p{0.24\linewidth} p{0.14\linewidth}  p{0.14\linewidth}  p{0.14\linewidth}}
+\toprule
+\textbf{Periféricos} 
+& \textbf{MbeOS Sim}
+& \textbf{EmuCIAA}
+\\
+\midrule
+LED Rojo & Si & Si \\
+LED Azul & Si & Si \\
+LED Amarillo & Si & Si \\
+LED Blanco & Si & Si \\
+Potenciómetro & No & Si \\
+AnalogStick & No & Si \\
+Termistor NTC & Si & Si \\
+DHT11 & Si & Si  \\
+SHT31 & Si & No \\
+LCD C12832 & Si & No  \\
+ST7789H2 & Si & No \\
+LCD HDD44780 & No & Si  \\
+GLCD ST7920 & No & Si  \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:perifericosExternosMBED}
+\end{table}
+
+Finalmente, se compara el aspecto visual entre ambas paltaformas en las figuras \ref{fig:perifericosMbed}, para \textit{Mbed OS Simulator}, y \ref{fig:perifericosCIAA} para \textit{EmuCIAA}. De estas figuras se observa como para el desarrollo de \textit{EmuCIAA} se tuvo especial cuidado para emular los componentes externos de la forma más fiel posible a la relaidad y mostrar las conexiones de los pines de forma didáctica.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.85]{./Figures/perifericosMBED.png}
+	\caption{Periféricos externos de \textit{Arm Mbed OS Simulator}.}
+	\label{fig:perifericosMbed}
+\end{figure}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[scale=.58]{./Figures/perifericosCIAA.png}
+	\caption{Periféricos externos del emulador web EDU-CIAA.}
+	\label{fig:perifericosCIAA}
+\end{figure}
+
+\newpage
+%----------------------------------------------------------------------------------------
+\section{Ejemplos incluidos}
+%----------------------------------------------------------------------------------------
+
+Se incluyen en la plataforma los sigueintes ejemplos de programas, los cuales se ordenaron cuidadosamente para permitir que se pueda ir aprendiendo de forma incremental el uso de varios periféricos y técnicas de programación de Sistemas Embebidos:
 
 \begin{itemize}
-	\item Crear una cuenta: implicó registrar una cuenta en la plataforma. Después de iniciar sesión, se creo un \textit{droplet}, que es un servidor virtual. Luego, se instaló el sistema operativo \textit{Ubuntu}, y se configuró la región geográfica donde se ubicaría el servidor y la cantidad de RAM.
-	
-	\item Acceso al servidor: después que el \textit{droplet} fue creado, se pudo  obtener la dirección IP pública y la clave \textit{SSH} para acceder al servidor.
-	
-	\item Configuración: implicó instalar las herramientas, como \textit{Mbed CLI} y \textit{Emscripten}, y también, los servicios necesarios, como los entornos de ejecución de \textit{Node.js} y \textit{Python}. Además, se realizó las configuraciones de las reglas de \textit{firewall}.
 
-	\item Copiar la plataforma web al servidor: se utilizó \textit{GitHub}  para clonar el repositorio en el servidor. El código del presente trabajo, se encuentra en el repositorio de GitHub \citep{repositorioEmulador}.
+\item \textbf{GPIO}
+    \begin{itemize}
+    \item blinky
+    \item semaphore
+    \item blinky\_switch
+    \item switches\_leds
+    \item led\_sequences
+    \end{itemize}
+
+\item \textbf{UART}
+    \begin{itemize}
+    \item serial\_output
+    \end{itemize}
+
+\item \textbf{RTC}
+    \begin{itemize}
+    \item rtc\_uart
+    \item rtc\_prinf
+    \end{itemize}
+
+\item \textbf{ADC}
+    \begin{itemize}
+    \item portentiometer
+    \item ntc\_thermistor
+    \item analog\_stick
+    \end{itemize}
+\item \textbf{Tick}
+    \begin{itemize}
+    \item tick\_callback
+    \end{itemize}
+
+\item \textbf{Sensors}
+    \begin{itemize}
+    \item dht11\_temp\_humidity
+    \end{itemize}
+
+\item \textbf{Displays}
+    \begin{itemize}
+    \item lcd\_hd44780\_c20x4\_gpios
+    \item lcd\_hd44780\_custom\_chars
+    \item glcd\_st7920\_c16x4
+    \item glcd\_st7920\_g128x64 
+    \end{itemize}
+
+\item \textbf{Non-bloking code}
+    \begin{itemize}
+    \item little\_delay
+    \item tick\_counter
+    \item non\_blocking\_delay
+    \end{itemize}
+
+\item \textbf{FSM}
+    \begin{itemize}
+    \item semaphore
+    \item debounce
+    \item button
+    \end{itemize}
+
+\item \textbf{RTOS cooperative}
+    \begin{itemize}
+    \item scheduler
+    \item scheduler\_bgfg
+    \end{itemize}
+
+\item \textbf{RTOS SEOS Pont}
+    \begin{itemize}
+    \item pont\_blinky
+    \item pont\_tasks\_parameters
+    \item pont\_modular\_tasks
+    \item pont\_uart\_clock
+    \end{itemize}
+
+\item \textbf{RTOS FreeRTOS}
+    \begin{itemize}
+    \item freertos\_blinky\_dynamic\_men
+    \item freertos\_blinky\_static\_men
+    \end{itemize}
+
+\end{itemize}
+
+La mayoría de estos ejemplos fueron seleccionarion de \textit{firmware\_v3}. Los nuevos programas realizados para \textit{EmuCIAA} son:
+
+\begin{itemize}
+    \item serial\_output
+    \item portentiometer
+    \item ntc\_thermistor
+    \item analog\_stick
+    \item glcd\_st7920\_c16x4
+    \item glcd\_st7920\_g128x64 
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+\section{Despliegue en un servidor web}
+%----------------------------------------------------------------------------------------
+
+Para hacer público \textit{EmuCIAA} en un servidor web, se realizó el proceso de despliegue en el servidor de \textit{DigitalOcean} mediante los siguientes pasos:
+
+\begin{itemize}
+	\item Crear una cuenta: que implica registrar una cuenta en la plataforma. Iniciar sesión y crear un \textit{droplet}, que es un servidor virtual. Luego, se instala el sistema operativo, en este caso, \textit{Ubuntu}, y se configura la región geográfica donde se ubicaría el servidor y la cantidad de RAM a utilizar.
 	
-	\item Iniciar el emulador web: se utilizó la herramienta \textit{TMUX} para mantener la sesión y la ventana de la terminal donde se ejecuta la aplicación de forma persistente, incluso cuando se cierra la conexión  \textit{SSH}. El presente trabajo, se encuentra actualmente ejecutandose en \url{http://134.209.168.175:7900}.
+	\item Acceso al servidor: se obtiene la dirección IP pública y la clave \textit{SSH} para acceder al servidor.
+	
+	\item Configuración: implica instalar las herramientas, como \textit{Mbed CLI} y \textit{Emscripten}, y también, los servicios necesarios, como los entornos de ejecución de \textit{Node.js} y \textit{Python}. Además, se realizan las configuraciones de las reglas de \textit{firewall}.
+
+	\item Copiar la plataforma web al servidor: se utiliza \textit{GitHub} para clonar el repositorio en el servidor. El código del presente trabajo, se encuentra en el repositorio de GitHub \citep{repositorioEmulador}.
+	
+	\item Iniciar el emulador web: se utiliza la herramienta \textit{TMUX} para mantener la sesión y la ventana de la terminal donde se ejecuta la aplicación de forma persistente, incluso cuando se cierra la conexión \textit{SSH}. El presente trabajo, se encuentra actualmente ejecutandose en la \textit{URL}: \url{http://134.209.168.175:7900}.
 \end{itemize}
